@@ -56,6 +56,7 @@
 #include "guid.h"
 #include "qofquery.h"
 #include "qofquerycore.h"
+#include "qofinstance.h"
 #include "gnc-module/gnc-module.h"
 #include "engine/gnc-engine.h"
 #include "Transaction.h"
@@ -82,7 +83,8 @@
 #include "app-utils/gnc-prefs-utils.h"
 #include "kvp-util.h"
 #include "kvp-util-p.h"
-/*#include "kvp_frame.h"*/
+#include "kvp_frame.h"
+#include "qofinstance-p.h"
 %}
 
 %include <timespec.i>
@@ -213,7 +215,8 @@
 %include <gncTaxTable.h>
 %include <gncIDSearch.h>
 
-
+%include <qofinstance.h>
+%include <qofinstance-p.h>
 
 // Commodity prices includes and stuff
 %include <gnc-pricedb.h>

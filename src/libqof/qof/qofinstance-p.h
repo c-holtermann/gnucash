@@ -68,7 +68,7 @@ void qof_instance_copy_guid (gpointer to, gconstpointer from);
 /** Return the pointer to the kvp_data */
 /*@ dependent @*/
 KvpFrame* qof_instance_get_slots (const QofInstance *);
-void qof_instance_set_editlevel(gpointer inst, gint level);
+/*void qof_instance_set_editlevel(gpointer inst, gint level);*/
 void qof_instance_increase_editlevel (gpointer ptr);
 void qof_instance_decrease_editlevel (gpointer ptr);
 void qof_instance_reset_editlevel (gpointer ptr);
