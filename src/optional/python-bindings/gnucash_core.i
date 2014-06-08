@@ -126,6 +126,17 @@
 %include <kvp-util-p.h>
 %include <kvp_frame.h>
 
+%inline %{
+  /*KvpFrame *qof_book_get_slots (QofBook *book);
+  extern KvpFrame *qof_instance_get_slots (QofInstance*);
+  KvpFrame *qof_book_get_slots (QofBook *book) {
+       return qof_instance_get_slots (QOF_INSTANCE (book));
+  }*/
+  KvpFrame *qof_book_get_slots (QofBook *book) {
+       return qof_instance_get_slots (QOF_INSTANCE (book));
+  }
+%}
+
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);
     PyObject * owner_tuple = PyTuple_New(2);
