@@ -80,6 +80,9 @@
 #include "gncIDSearch.h"
 #include "engine/gnc-pricedb.h"
 #include "app-utils/gnc-prefs-utils.h"
+#include "kvp-util.h"
+#include "kvp-util-p.h"
+/*#include "kvp_frame.h"*/
 %}
 
 %include <timespec.i>
@@ -116,6 +119,10 @@
 %include <gnc-numeric.h>
 
 %include <gnc-commodity.h>
+
+%include <kvp-util.h>
+%include <kvp-util-p.h>
+%include <kvp_frame.h>
 
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);
@@ -205,6 +212,8 @@
 %include <gncEntry.h>
 %include <gncTaxTable.h>
 %include <gncIDSearch.h>
+
+
 
 // Commodity prices includes and stuff
 %include <gnc-pricedb.h>
