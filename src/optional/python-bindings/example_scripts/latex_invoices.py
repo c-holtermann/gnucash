@@ -58,6 +58,7 @@ try:
         from IPython.terminal.ipapp import TerminalIPythonApp
     else:
         from IPython.frontend.terminal.ipapp import TerminalIPythonApp
+    from IPython import embed
     from gnucash.gnucash_business import Customer, Employee, Vendor, Job, \
         Address, Invoice, Entry, TaxTable, TaxTableEntry, GNC_AMT_TYPE_PERCENT, \
             GNC_DISC_PRETAX
@@ -296,9 +297,10 @@ def main(argv=None):
         f.close()
 
     if with_ipshell:
-        app = TerminalIPythonApp.instance()
-        app.initialize(argv=[]) # argv=[] instructs IPython to ignore sys.argv
-        app.start()
+        #app = TerminalIPythonApp.instance()
+        #app.initialize(argv=[]) # argv=[] instructs IPython to ignore sys.argv
+        #app.start()
+        embed()
 
     #session.save()
     session.end()
