@@ -27,7 +27,7 @@ def main(argv=None):
         print "Reading url from arguments."
         if len(argv) == 1:
             print "No arguments given"
-            print "Start as", sys.argv[0], "GNUCASH_URL_TO_OPEN"
+            print "invoke as", sys.argv[0], "GNUCASH_URL_TO_OPEN"
             return 2
 
     print input_url
@@ -44,6 +44,13 @@ def main(argv=None):
 
     book = session.book
     slots = gnucash.gnucash_core.gnucash_core_c.qof_book_get_slots(book.instance)
+    # or
+    slots = book.get_slots()
+
+    # or
+    book_qof_instance = book.get_qof_instance()
+    slots = gnucash.gnucash_core.gnucash_core_c.qof_instance_get_slots(book_qof_instance)
+
     print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(slots)
 
     options = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(slots, "options")

@@ -135,6 +135,10 @@
   KvpFrame *qof_book_get_slots (QofBook *book) {
        return qof_instance_get_slots (QOF_INSTANCE (book));
   }
+
+  QofInstance *qof_book_get_qof_instance (QofBook *book) {
+        return (QOF_INSTANCE (book));
+  }
 %}
 
 %typemap(out) GncOwner * {
