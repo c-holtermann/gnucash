@@ -44,6 +44,11 @@
 %feature("autodoc", "1");
 %module(package="gnucash") gnucash_core_c
 
+/* Renaming "from" to "_from" to suppress the swig warning - they stop the make process
+/src/libqof/qof/qofinstance-p.h:63: Warning 314: 'from' is a python keyword, renaming to '_from'
+*/
+%rename(_from) from;
+
 %{
 #include "config.h"
 #include <datetime.h>
