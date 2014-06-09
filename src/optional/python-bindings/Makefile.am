@@ -28,7 +28,7 @@ _gnucash_core_c_la_CPPFLAGS = \
   -I${top_srcdir}/src/gnc-module
 
 # Suppress all warnings for now, but we really only need to -Wno-implicit
-#AM_CFLAGS = -w
+AM_CFLAGS = -w
 
 _gnucash_core_c_la_LDFLAGS = -avoid-version -module
 
