@@ -227,13 +227,13 @@ class Book(GnuCashCoreClass):
         from gnucash_business import Vendor
         return self.do_lookup_create_oo_instance(
             gnc_search_vendor_on_id, Vendor, id)
-            
+
     def InvoiceNextID(self, customer):
-      ''' Return the next invoice ID. 
+      ''' Return the next invoice ID.
       This works but I'm not entirely happy with it.  FIX ME'''
       from gnucash.gnucash_core_c import gncInvoiceNextID
       return gncInvoiceNextID(self.get_instance(),customer.GetEndOwner().get_instance()[1])
-      
+
     def BillNextID(self, vendor):
       ''' Return the next Bill ID. '''
       from gnucash.gnucash_core_c import gncInvoiceNextID
@@ -243,7 +243,7 @@ class Book(GnuCashCoreClass):
       ''' Return the next Customer ID. '''
       from gnucash.gnucash_core_c import gncCustomerNextID
       return gncCustomerNextID(self.get_instance())
-    
+
     def VendorNextID(self):
       ''' Return the next Vendor ID. '''
       from gnucash.gnucash_core_c import gncVendorNextID
@@ -281,7 +281,7 @@ class GncNumeric(GnuCashCoreClass):
         if self.denom() == 0:
             return "Division by zero"
         else:
-            value_float = self.to_double() 
+            value_float = self.to_double()
             value_str   = u"{0:.{1}f}".format(value_float,2) ## The second argument is the precision. It would be nice to be able to make it configurable.
             return value_str
 
@@ -435,6 +435,10 @@ class Account(GnuCashCoreClass):
 class GUID(GnuCashCoreClass):
     _new_instance = 'guid_new_return'
 
+# QofInstance
+class QofInstance(GnuCashCoreClass):
+    pass
+
 # Session
 Session.add_constructor_and_methods_with_prefix('qof_session_', 'new')
 
@@ -493,6 +497,9 @@ Book.add_method('gnc_commodity_table_get_table', 'get_table')
 Book.add_method('gnc_pricedb_get_db', 'get_price_db')
 Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')
 
+#QofInstance
+QofInstance.add_methods_with_prefix('qof_instance_')
+
 #Functions that return Account
 Book.get_root_account = method_function_returns_instance(
     Book.get_root_account, Account )
@@ -502,6 +509,9 @@ Book.get_table = method_function_returns_instance(
 #Functions that return GNCPriceDB
 Book.get_price_db = method_function_returns_instance(
     Book.get_price_db, GncPriceDB)
+#Functions that return QofInstance
+Book.get_qof_instance = method_function_returns_instance(
+    Book.get_qof_instance, QofInstance)
 
 # GncNumeric
 GncNumeric.add_constructor_and_methods_with_prefix('gnc_numeric_', 'create')
@@ -548,7 +558,7 @@ methods_return_instance_lists(
                          'get_namespaces_list': GncCommodityNamespace,
                          'get_commodities': GncCommodity,
                          'get_quotable_commodities': GncCommodity,
-                         
+
                        } )
 
 # GncCommodityNamespace
@@ -589,7 +599,7 @@ trans_dict =    {
                     'GetCurrency': GncCommodity,
                     'GetGUID': GUID
                 }
- 
+
 methods_return_instance(Transaction, trans_dict)
 methods_return_instance_lists(
     Transaction, { 'GetSplitList': Split,
