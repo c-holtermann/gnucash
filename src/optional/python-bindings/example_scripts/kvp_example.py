@@ -53,16 +53,18 @@ def main(argv=None):
     # or
     slots = book_qof_instance.get_slots()
 
-    print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(slots)
+    print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(slots.instance)
+    # or
+    print slots.to_string()
 
-    options = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(slots, "options")
+    options = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(slots.instance, "options")
     business = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(options, "Business")
     print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(business)
 
     print "Phone number:", gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_string(options, "Business/Company Phone Number")
 
     # It's possible to get the book from qofinstance
-    book2 = qofInstance.get_book()
+    book2 = book_qof_instance.get_book()
 
 if __name__ == "__main__":
     sys.exit(main())

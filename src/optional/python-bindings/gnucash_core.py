@@ -439,6 +439,10 @@ class GUID(GnuCashCoreClass):
 class QofInstance(GnuCashCoreClass):
     pass
 
+# KvpFrame
+class KvpFrame(GnuCashCoreClass):
+    pass
+
 # Session
 Session.add_constructor_and_methods_with_prefix('qof_session_', 'new')
 
@@ -501,7 +505,8 @@ book_dict =   {
                     'get_root_account' : Account,
                     'get_table' : GncCommodityTable,
                     'get_price_db' : GncPriceDB,
-                    'get_qof_instance' : QofInstance
+                    'get_qof_instance' : QofInstance,
+                    'get_slots' : KvpFrame
 }
 methods_return_instance(Book, book_dict)
 
@@ -510,10 +515,13 @@ methods_return_instance(Book, book_dict)
 QofInstance.add_methods_with_prefix('qof_instance_')
 
 qofinstance_dict =   {
-                    'get_book' : Book
+                    'get_book' : Book,
+                    'get_slots' : KvpFrame
                 }
 methods_return_instance(QofInstance, qofinstance_dict)
 
+#KvpFrame
+KvpFrame.add_methods_with_prefix('kvp_frame_')
 
 # GncNumeric
 GncNumeric.add_constructor_and_methods_with_prefix('gnc_numeric_', 'create')
