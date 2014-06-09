@@ -144,7 +144,19 @@
   QofInstance *qof_book_get_qof_instance (QofBook *book) {
         return (QOF_INSTANCE (book));
   }
+
+  gconstpointer *qof_book_get_qof_instance_gconstpointer (QofBook *book) {
+        return QOF_INSTANCE (book);
+  }
+
+  /*QofBook *qof_instance_get_book_QofBook (QofInstance *inst) {
+        return qof_instance_get_book (inst);
+  }*/
 %}
+/*%{
+  extern QofBook *qof_instance_get_book (gconstpointer *inst);
+%}*/
+extern QofBook *qof_instance_get_book (QofInstance *inst);
 
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);
@@ -175,6 +187,9 @@
     $result = owner_tuple;
 }
 
+%typemap(in) qof_instance_get_book {
+        
+}
 
 %typemap(in) GncOwner * {
     GncOwner * temp_owner = gncOwnerNew();

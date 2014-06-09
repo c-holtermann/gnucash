@@ -497,21 +497,23 @@ Book.add_method('gnc_commodity_table_get_table', 'get_table')
 Book.add_method('gnc_pricedb_get_db', 'get_price_db')
 Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')
 
+book_dict =   {
+                    'get_root_account' : Account,
+                    'get_table' : GncCommodityTable,
+                    'get_price_db' : GncPriceDB,
+                    'get_qof_instance' : QofInstance
+}
+methods_return_instance(Book, book_dict)
+
+
 #QofInstance
 QofInstance.add_methods_with_prefix('qof_instance_')
 
-#Functions that return Account
-Book.get_root_account = method_function_returns_instance(
-    Book.get_root_account, Account )
-#Functions that return GncCommodityTable
-Book.get_table = method_function_returns_instance(
-    Book.get_table, GncCommodityTable )
-#Functions that return GNCPriceDB
-Book.get_price_db = method_function_returns_instance(
-    Book.get_price_db, GncPriceDB)
-#Functions that return QofInstance
-Book.get_qof_instance = method_function_returns_instance(
-    Book.get_qof_instance, QofInstance)
+qofinstance_dict =   {
+                    'get_book' : Book
+                }
+methods_return_instance(QofInstance, qofinstance_dict)
+
 
 # GncNumeric
 GncNumeric.add_constructor_and_methods_with_prefix('gnc_numeric_', 'create')
