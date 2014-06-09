@@ -132,31 +132,28 @@
 %include <kvp_frame.h>
 
 %inline %{
-  /*KvpFrame *qof_book_get_slots (QofBook *book);
-  extern KvpFrame *qof_instance_get_slots (QofInstance*);
-  KvpFrame *qof_book_get_slots (QofBook *book) {
-       return qof_instance_get_slots (QOF_INSTANCE (book));
-  }*/
+  /* I think this should rather be implemented in python now */
   KvpFrame *qof_book_get_slots (QofBook *book) {
        return qof_instance_get_slots (QOF_INSTANCE (book));
   }
 
+  /* to be removed I guess */
   QofInstance *qof_book_get_qof_instance (QofBook *book) {
         return (QOF_INSTANCE (book));
   }
 
+  /* to be removed I guess */
   gconstpointer *qof_book_get_qof_instance_gconstpointer (QofBook *book) {
         return QOF_INSTANCE (book);
   }
 
-  /*QofBook *qof_instance_get_book_QofBook (QofInstance *inst) {
-        return qof_instance_get_book (inst);
-  }*/
 %}
-/*%{
-  extern QofBook *qof_instance_get_book (gconstpointer *inst);
-%}*/
+
+/* the following functions use gconstpointer as arguments, make them accept QofInstance pointers */
 extern QofBook *qof_instance_get_book (QofInstance *inst);
+extern const GncGUID *  qof_instance_get_guid (QofInstance *ent);
+extern guint32 qof_instance_get_idata (QofInstance *inst);
+
 
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);
