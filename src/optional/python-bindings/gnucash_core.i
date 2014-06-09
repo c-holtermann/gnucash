@@ -184,10 +184,6 @@ extern guint32 qof_instance_get_idata (QofInstance *inst);
     $result = owner_tuple;
 }
 
-%typemap(in) qof_instance_get_book {
-        
-}
-
 %typemap(in) GncOwner * {
     GncOwner * temp_owner = gncOwnerNew();
     void * pointer_to_real_thing;
