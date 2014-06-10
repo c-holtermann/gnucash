@@ -572,7 +572,7 @@ gchar* kvp_value_to_string(const KvpValue *val);
 /** Manipulator:
  *
  * copying - but more efficient than creating a new KvpValue manually. */
-/* gboolean kvp_value_binary_append(KvpValue *v, void *data, guint64 size); */
+gboolean kvp_value_binary_append(KvpValue *v, void *data, guint64 size);
 
 /** @name  Iterators
 @{

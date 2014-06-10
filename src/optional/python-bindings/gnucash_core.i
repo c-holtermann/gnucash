@@ -127,10 +127,18 @@
 
 %include <gnc-commodity.h>
 
+/* Key value pairs */
+//Ignored because it is unimplemented
+%ignore qof_instance_set_editlevel;
+//Ignored because it is unimplemented
+%ignore kvp_value_binary_append;
+
 %include <kvp-util.h>
 %include <kvp-util-p.h>
 %include <kvp_frame.h>
 
+
+/* QofInstance */
 %inline %{
   /* I think this should rather be implemented in python now */
   KvpFrame *qof_book_get_slots (QofBook *book) {
