@@ -443,6 +443,10 @@ class QofInstance(GnuCashCoreClass):
 class KvpFrame(GnuCashCoreClass):
     pass
 
+#KvpValue
+class KvpValue(GnuCashCoreClass):
+    pass
+
 # Session
 Session.add_constructor_and_methods_with_prefix('qof_session_', 'new')
 
@@ -522,6 +526,19 @@ methods_return_instance(QofInstance, qofinstance_dict)
 
 #KvpFrame
 KvpFrame.add_methods_with_prefix('kvp_frame_')
+
+kvpframe_dict =   {
+                    'get_value' : KvpValue,
+                    'get_value_n' : KvpValue
+                }
+methods_return_instance(KvpFrame, kvpframe_dict)
+
+#KvpValue
+KvpValue.add_methods_with_prefix('kvp_value_')
+kvpvalue_dict =   {
+                    'get_frame' : KvpFrame
+                }
+methods_return_instance(KvpValue, kvpvalue_dict)
 
 # GncNumeric
 GncNumeric.add_constructor_and_methods_with_prefix('gnc_numeric_', 'create')
