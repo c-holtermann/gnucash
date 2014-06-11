@@ -90,7 +90,22 @@
 #include "kvp-util-p.h"
 #include "kvp_frame.h"
 #include "qofinstance-p.h"
+#include "glib.h"
 %}
+
+%include <glib.h>
+void g_hash_table_destroy(GHashTable *hash_table);
+GList *     g_hash_table_get_keys          (GHashTable     *hash_table);
+GList *     g_hash_table_get_values        (GHashTable     *hash_table);
+gpointer g_list_nth_data                (GList            *list,
+                                         guint             n);
+
+guint    g_list_length                  (GList            *list);
+guint    g_slist_length                  (GSList           *list);
+gpointer g_slist_nth_data                (GSList           *list,
+                                          guint             n);
+GSList * g_slist_nth                (GSList           *list,
+                                          guint             n);
 
 %include <timespec.i>
 
@@ -155,13 +170,105 @@
         return QOF_INSTANCE (book);
   }
 
+  KvpValue *kvp_frame_get_value_n (KvpFrame *frame, int num) {
+        GHashTable *gh;
+        gh = kvp_frame_get_hash( frame );
+        
+        GList *gl;
+        gl = g_hash_table_get_values( gh );
+
+        return g_list_nth_data(gl, num);
+  }
+  
+  char *kvp_frame_get_key_n (KvpFrame *frame, int num) {
+        GHashTable *gh;
+        gh = kvp_frame_get_hash( frame );
+        
+        GList *gl;
+        gl = g_hash_table_get_keys( gh );
+
+        return g_list_nth_data(gl, num);
+  }
+
+  int kvp_frame_get_length (KvpFrame *frame) {
+        GHashTable *gh;
+        gh = kvp_frame_get_hash( frame );
+        
+        GList *gl;
+        gl = g_hash_table_get_keys( gh ); 
+        
+        return g_list_length( gl );
+  }
+
+  PyObject* kvp_frame_get_keys_c (KvpFrame *frame) {
+        GHashTable *gh;
+        gh = kvp_frame_get_hash( frame );
+        
+        GList *gl;
+        gl = g_hash_table_get_keys( gh );
+
+        PyObject *lst = NULL;
+        int l_len, i, py_err;
+
+        l_len = g_list_length( gl );
+
+        PyObject *py_string_tmp;
+
+        lst = PyList_New(l_len);
+        if (! lst) return NULL; 
+        
+        for(i = l_len-1; i >= 0; i--)
+        {
+                char *k;
+                k = g_list_nth_data(gl, i);
+                py_string_tmp = PyString_FromString( k );
+                
+                py_err = PyList_SetItem(lst, i, py_string_tmp);
+                if (py_err == -1) return NULL;
+        }
+        
+        return lst;
+  }  
+
+  /* Hier gibt's noch Probleme */
+  PyObject *kvp_frame_get_values_c (KvpFrame *frame) {
+        GHashTable *gh;
+        gh = kvp_frame_get_hash( frame );
+        
+        GList *gl;
+        gl = g_hash_table_get_values( gh );
+
+        PyObject *lst = NULL;
+        int l_len, i, py_err;
+
+        l_len = g_list_length( gl );
+
+        lst = PyList_New(l_len);
+        if (! lst) return NULL;
+
+        for(i = l_len-1; i >= 0; i--)
+        {
+                KvpValue *kv;
+
+                kv = g_list_nth_data(gl, i);
+                PyObject *o; 
+                o = SWIG_NewPointerObj(kv,
+                    SWIGTYPE_p_KvpValueType, SWIG_POINTER_OWN);
+                 
+                py_err = PyList_SetItem(lst, i, o);
+                if (py_err == -1) return NULL; 
+        
+                /* Py_DECREF(o); */
+        }
+        return lst;
+        
+  }
 %}
 
 /* the following functions use gconstpointer as arguments, make them accept QofInstance pointers */
 extern QofBook *qof_instance_get_book (QofInstance *inst);
 extern const GncGUID *  qof_instance_get_guid (QofInstance *ent);
 extern guint32 qof_instance_get_idata (QofInstance *inst);
-
 
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);

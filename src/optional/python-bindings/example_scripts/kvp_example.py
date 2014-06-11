@@ -66,5 +66,27 @@ def main(argv=None):
     # It's possible to get the book from qofinstance
     book2 = book_qof_instance.get_book()
 
+    def print_frame_rec(frame):
+        l_frame = frame.get_length()
+        i = 0
+        print "("
+        while i<l_frame:
+            key = frame.get_key_n(i)
+            value = frame.get_value_n(i)
+            print key,":",value, "type =",
+            if type(value) == gnucash.KvpValue:
+                v_type = value.get_type()
+                print v_type
+                if v_type == 9:
+                    newframe = value.get_frame()
+                    print_frame_rec(newframe)
+                else:
+                    print "->",value.to_string()
+
+            i += 1
+        print ")"
+
+    print_frame_rec(slots)
+
 if __name__ == "__main__":
     sys.exit(main())
