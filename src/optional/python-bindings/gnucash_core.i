@@ -173,9 +173,11 @@ GSList * g_slist_nth                (GSList           *list,
   KvpValue *kvp_frame_get_value_n (KvpFrame *frame, int num) {
         GHashTable *gh;
         gh = kvp_frame_get_hash( frame );
-        
+        if (! gh) return NULL;
+
         GList *gl;
         gl = g_hash_table_get_values( gh );
+        if (! gl) return NULL;
 
         return g_list_nth_data(gl, num);
   }
@@ -183,9 +185,11 @@ GSList * g_slist_nth                (GSList           *list,
   char *kvp_frame_get_key_n (KvpFrame *frame, int num) {
         GHashTable *gh;
         gh = kvp_frame_get_hash( frame );
+        if (! gh) return NULL;
         
         GList *gl;
         gl = g_hash_table_get_keys( gh );
+        if (! gl) return NULL;
 
         return g_list_nth_data(gl, num);
   }
@@ -193,29 +197,30 @@ GSList * g_slist_nth                (GSList           *list,
   int kvp_frame_get_length (KvpFrame *frame) {
         GHashTable *gh;
         gh = kvp_frame_get_hash( frame );
+        if (! gh) return NULL; 
         
         GList *gl;
         gl = g_hash_table_get_keys( gh ); 
-        
+        if (! gl) return NULL;
+
         return g_list_length( gl );
   }
 
   PyObject* kvp_frame_get_keys_c (KvpFrame *frame) {
-        GHashTable *gh;
-        gh = kvp_frame_get_hash( frame );
-        
-        GList *gl;
-        gl = g_hash_table_get_keys( gh );
-
         PyObject *lst = NULL;
         int l_len, i, py_err;
-
-        l_len = g_list_length( gl );
-
+        GHashTable *gh;
+        GList *gl;
         PyObject *py_string_tmp;
-
+        
         lst = PyList_New(l_len);
-        if (! lst) return NULL; 
+        if (! lst) return NULL;
+        
+        gh = kvp_frame_get_hash( frame );
+        if (! gh) return lst;
+        
+        gl = g_hash_table_get_keys( gh );
+        l_len = g_list_length( gl );
         
         for(i = l_len-1; i >= 0; i--)
         {
@@ -228,7 +233,8 @@ GSList * g_slist_nth                (GSList           *list,
         }
         
         return lst;
-  }  
+
+  }    
 
   /* Hier gibt's noch Probleme */
   PyObject *kvp_frame_get_values_c (KvpFrame *frame) {
@@ -363,6 +369,17 @@ extern guint32 qof_instance_get_idata (QofInstance *inst);
 
 // Commodity prices includes and stuff
 %include <gnc-pricedb.h>
+
+/* %inline %{
+  
+  KvpFrame *xaccTransFrame(const Transaction *trans)
+  {
+        KvpFrame *frame;
+        frame = trans->inst.kvp_data;
+
+        return frame;
+  }
+%}*/
 
 %init %{
 gnc_environment_setup();

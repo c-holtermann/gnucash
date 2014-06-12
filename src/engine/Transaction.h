@@ -162,6 +162,9 @@ Transaction * xaccTransClone (const Transaction *t);
  */
 Transaction * xaccTransCloneNoKvp (const Transaction *t);
 
+KvpFrame *xaccTransGetFrame(const Transaction *trans);
+
+
 /** Equality.
  *
  * @param ta First transaction to compare

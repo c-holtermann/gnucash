@@ -441,7 +441,25 @@ class QofInstance(GnuCashCoreClass):
 
 # KvpFrame
 class KvpFrame(GnuCashCoreClass):
-    pass
+    def print_rec(frame):
+        l_frame = frame.get_length()
+        i = 0
+        print "("
+        while i<l_frame:
+            key = frame.get_key_n(i)
+            value = frame.get_value_n(i)
+            print key,":",value, "type =",
+            if type(value) == KvpValue:
+                v_type = value.get_type()
+                print v_type
+                if v_type == 9:
+                    newframe = value.get_frame()
+                    newframe.print_rec()
+                else:
+                    print "->",value.to_string()
+
+            i += 1
+        print ")"
 
 #KvpValue
 class KvpValue(GnuCashCoreClass):

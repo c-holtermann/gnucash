@@ -633,6 +633,11 @@ dupe_trans (const Transaction *from)
     return to;
 }
 
+KvpFrame *xaccTransGetFrame(const Transaction *trans)
+{
+    return trans->inst.kvp_data;
+}
+
 /********************************************************************\
  * Use this routine to externally duplicate a transaction.  It creates
  * a full fledged transaction with unique guid, splits, etc. and
