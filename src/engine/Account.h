@@ -1394,6 +1394,7 @@ void dxaccAccountSetQuoteTZ (Account *account, const char *tz);
 const char * dxaccAccountGetQuoteTZ (const Account *account);
 /** @} */
 
+KvpFrame *xaccAccountGetFrame(const Account *acc);
 
 /** @name Account parameter names
  @{

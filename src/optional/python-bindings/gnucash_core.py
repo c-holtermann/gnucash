@@ -642,7 +642,8 @@ trans_dict =    {
                     'GetAccountConvRate': GncNumeric,
                     'GetAccountBalance': GncNumeric,
                     'GetCurrency': GncCommodity,
-                    'GetGUID': GUID
+                    'GetGUID': GUID,
+                    'GetFrame': KvpFrame
                 }
 
 methods_return_instance(Transaction, trans_dict)
@@ -711,7 +712,8 @@ account_dict =  {
                     'GetBalanceAsOfDateInCurrency' : GncNumeric,
                     'GetBalanceChangeForPeriod' : GncNumeric,
                     'GetCommodity' : GncCommodity,
-                    'GetGUID': GUID
+                    'GetGUID': GUID,
+                    'GetFrame': KvpFrame
                 }
 methods_return_instance(Account, account_dict)
 methods_return_instance_lists(

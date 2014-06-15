@@ -5604,6 +5604,11 @@ gboolean xaccAccountRegister (void)
     return qof_object_register (&account_object_def);
 }
 
+KvpFrame *xaccAccountGetFrame(const Account *acc)
+{
+    return acc->inst.kvp_data;
+}
+
 /* ======================= UNIT TESTING ACCESS =======================
  * The following functions are for unit testing use only.
  */
