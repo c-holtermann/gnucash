@@ -145,8 +145,8 @@ GSList * g_slist_nth                (GSList           *list,
 /* Key value pairs */
 //Ignored because it is unimplemented
 %ignore qof_instance_set_editlevel;
-//Ignored because it is unimplemented
 %ignore kvp_value_binary_append;
+%ignore double_compare;
 
 %include <kvp-util.h>
 %include <kvp-util-p.h>

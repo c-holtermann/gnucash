@@ -36,7 +36,7 @@ def main(argv=None):
 
     print "opening", input_url
     try:
-        session = gnucash.Session(input_url)
+        session = gnucash.Session(input_url, ignore_lock=True)
     except Exception as exception:
         print "Problem opening input."
         print exception
@@ -50,18 +50,29 @@ def main(argv=None):
     # or
     book_qof_instance = book.get_qof_instance()
     slots = gnucash.gnucash_core.gnucash_core_c.qof_instance_get_slots(book_qof_instance.instance)
+    print "1) Slots:", slots
     # or
     slots = book_qof_instance.get_slots()
+    print "2) Slots:", slots
 
-    print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(slots.instance)
+    # print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(slots.instance)
     # or
+    print "Slots recursively printed:"
     print slots.to_string()
 
-    options = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(slots.instance, "options")
-    business = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(options, "Business")
-    print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(business)
+    # options = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(slots.instance, "options")
+    options = slots.get_frame("options")
+    print "options:", options
+    #business = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_frame(options, "Business")
+    business = options.get_frame("Business")
+    print "business:", business
+    print "-to_string:", business.to_string()
+    #print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(business)
 
-    print "Phone number:", gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_string(options, "Business/Company Phone Number")
+    print "Phone number:",
+    phone_number = options.get_string("Business/Company Phone Number")
+    # phone_number = gnucash.gnucash_core.gnucash_core_c.kvp_frame_get_string(options, "Business/Company Phone Number")
+    print phone_number
 
     # It's possible to get the book from qofinstance
     book2 = book_qof_instance.get_book()

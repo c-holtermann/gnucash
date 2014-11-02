@@ -260,7 +260,7 @@ def main(argv=None):
 
     # Try to open the given input
     try:
-        session = gnucash.Session(input_url,ignore_lock=ignore_lock)
+        session = gnucash.Session(input_url, ignore_lock=ignore_lock)
     except Exception as exception:
         print "Problem opening input."
         print exception

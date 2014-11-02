@@ -208,7 +208,7 @@ class Book(GnuCashCoreClass):
         from gnucash_business import TaxTable
         return [ TaxTable(instance=item) for item in gncTaxTableGetTables(self.instance) ]
 
-    def BillLoookupByID(self, id):
+    def BillLookupByID(self, id):
         from gnucash_business import Bill
         return self.do_lookup_create_oo_instance(
             gnc_search_bill_on_id, Bill, id)
@@ -461,6 +461,8 @@ class KvpFrame(GnuCashCoreClass):
             i += 1
         print ")"
 
+
+
 #KvpValue
 class KvpValue(GnuCashCoreClass):
     pass
@@ -547,9 +549,24 @@ KvpFrame.add_methods_with_prefix('kvp_frame_')
 
 kvpframe_dict =   {
                     'get_value' : KvpValue,
-                    'get_value_n' : KvpValue
+                    'get_value_n' : KvpValue,
+                    'get_frame' : KvpFrame
                 }
 methods_return_instance(KvpFrame, kvpframe_dict)
+
+def safe_kvp_frame_get_string(dec_function):
+    """kvp_frame_get_string crashes when called on a nonexistent slot.
+    get_value doesn't. So this wrapper checks get_value first
+    and afterwards if not None calls get_string."""
+    def safe_kvp_frame_get_string_function(self, arg1):
+        value = self.get_value(arg1)
+        if not value:
+            return None
+        else:
+            return dec_function(self, arg1)
+    return safe_kvp_frame_get_string_function
+
+KvpFrame.decorate_functions( safe_call_get_string, "get_string" )
 
 #KvpValue
 KvpValue.add_methods_with_prefix('kvp_value_')
