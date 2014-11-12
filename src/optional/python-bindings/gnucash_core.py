@@ -441,25 +441,26 @@ class QofInstance(GnuCashCoreClass):
 
 # KvpFrame
 class KvpFrame(GnuCashCoreClass):
-    def print_rec(frame):
-        l_frame = frame.get_length()
-        i = 0
-        print "("
-        while i<l_frame:
-            key = frame.get_key_n(i)
-            value = frame.get_value_n(i)
-            print key,":",value, "type =",
-            if type(value) == KvpValue:
-                v_type = value.get_type()
-                print v_type
-                if v_type == 9:
-                    newframe = value.get_frame()
-                    newframe.print_rec()
-                else:
-                    print "->",value.to_string()
-
-            i += 1
-        print ")"
+    pass
+#    def print_rec(frame):
+#        l_frame = frame.get_length()
+#        i = 0
+#        print "("
+#        while i<l_frame:
+#            key = frame.get_key_n(i)
+#            value = frame.get_value_n(i)
+#            print key,":",value, "type =",
+#            if type(value) == KvpValue:
+#                v_type = value.get_type()
+#                print v_type
+#                if v_type == 9:
+#                    newframe = value.get_frame()
+#                    newframe.print_rec()
+#                else:
+#                    print "->",value.to_string()
+#
+#            i += 1
+#        print ")"
 
 
 
@@ -547,17 +548,19 @@ methods_return_instance(QofInstance, qofinstance_dict)
 #KvpFrame
 KvpFrame.add_methods_with_prefix('kvp_frame_')
 
-kvpframe_dict =   {
-                    'get_value' : KvpValue,
-                    'get_value_n' : KvpValue,
-                    'get_frame' : KvpFrame
+kvpframe_dict = {
+                    #                    'get_value' : KvpValue,
+                    #                    'get_value_n' : KvpValue,
+                    'get_frame': KvpFrame
                 }
 methods_return_instance(KvpFrame, kvpframe_dict)
+
 
 def safe_kvp_frame_get_string(dec_function):
     """kvp_frame_get_string crashes when called on a nonexistent slot.
     get_value doesn't. So this wrapper checks get_value first
-    and afterwards if not None calls get_string."""
+    and afterwards if not None calls get_string.
+    """
     def safe_kvp_frame_get_string_function(self, arg1):
         value = self.get_value(arg1)
         if not value:
@@ -566,7 +569,7 @@ def safe_kvp_frame_get_string(dec_function):
             return dec_function(self, arg1)
     return safe_kvp_frame_get_string_function
 
-KvpFrame.decorate_functions( safe_call_get_string, "get_string" )
+KvpFrame.decorate_functions(safe_kvp_frame_get_string, "get_string")
 
 #KvpValue
 KvpValue.add_methods_with_prefix('kvp_value_')

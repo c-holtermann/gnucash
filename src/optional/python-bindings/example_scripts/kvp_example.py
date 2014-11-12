@@ -19,6 +19,35 @@ except ImportError as import_error:
 input_url = ""
 a = 1
 
+class Company(object):
+    def __init__(self, book):
+        self.book = book
+        self.slots = self.book.get_slots()
+
+    def GetName(self):
+        return self.slots.get_string("options/Business/Company Name")
+
+    def GetAddress(self):
+        return self.slots.get_string("options/Business/Company Address")
+
+    def GetID(self):
+        return self.slots.get_string("options/Business/Company ID")
+
+    def GetPhone(self):
+        return self.slots.get_string("options/Business/Company Phone Number")
+
+    def GetFax(self):
+        return self.slots.get_string("options/Business/Company Fax")
+
+    def GetWebsite(self):
+        return self.slots.get_string("options/Business/Company Website URL")
+
+    def GetEmail(self):
+        return self.slots.get_string("options/Business/Company Email Address")
+
+    def GetContactPerson(self):
+        return self.slots.get_string("options/Business/Company Contact Person")
+
 def main(argv=None):
     global input_url
 
@@ -54,6 +83,11 @@ def main(argv=None):
     # or
     slots = book_qof_instance.get_slots()
     print "2) Slots:", slots
+
+    print slots.get_string("options/Business/Company Phone Number")
+
+    c = Company(book)
+    print c.GetName()
 
     # print gnucash.gnucash_core.gnucash_core_c.kvp_frame_to_string(slots.instance)
     # or

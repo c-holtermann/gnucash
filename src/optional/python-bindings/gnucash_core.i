@@ -169,7 +169,7 @@ GSList * g_slist_nth                (GSList           *list,
   gconstpointer *qof_book_get_qof_instance_gconstpointer (QofBook *book) {
         return QOF_INSTANCE (book);
   }
-
+/**
   KvpValue *kvp_frame_get_value_n (KvpFrame *frame, int num) {
         GHashTable *gh;
         gh = kvp_frame_get_hash( frame );
@@ -235,8 +235,9 @@ GSList * g_slist_nth                (GSList           *list,
         return lst;
 
   }    
-
+*/
   /* Hier gibt's noch Probleme */
+  /**
   PyObject *kvp_frame_get_values_c (KvpFrame *frame) {
         GHashTable *gh;
         gh = kvp_frame_get_hash( frame );
@@ -263,12 +264,13 @@ GSList * g_slist_nth                (GSList           *list,
                  
                 py_err = PyList_SetItem(lst, i, o);
                 if (py_err == -1) return NULL; 
-        
+       */ 
                 /* Py_DECREF(o); */
+        /**
         }
         return lst;
         
-  }
+  }*/
 %}
 
 /* the following functions use gconstpointer as arguments, make them accept QofInstance pointers */
