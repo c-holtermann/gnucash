@@ -2,7 +2,12 @@
 # -*- coding: UTF-8 -*-
 
 class Company(object):
-    """Information about the Company that owns the book."""
+    """Information about the Company that owns the book.
+
+    This object only exists in the python bindings. The c-API to
+    access this information is going to change soon. So don't rely
+    on this form of the object too much.
+    """
     def __init__(self, book):
         self.book = book
         self.slots = self.book.get_slots()
