@@ -11,6 +11,7 @@ try:
     import sys
     import gnucash
     from IPython import embed
+    from gncCompany import Company
 except ImportError as import_error:
     print "Problem importing modules."
     print import_error
@@ -18,35 +19,6 @@ except ImportError as import_error:
 
 input_url = ""
 a = 1
-
-class Company(object):
-    def __init__(self, book):
-        self.book = book
-        self.slots = self.book.get_slots()
-
-    def GetName(self):
-        return self.slots.get_string("options/Business/Company Name")
-
-    def GetAddress(self):
-        return self.slots.get_string("options/Business/Company Address")
-
-    def GetID(self):
-        return self.slots.get_string("options/Business/Company ID")
-
-    def GetPhone(self):
-        return self.slots.get_string("options/Business/Company Phone Number")
-
-    def GetFax(self):
-        return self.slots.get_string("options/Business/Company Fax")
-
-    def GetWebsite(self):
-        return self.slots.get_string("options/Business/Company Website URL")
-
-    def GetEmail(self):
-        return self.slots.get_string("options/Business/Company Email Address")
-
-    def GetContactPerson(self):
-        return self.slots.get_string("options/Business/Company Contact Person")
 
 def main(argv=None):
     global input_url
