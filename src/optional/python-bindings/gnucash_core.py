@@ -441,18 +441,10 @@ class QofInstance(GnuCashCoreClass):
 
 # KvpFrame
 class KvpFrame(GnuCashCoreClass):
-    """Low level class to save additional information
-
-    Should be private to objects. Will be in release 2.7.
-    """
     pass
 
 #KvpValue
 class KvpValue(GnuCashCoreClass):
-    """Low level class to save additional information
-
-    Should be private to objects. Will be in release 2.7.
-    """
     pass
 
 # Session
