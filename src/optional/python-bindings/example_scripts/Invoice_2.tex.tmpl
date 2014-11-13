@@ -85,16 +85,14 @@
 \makeatother
 %---------------------------------------------------------------------------
 % Absender
-{%- endraw %}
-\setkomavar{fromname}{ {{ company.GetName() if company.GetName() != None }} {{ company.GetContactPerson() }} }
-\setkomavar{fromaddress}{ {{ company.GetAddress().replace("\n","\\\\") }} }
-\setkomavar{fromphone}{ {{ company.GetPhone() }} }
+\setkomavar{fromname}{fromname}
+\setkomavar{fromaddress}{fromaddress}
+\setkomavar{fromphone}{fromphone}
 \renewcommand{\phonename}{Telefon}
-\setkomavar{fromfax}{ {{ company.GetFax() }} }
-\setkomavar{fromemail}{ {{ company.GetEmail() }} }
+\setkomavar{fromfax}{fromfax}
+\setkomavar{fromemail}{fromemail}
 \setkomavar{backaddressseparator}{. }
-\setkomavar{signature}{( {{ company.GetContactPerson() }})}
-{%- raw %}
+\setkomavar{signature}{(signature)}
 \setkomavar{frombank}{---NAME --- BANK ACCOUNT --- BANK NUMBER --- BANK NAME ---}
 \setkomavar{location}{\\[8ex]\raggedleft{\footnotesize{\usekomavar{fromaddress}\\
 	Telefon: \usekomavar{fromphone}\\Mobil: mobile-number\\Fax: \usekomavar{fromfax}\\\usekomavar{fromemail}}}}%% Neben dem Adressfenster

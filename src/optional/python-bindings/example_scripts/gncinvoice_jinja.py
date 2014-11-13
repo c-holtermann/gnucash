@@ -35,7 +35,6 @@ try:
     import str_methods
     import jinja2
     from gncinvoicefkt import *
-    from gncCompany import Company
 except ImportError as import_error:
     print "Problem importing modules."
     print import_error
@@ -170,8 +169,7 @@ def main(argv=None):
 
         #import IPython
         #IPython.embed()
-
-        output = template.render(invoice=invoice, locale=locale, company=Company(book))
+        output = template.render(invoice=invoice, locale=locale)
 
         print "Writing output", filename_output, "."
         with open(filename_output, 'w') as f:

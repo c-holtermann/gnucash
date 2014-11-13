@@ -44,11 +44,6 @@
 %feature("autodoc", "1");
 %module(package="gnucash") gnucash_core_c
 
-/* Renaming "from" to "_from" to suppress the swig warning - they stop the make process
-/src/libqof/qof/qofinstance-p.h:63: Warning 314: 'from' is a python keyword, renaming to '_from'
-*/
-%rename(_from) from;
-
 %{
 #include "config.h"
 #include <datetime.h>
@@ -61,7 +56,6 @@
 #include "guid.h"
 #include "qofquery.h"
 #include "qofquerycore.h"
-#include "qofinstance.h"
 #include "gnc-module/gnc-module.h"
 #include "engine/gnc-engine.h"
 #include "Transaction.h"
@@ -86,10 +80,6 @@
 #include "gncIDSearch.h"
 #include "engine/gnc-pricedb.h"
 #include "app-utils/gnc-prefs-utils.h"
-#include "kvp-util.h"
-#include "kvp-util-p.h"
-#include "kvp_frame.h"
-#include "qofinstance-p.h"
 %}
 
 %include <timespec.i>
@@ -127,29 +117,6 @@
 
 %include <gnc-commodity.h>
 
-/* Key value pairs */
-//Ignored because it is unimplemented
-%ignore qof_instance_set_editlevel;
-%ignore kvp_value_binary_append;
-%ignore double_compare;
-
-%include <kvp-util.h>
-%include <kvp-util-p.h>
-%include <kvp_frame.h>
-
-
-/* QofInstance */
-%inline %{
-  KvpFrame *qof_book_get_slots (QofBook *book) {
-       return qof_instance_get_slots (QOF_INSTANCE (book));
-  }
-%}
-
-/* the following functions use gconstpointer as arguments, make them accept QofInstance pointers */
-extern QofBook *qof_instance_get_book (QofInstance *inst);
-extern const GncGUID *  qof_instance_get_guid (QofInstance *ent);
-extern guint32 qof_instance_get_idata (QofInstance *inst);
-
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);
     PyObject * owner_tuple = PyTuple_New(2);
@@ -178,6 +145,7 @@ extern guint32 qof_instance_get_idata (QofInstance *inst);
     PyTuple_SetItem(owner_tuple, 1, swig_wrapper_object);
     $result = owner_tuple;
 }
+
 
 %typemap(in) GncOwner * {
     GncOwner * temp_owner = gncOwnerNew();
@@ -237,9 +205,6 @@ extern guint32 qof_instance_get_idata (QofInstance *inst);
 %include <gncEntry.h>
 %include <gncTaxTable.h>
 %include <gncIDSearch.h>
-
-%include <qofinstance.h>
-%include <qofinstance-p.h>
 
 // Commodity prices includes and stuff
 %include <gnc-pricedb.h>
