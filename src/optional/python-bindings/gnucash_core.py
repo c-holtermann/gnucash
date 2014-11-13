@@ -208,7 +208,7 @@ class Book(GnuCashCoreClass):
         from gnucash_business import TaxTable
         return [ TaxTable(instance=item) for item in gncTaxTableGetTables(self.instance) ]
 
-    def BillLookupByID(self, id):
+    def BillLoookupByID(self, id):
         from gnucash_business import Bill
         return self.do_lookup_create_oo_instance(
             gnc_search_bill_on_id, Bill, id)
@@ -227,13 +227,13 @@ class Book(GnuCashCoreClass):
         from gnucash_business import Vendor
         return self.do_lookup_create_oo_instance(
             gnc_search_vendor_on_id, Vendor, id)
-
+            
     def InvoiceNextID(self, customer):
-      ''' Return the next invoice ID.
+      ''' Return the next invoice ID. 
       This works but I'm not entirely happy with it.  FIX ME'''
       from gnucash.gnucash_core_c import gncInvoiceNextID
       return gncInvoiceNextID(self.get_instance(),customer.GetEndOwner().get_instance()[1])
-
+      
     def BillNextID(self, vendor):
       ''' Return the next Bill ID. '''
       from gnucash.gnucash_core_c import gncInvoiceNextID
@@ -243,7 +243,7 @@ class Book(GnuCashCoreClass):
       ''' Return the next Customer ID. '''
       from gnucash.gnucash_core_c import gncCustomerNextID
       return gncCustomerNextID(self.get_instance())
-
+    
     def VendorNextID(self):
       ''' Return the next Vendor ID. '''
       from gnucash.gnucash_core_c import gncVendorNextID
@@ -281,7 +281,7 @@ class GncNumeric(GnuCashCoreClass):
         if self.denom() == 0:
             return "Division by zero"
         else:
-            value_float = self.to_double()
+            value_float = self.to_double() 
             value_str   = u"{0:.{1}f}".format(value_float,2) ## The second argument is the precision. It would be nice to be able to make it configurable.
             return value_str
 
@@ -435,18 +435,6 @@ class Account(GnuCashCoreClass):
 class GUID(GnuCashCoreClass):
     _new_instance = 'guid_new_return'
 
-# QofInstance
-class QofInstance(GnuCashCoreClass):
-    pass
-
-# KvpFrame
-class KvpFrame(GnuCashCoreClass):
-    pass
-
-#KvpValue
-class KvpValue(GnuCashCoreClass):
-    pass
-
 # Session
 Session.add_constructor_and_methods_with_prefix('qof_session_', 'new')
 
@@ -505,55 +493,15 @@ Book.add_method('gnc_commodity_table_get_table', 'get_table')
 Book.add_method('gnc_pricedb_get_db', 'get_price_db')
 Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')
 
-book_dict =   {
-                    'get_root_account' : Account,
-                    'get_table' : GncCommodityTable,
-                    'get_price_db' : GncPriceDB,
-                    'get_qof_instance' : QofInstance,
-                    'get_slots' : KvpFrame
-}
-methods_return_instance(Book, book_dict)
-
-
-#QofInstance
-QofInstance.add_methods_with_prefix('qof_instance_')
-
-qofinstance_dict =   {
-                    'get_book' : Book,
-                    'get_slots' : KvpFrame
-                }
-methods_return_instance(QofInstance, qofinstance_dict)
-
-#KvpFrame
-KvpFrame.add_methods_with_prefix('kvp_frame_')
-
-kvpframe_dict = {
-                    'get_frame': KvpFrame
-                }
-methods_return_instance(KvpFrame, kvpframe_dict)
-
-
-def safe_kvp_frame_get_string(dec_function):
-    """kvp_frame_get_string crashes when called on a nonexistent slot.
-    get_value doesn't. So this wrapper checks get_value first
-    and afterwards if not None calls get_string.
-    """
-    def safe_kvp_frame_get_string_function(self, arg1):
-        value = self.get_value(arg1)
-        if not value:
-            return None
-        else:
-            return dec_function(self, arg1)
-    return safe_kvp_frame_get_string_function
-
-KvpFrame.decorate_functions(safe_kvp_frame_get_string, "get_string")
-
-#KvpValue
-KvpValue.add_methods_with_prefix('kvp_value_')
-kvpvalue_dict =   {
-                    'get_frame' : KvpFrame
-                }
-methods_return_instance(KvpValue, kvpvalue_dict)
+#Functions that return Account
+Book.get_root_account = method_function_returns_instance(
+    Book.get_root_account, Account )
+#Functions that return GncCommodityTable
+Book.get_table = method_function_returns_instance(
+    Book.get_table, GncCommodityTable )
+#Functions that return GNCPriceDB
+Book.get_price_db = method_function_returns_instance(
+    Book.get_price_db, GncPriceDB)
 
 # GncNumeric
 GncNumeric.add_constructor_and_methods_with_prefix('gnc_numeric_', 'create')
@@ -600,7 +548,7 @@ methods_return_instance_lists(
                          'get_namespaces_list': GncCommodityNamespace,
                          'get_commodities': GncCommodity,
                          'get_quotable_commodities': GncCommodity,
-
+                         
                        } )
 
 # GncCommodityNamespace
@@ -641,7 +589,7 @@ trans_dict =    {
                     'GetCurrency': GncCommodity,
                     'GetGUID': GUID
                 }
-
+ 
 methods_return_instance(Transaction, trans_dict)
 methods_return_instance_lists(
     Transaction, { 'GetSplitList': Split,
