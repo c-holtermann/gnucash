@@ -47,6 +47,7 @@ libgncmod_engine_la_SOURCES = \
   gncAddress.c \
   gncBillTerm.c \
   gncCustomer.c \
+  gncCompany.c \
   gncEmployee.c \
   gncEntry.c \
   gncInvoice.c \
@@ -95,6 +96,7 @@ gncinclude_HEADERS = \
   gncBillTermP.h \
   gncBusiness.h \
   gncBusGuile.h \
+  gncCompany.h \
   gncCustomer.h \
   gncCustomerP.h \
   gncEmployee.h \

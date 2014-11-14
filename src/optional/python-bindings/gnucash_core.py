@@ -439,22 +439,6 @@ class GUID(GnuCashCoreClass):
 class QofInstance(GnuCashCoreClass):
     pass
 
-# KvpFrame
-class KvpFrame(GnuCashCoreClass):
-    """Low level class to save additional information
-
-    Should be private to objects. Will be in release 2.7.
-    """
-    pass
-
-#KvpValue
-class KvpValue(GnuCashCoreClass):
-    """Low level class to save additional information
-
-    Should be private to objects. Will be in release 2.7.
-    """
-    pass
-
 # Session
 Session.add_constructor_and_methods_with_prefix('qof_session_', 'new')
 
@@ -516,52 +500,9 @@ Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_c
 book_dict =   {
                     'get_root_account' : Account,
                     'get_table' : GncCommodityTable,
-                    'get_price_db' : GncPriceDB,
-                    'get_qof_instance' : QofInstance,
-                    'get_slots' : KvpFrame
+                    'get_price_db' : GncPriceDB
 }
 methods_return_instance(Book, book_dict)
-
-
-#QofInstance
-QofInstance.add_methods_with_prefix('qof_instance_')
-
-qofinstance_dict =   {
-                    'get_book' : Book,
-                    'get_slots' : KvpFrame
-                }
-methods_return_instance(QofInstance, qofinstance_dict)
-
-#KvpFrame
-KvpFrame.add_methods_with_prefix('kvp_frame_')
-
-kvpframe_dict = {
-                    'get_frame': KvpFrame
-                }
-methods_return_instance(KvpFrame, kvpframe_dict)
-
-
-def safe_kvp_frame_get_string(dec_function):
-    """kvp_frame_get_string crashes when called on a nonexistent slot.
-    get_value doesn't. So this wrapper checks get_value first
-    and afterwards if not None calls get_string.
-    """
-    def safe_kvp_frame_get_string_function(self, arg1):
-        value = self.get_value(arg1)
-        if not value:
-            return None
-        else:
-            return dec_function(self, arg1)
-    return safe_kvp_frame_get_string_function
-
-KvpFrame.decorate_functions(safe_kvp_frame_get_string, "get_string")
-
-#KvpValue
-KvpValue.add_methods_with_prefix('kvp_value_')
-kvpvalue_dict =   {
-                    'get_frame' : KvpFrame
-                }
-methods_return_instance(KvpValue, kvpvalue_dict)
 
 # GncNumeric
 GncNumeric.add_constructor_and_methods_with_prefix('gnc_numeric_', 'create')

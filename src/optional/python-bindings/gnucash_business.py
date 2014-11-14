@@ -66,7 +66,7 @@ class GnuCashBusinessEntity(GnuCashCoreClass):
             GnuCashCoreClass.__init__(self, instance=instance)
 
 class Customer(GnuCashBusinessEntity): pass
-                         
+
 class Employee(GnuCashBusinessEntity): pass
 
 class Vendor(GnuCashBusinessEntity): pass
@@ -88,10 +88,12 @@ class Job(GnuCashBusinessEntity):
             if name != None:
                 self.SetName(name)
         else:
-            GnuCashCoreClass.__init__(self, instance=instance)    
+            GnuCashCoreClass.__init__(self, instance=instance)
 
 class Address(GnuCashCoreClass): pass
-    
+
+class Company(GnuCashCoreClass): pass
+
 class BillTerm(GnuCashCoreClass): pass
 
 class TaxTable(GnuCashCoreClass):
@@ -111,14 +113,14 @@ class TaxTable(GnuCashCoreClass):
 class TaxTableEntry(GnuCashCoreClass):
     def __init__(self, account=None, percent=True, amount=None, instance=None):
         """TaxTableEntry constructor
-        
+
         You must provide an account, or be initizing this with an existing
         swig proxy object via the instance keyword argument.
-        
+
         You may also optionally set the percent keyword argument to False to get
         a fixed value instead of percentage based tax (which is the default, or
         when percent=True).
-        
+
         The tax will be zero percent or zero unless you set the amount keyword
         argument to a GncNumeric value as well.
         """
@@ -138,7 +140,7 @@ class TaxTableEntry(GnuCashCoreClass):
             if amount != None:
                 self.SetAmount(amount)
         else:
-            GnuCashCoreClass.__init__(self, instance=instance)        
+            GnuCashCoreClass.__init__(self, instance=instance)
 
 class Invoice(GnuCashCoreClass):
     def __init__(self, book=None, id=None, currency=None, owner=None,
@@ -191,7 +193,7 @@ def decorate_to_return_instance_instead_of_owner(dec_function):
 class Entry(GnuCashCoreClass):
     def __init__(self, book=None, invoice=None, date=None, instance=None):
         """Invoice Entry constructor
-        
+
         You must provide a book or be initizing this with an existing
         swig proxy object via the instance keyword argument.
 
@@ -293,6 +295,13 @@ Job.decorate_functions(
 # Address
 Address.add_constructor_and_methods_with_prefix('gncAddress', 'Create')
 
+# Company
+Company.add_constructor_and_methods_with_prefix('gncCompany', 'Create')
+company_dict = {
+                    'GetBook' : Book
+                }
+methods_return_instance(Company, company_dict)
+
 # BillTerm
 BillTerm.add_constructor_and_methods_with_prefix('gncBillTerm', 'Create')
 
@@ -364,7 +373,7 @@ entry_dict = {
                  'GetInvoice': Invoice,
                  'GetBill': Invoice
              }
-methods_return_instance(Entry, entry_dict)             
+methods_return_instance(Entry, entry_dict)
 Entry.decorate_functions(
     decorate_to_return_instance_instead_of_owner,
     'GetBillTo' )
