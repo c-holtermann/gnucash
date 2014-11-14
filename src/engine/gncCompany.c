@@ -34,13 +34,20 @@
 #include "gncCompany.h"
 #include "gnc-features.h"
 
+<<<<<<< HEAD
 #include "qofbook.h"
 
+=======
+>>>>>>> origin/Company
 struct _gncCompany
 {
     QofInstance inst;
 
     QofBook *	book;
+<<<<<<< HEAD
+=======
+    QofInstance * parent;
+>>>>>>> origin/Company
     gboolean	dirty;
     char *	name;
     char *	address;
@@ -59,6 +66,7 @@ struct _gncCompanyClass
 
 static QofLogModule log_module = GNC_MOD_BUSINESS;
 
+<<<<<<< HEAD
 #define _GNC_MOD_NAME	GNC_COMPANY_MODULE_NAME
 
 G_INLINE_FUNC void mark_company (GncCompany *company);
@@ -82,6 +90,8 @@ enum
 };
 
 
+=======
+>>>>>>> origin/Company
 /* GObject Initialization */
 G_DEFINE_TYPE(GncCompany, gnc_company, QOF_TYPE_INSTANCE);
 
@@ -96,6 +106,7 @@ gnc_company_dispose(GObject *companyp)
     G_OBJECT_CLASS(gnc_company_parent_class)->dispose(companyp);
 }
 
+<<<<<<< HEAD
 static void
 gnc_company_finalize(GObject* companyp)
 {
@@ -435,3 +446,5 @@ gboolean gncCompanyRegister (void)
     return qof_object_register(&GncCompanyDesc);
 }
 
+=======
+>>>>>>> origin/Company
