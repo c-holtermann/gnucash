@@ -52,10 +52,25 @@ void gncCompanyDestroy (GncCompany *company);
 void gncCompanyBeginEdit (GncCompany *company);
 void gncCompanyCommitEdit (GncCompany *company);
 
+/** @name Set functions
+ @{ */
+
+void gncCompanySetName (GncCompany *company, const char *name);
+void gncCompanySetAddress (GncCompany *company, const char *address);
+void gncCompanySetId (GncCompany *company, const char *id);
+void gncCompanySetPhone (GncCompany *company, const char *phone);
+void gncCompanySetFax (GncCompany *company, const char *fax);
+void gncCompanySetWebsite (GncCompany *company, const char *website);
+void gncCompanySetEmail (GncCompany *company, const char *email);
+void gncCompanySetContactperson (GncCompany *company, const char *contactperson);
+
+/** @} */
+
+
 /** @name Get Functions
  @{ */
 
-const char * gncCompanyGetString (const GncCompany *company);
+const char * gncCompanyToString (const GncCompany *company);
 QofBook * gncCompanyGetBook (const GncCompany *company);
 const char * gncCompanyGetName (const GncCompany *company);
 const char * gncCompanyGetAddress (const GncCompany *company);

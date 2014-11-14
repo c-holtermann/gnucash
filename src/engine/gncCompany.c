@@ -103,6 +103,51 @@ gnc_company_finalize(GObject* companyp)
 }
 
 static void
+gnc_company_set_property (GObject         *object,
+                          guint            prop_id,
+                          const GValue          *value,
+                          GParamSpec      *pspec)
+{
+    GncCompany *company;
+
+    g_return_if_fail(GNC_IS_COMPANY(object));
+
+    company = GNC_COMPANY(object);
+    switch (prop_id)
+    {
+    case PROP_NAME:
+        gncCompanySetName(company, g_value_get_string(value));
+        break;
+    case PROP_ADDR:
+        gncCompanySetAddress(company, g_value_get_string(value));
+        break;
+    case PROP_ID:
+        gncCompanySetId(company, g_value_get_string(value));
+        break;
+    case PROP_PHONE:
+        gncCompanySetPhone(company, g_value_get_string(value));
+        break;
+    case PROP_FAX:
+        gncCompanySetFax(company, g_value_get_string(value));
+        break;
+    case PROP_WEBSITE:
+        gncCompanySetWebsite(company, g_value_get_string(value));
+        break;
+    case PROP_EMAIL:
+        gncCompanySetEmail(company, g_value_get_string(value));
+        break;
+    case PROP_CONTACTPERSON:
+        gncCompanySetContactperson(company, g_value_get_string(value));
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+        break;
+    }
+}
+
+
+
+static void
 gnc_company_get_property (GObject         *object,
                           guint            prop_id,
                           GValue          *value,
@@ -153,7 +198,7 @@ gnc_company_class_init (GncCompanyClass *klass)
 
    gobject_class->dispose = gnc_company_dispose;
    gobject_class->finalize = gnc_company_finalize;
-   gobject_class->set_property = NULL;
+   gobject_class->set_property = gnc_company_set_property;
    gobject_class->get_property = gnc_company_get_property;
   
    qof_class->get_display_name = NULL;
@@ -293,6 +338,147 @@ gncCompanyFree (GncCompany *company)
     g_object_unref (company);
 }
 
+/* Set functions */
+
+#define SET_STR(obj, member, str) { \
+	char * tmp; \
+	\
+	if (member == str) return; \
+	if (!g_strcmp0 (member, str)) return; \
+	gncCompanyBeginEdit (obj); \
+	tmp = CACHE_INSERT (str); \
+	CACHE_REMOVE (member); \
+	member = tmp; \
+	}
+
+void gncCompanySetName (GncCompany *company, const char *name)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!name) return;
+
+    orig_val = gncCompanyGetName(company);
+    if (name == orig_val) return;
+    if (!g_strcmp0 (name, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Name", name);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetAddress (GncCompany *company, const char *address)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!address) return;
+
+    orig_val = gncCompanyGetAddress(company);
+    if (address == orig_val) return;
+    if (!g_strcmp0 (address, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Address", address);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetId (GncCompany *company, const char *id)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!id) return;
+
+    orig_val = gncCompanyGetId(company);
+    if (id == orig_val) return;
+    if (!g_strcmp0 (id, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company ID", id);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetPhone (GncCompany *company, const char *phone)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!phone) return;
+
+    orig_val = gncCompanyGetPhone(company);
+    if (phone == orig_val) return;
+    if (!g_strcmp0 (phone, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Phone Number", phone);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetFax (GncCompany *company, const char *fax)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!fax) return;
+
+    orig_val = gncCompanyGetFax(company);
+    if (fax == orig_val) return;
+    if (!g_strcmp0 (fax, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Fax Number", fax);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetWebsite (GncCompany *company, const char *website)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!website) return;
+
+    orig_val = gncCompanyGetWebsite(company);
+    if (website == orig_val) return;
+    if (!g_strcmp0 (website, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Website URL", website);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetEmail (GncCompany *company, const char *email)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!email) return;
+
+    orig_val = gncCompanyGetEmail(company);
+    if (email == orig_val) return;
+    if (!g_strcmp0 (email, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Email", email);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
+void gncCompanySetContactperson (GncCompany *company, const char *contactperson)
+{
+    const char * orig_val;
+
+    if (!company) return;
+    if (!contactperson) return;
+
+    orig_val = gncCompanyGetContactperson(company);
+    if (contactperson == orig_val) return;
+    if (!g_strcmp0 (contactperson, orig_val)) return;
+    gncCompanyBeginEdit (company);
+    qof_book_set_string_option(company->book, "options/Business/Company Contact Person", contactperson);
+    mark_company (company);
+    gncCompanyCommitEdit (company);
+}
+
 void gncCompanyBeginEdit (GncCompany *company)
 {
     qof_begin_edit (&company->inst);
@@ -324,73 +510,64 @@ void gncCompanyCommitEdit (GncCompany *company)
 }
 
 /* Get Functions */
-
 QofBook * gncCompanyGetBook (const GncCompany *company)
 {
     if (!company) return NULL;
-    /* return qof_instance_get_book (QOF_INSTANCE (company)); */
     return company->book;
 }
 
-const char * gncCompanyGetString (const GncCompany *company)
+const char * gncCompanyToString (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_to_string(qof_instance_get_slots (QOF_INSTANCE (qof_instance_get_book(QOF_INSTANCE(company)))));
+    return kvp_frame_to_string(kvp_frame_get_frame(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business"));
 }
 
 const char * gncCompanyGetName (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Name");
+    return qof_book_get_string_option(company->book, "options/Business/Company Name");
 }
 
 const char * gncCompanyGetAddress (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Address");
-    /*return company->address;*/
+    return qof_book_get_string_option(company->book, "options/Business/Company Address");
 }
 
 const char * gncCompanyGetId (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company ID");
-    /* return company->id; */
+    return qof_book_get_string_option(company->book, "options/Business/Company ID");
 }   
 
 const char * gncCompanyGetPhone (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Phone Number");
-    /* return company->phone; */
+    return qof_book_get_string_option(company->book, "options/Business/Company Phone Number");
 }
 
 const char * gncCompanyGetFax (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Fax Number");
-    /* return company->fax; */
+    return qof_book_get_string_option(company->book, "options/Business/Company Fax Number");
 }
 
 const char * gncCompanyGetWebsite (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Website URL");
-    /* return company->website; */
+    return qof_book_get_string_option(company->book, "options/Business/Company Website URL");
 }
 
 const char * gncCompanyGetEmail (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Email Address");
-    /* return company->email; */
+    return qof_book_get_string_option(company->book, "options/Business/Company Email Address");
 }
 
 const char * gncCompanyGetContactperson (const GncCompany *company)
 {
     if (!company) return NULL;
-    return kvp_frame_get_string(qof_instance_get_slots (QOF_INSTANCE (company->book)), "options/Business/Company Contact Person");
-    /* return company->contactperson; */
+    return qof_book_get_string_option(company->book, "options/Business/Company Contact Person");
 }   
 
 static QofObject GncCompanyDesc =
@@ -413,14 +590,14 @@ gboolean gncCompanyRegister (void)
     static QofParam params[] =
     {
 
-        { COMPANY_NAME,  QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetName,  NULL },
-        { COMPANY_ADDR,   QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetAddress, NULL },
-        { COMPANY_ID,   QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetId, NULL },
-        { COMPANY_PHONE, QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetPhone, NULL },
-        { COMPANY_FAX,  QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetFax, NULL },
-        { COMPANY_WEBSITE, QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetWebsite, NULL },
-        { COMPANY_EMAIL,   QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetEmail, NULL },
-        { COMPANY_CONTACTPERSON, QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetContactperson, NULL },
+        { COMPANY_NAME,  QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetName,  (QofSetterFunc)gncCompanySetName },
+        { COMPANY_ADDR,   QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetAddress, (QofSetterFunc)gncCompanySetAddress },
+        { COMPANY_ID,   QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetId, (QofSetterFunc)gncCompanySetId },
+        { COMPANY_PHONE, QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetPhone, (QofSetterFunc)gncCompanySetPhone },
+        { COMPANY_FAX,  QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetFax, (QofSetterFunc)gncCompanySetFax },
+        { COMPANY_WEBSITE, QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetWebsite, (QofSetterFunc)gncCompanySetWebsite },
+        { COMPANY_EMAIL,   QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetEmail, (QofSetterFunc)gncCompanySetEmail },
+        { COMPANY_CONTACTPERSON, QOF_TYPE_STRING, (QofAccessFunc)gncCompanyGetContactperson, (QofSetterFunc)gncCompanySetContactperson },
         { QOF_PARAM_BOOK, QOF_ID_BOOK,   (QofAccessFunc)qof_instance_get_book, NULL },
         { QOF_PARAM_GUID, QOF_TYPE_GUID, (QofAccessFunc)qof_instance_get_guid, NULL },
         { NULL },
