@@ -32,6 +32,7 @@
 #include <qofinstance-p.h>
 
 #include "gncCompany.h"
+#include "gncCompanyP.h"
 #include "gnc-features.h"
 
 #include "qofbook.h"
@@ -64,6 +65,7 @@ static QofLogModule log_module = GNC_MOD_BUSINESS;
 G_INLINE_FUNC void mark_company (GncCompany *company);
 void mark_company (GncCompany *company)
 {
+    PWARN("mark company %s.", qof_instance_get_display_name(QOF_INSTANCE(company)));
     qof_instance_set_dirty(QOF_INSTANCE(company));
     qof_event_gen (QOF_INSTANCE(company), QOF_EVENT_MODIFY, NULL);
 }

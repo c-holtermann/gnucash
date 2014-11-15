@@ -58,6 +58,7 @@ business_core_init(void)
     gncBillTermRegister ();
     gncCustomerRegister ();
     gncAddressRegister ();
+    gncCompanyRegister ();
     gncEmployeeRegister ();
     gncEntryRegister ();
     gncOrderRegister ();
