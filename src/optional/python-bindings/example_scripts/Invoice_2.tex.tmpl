@@ -85,14 +85,16 @@
 \makeatother
 %---------------------------------------------------------------------------
 % Absender
-\setkomavar{fromname}{fromname}
-\setkomavar{fromaddress}{fromaddress}
-\setkomavar{fromphone}{fromphone}
+{%- endraw %}
+\setkomavar{fromname}{ {{ company.GetName() if company.GetName() != None }} {{ company.GetContactperson() }} }
+\setkomavar{fromaddress}{ {{ company.GetAddress().replace("\n","\\\\") }} }
+\setkomavar{fromphone}{ {{ company.GetPhone() }} }
 \renewcommand{\phonename}{Telefon}
-\setkomavar{fromfax}{fromfax}
-\setkomavar{fromemail}{fromemail}
+\setkomavar{fromfax}{ {{ company.GetFax() }} }
+\setkomavar{fromemail}{ {{ company.GetEmail() }} }
 \setkomavar{backaddressseparator}{. }
-\setkomavar{signature}{(signature)}
+\setkomavar{signature}{( {{ company.GetContactperson() }})}
+{%- raw %}
 \setkomavar{frombank}{---NAME --- BANK ACCOUNT --- BANK NUMBER --- BANK NAME ---}
 \setkomavar{location}{\\[8ex]\raggedleft{\footnotesize{\usekomavar{fromaddress}\\
 	Telefon: \usekomavar{fromphone}\\Mobil: mobile-number\\Fax: \usekomavar{fromfax}\\\usekomavar{fromemail}}}}%% Neben dem Adressfenster
@@ -135,7 +137,8 @@
 \Euro
 %---------------------------------------------------------------------------
 \begin{letter}{ {%- endraw -%}
-{{- invoice.GetOwner().GetName().decode("UTF-8") -}} \\ 
+{{- invoice.GetOwner().GetName().decode("UTF-8") -}} \\
+{{- invoice.GetOwner().GetAddr().GetName().decode("UTF-8") -}} \\ 
 {{- invoice.GetOwner().GetAddr().GetAddr1().decode("UTF-8") -}} \\ 
 {{- invoice.GetOwner().GetAddr().GetAddr2().decode("UTF-8") -}} \\ 
 {{- invoice.GetOwner().GetAddr().GetAddr3().decode("UTF-8") -}} 

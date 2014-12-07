@@ -30,6 +30,7 @@
 try:
     import locale
     import sys
+    import os
     import getopt
     import gnucash
     import str_methods
@@ -58,9 +59,11 @@ def main(argv=None):
         list_invoices = False
         invoice_number = None
         invoice_id = None
+        filename_from_invoice = False
+        output_path = None
 
         try:
-            opts, args = getopt.getopt(argv[1:], "fhlI:t:o:", ["help"])
+            opts, args = getopt.getopt(argv[1:], "fhlI:t:o:OP:", ["help"])
         except getopt.error, msg:
              raise Usage(msg)
 
@@ -76,12 +79,20 @@ def main(argv=None):
             if opt[0] in ["-o"]:
                 filename_output = opt[1]
                 print "using output file", filename_output
+            if opt[0] in ["-O"]:
+                if filename_output:
+                    print "given output filename will be overwritten,"
+                print "creating output filename from Invoice data."
+                filename_from_invoice = True
             if opt[0] in ["-t"]:
                 filename_template = opt[1]
                 print "using template file", filename_template
             if opt[0] in ["-l"]:
                 list_invoices = True
                 print "listing invoices"
+            if opt[0] in ["-P"]:
+                output_path = opt[1]
+                print "output path is", output_path + "."
 
         # Check for correct input
         if len(args)>1:
@@ -98,7 +109,7 @@ def main(argv=None):
                 raise Usage("No template given !")
 
         # Check for output file
-        if not filename_output:
+        if not (filename_output or filename_from_invoice):
             if filename_template:
                 filename_output = filename_template + ".out"
                 print "no output filename given, will be:", filename_output
@@ -126,6 +137,8 @@ def main(argv=None):
         print "-I ID          use invoice ID"
         print "-t filename    use filename as template file"
         print "-o filename    use filename as output file"
+        print "-O             create output filename by date, owner and invoice number"
+        print "-P path        path for output file. Overwrites path in -o option"
 
         return retcode
 
@@ -164,15 +177,28 @@ def main(argv=None):
         print "Using the following invoice:"
         print invoice
 
-        loader = jinja2.FileSystemLoader('.')
+
+        path_template = os.path.dirname(filename_template)
+        filename_template_basename = os.path.basename(filename_template)
+
+        loader = jinja2.FileSystemLoader(path_template)
         env = jinja2.Environment(loader=loader)
-        template = env.get_template(filename_template)
+        template = env.get_template(filename_template_basename)
 
         company = gnucash_business.Company(book.instance)
 
         #import IPython
         #IPython.embed()
         output = template.render(invoice=invoice, locale=locale, company=company)
+
+        if filename_from_invoice:
+            filename_date = unicode(invoice.GetDatePosted()) # something like 2014-11-01
+            filename_owner_name = unicode(invoice.GetOwner().GetName().decode("UTF-8"))
+            filename_invoice_id = unicode(invoice.GetID())
+            filename_output = filename_date + "_" + filename_owner_name + "_"  + filename_invoice_id + ".tex"
+
+        if output_path:
+            filename_output = os.path.join(output_path, os.path.basename(filename_output))
 
         print "Writing output", filename_output, "."
         with open(filename_output, 'w') as f:
