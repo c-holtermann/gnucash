@@ -62,12 +62,9 @@ struct timeval
 #include "gnc-engine.h"
 #include "gnc-lot.h"
 #include "gnc-event.h"
-#include <gnc-date.h>
+#include <gnc-gdate-utils.h>
 #include "SchedXaction.h"
-#include "gncBusiness.h"
-#include <qofinstance-p.h>
-#include "gncInvoice.h"
-#include "gncOwner.h"
+#include "qofbackend-p.h"
 
 /* Notes about xaccTransBeginEdit(), xaccTransCommitEdit(), and
  *  xaccTransRollback():
