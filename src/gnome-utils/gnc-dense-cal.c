@@ -261,7 +261,7 @@ _gdc_get_view_options(void)
 static void
 gnc_dense_cal_init(GncDenseCal *dcal)
 {
-    gboolean colorAllocSuccess;
+    gboolean colorAllocSuccess[MAX_COLORS];
 
     gtk_widget_push_composite_child();
 
@@ -348,10 +348,14 @@ gnc_dense_cal_init(GncDenseCal *dcal)
 
     gdk_color_parse(MONTH_THIS_COLOR,  &dcal->weekColors[MONTH_THIS]);
     gdk_color_parse(MONTH_THAT_COLOR,  &dcal->weekColors[MONTH_THAT]);
+
+    /* success array must be as big as number of colors */
+    g_assert(MAX_COLORS == (sizeof(colorAllocSuccess)/sizeof(gboolean)));
+
     if (gdk_colormap_alloc_colors(gdk_colormap_get_system(),
                                   dcal->weekColors,
                                   MAX_COLORS, TRUE, TRUE,
-                                  &colorAllocSuccess) > 0)
+                                  colorAllocSuccess) > 0)
     {
         g_error("error allocating colors");
     }
@@ -581,7 +585,7 @@ gnc_dense_cal_set_num_months(GncDenseCal *dcal, guint num_months)
             gint months_val, delta_months;
 
             gtk_tree_model_get(GTK_TREE_MODEL(options), &view_opts_iter, VIEW_OPTS_COLUMN_NUM_MONTHS, &months_val, -1);
-            delta_months = abs(months_val - num_months);
+            delta_months = abs(months_val - (int)num_months);
             if (delta_months < closest_index_distance)
             {
                 iter_closest_to_req = view_opts_iter;
@@ -1736,14 +1740,20 @@ gdc_add_tag_markings(GncDenseCal *cal, guint tag)
     {
         dates[idx] = g_date_new();
         gnc_dense_cal_model_get_instance(cal->model, tag, idx, dates[idx]);
-    }
 
-    if (g_date_get_julian(dates[0]) < g_date_get_julian(calDate))
+    }
+    if (g_date_valid(dates[0]))
     {
-        _gnc_dense_cal_set_month(cal, g_date_get_month(dates[0]), FALSE);
-        _gnc_dense_cal_set_year(cal, g_date_get_year(dates[0]), FALSE);
+	 if (g_date_get_julian(dates[0]) < g_date_get_julian(calDate))
+	 {
+	      _gnc_dense_cal_set_month(cal, g_date_get_month(dates[0]), FALSE);
+	      _gnc_dense_cal_set_year(cal, g_date_get_year(dates[0]), FALSE);
+	 }
     }
-
+    else
+    {
+	 g_warning("Bad date, skipped.");
+    }
     gdc_mark_add(cal, tag, name, info, num_marks, dates);
 
     for (idx = 0; idx < num_marks; idx++)

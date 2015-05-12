@@ -24,7 +24,6 @@
 extern "C"
 {
 #include "config.h"
-#include <inttypes.h>
 }
 
 #include "gnc-int128.hpp"
@@ -32,6 +31,7 @@ extern "C"
 #include <iomanip>
 #include <utility>
 #include <cassert>
+#include <cstdio>
 
 /* All algorithms from Donald E. Knuth, "The Art of Computer
  * Programming, Volume 2: Seminumerical Algorithms", 3rd Ed.,
@@ -39,8 +39,8 @@ extern "C"
  */
 
 namespace {
-    static const uint sublegs = GncInt128::numlegs * 2;
-    static const uint sublegbits = GncInt128::legbits / 2;
+    static const unsigned int sublegs = GncInt128::numlegs * 2;
+    static const unsigned int sublegbits = GncInt128::legbits / 2;
     static const uint64_t sublegmask = (UINT64_C(1) << sublegbits) - 1;
 }
 
@@ -143,7 +143,7 @@ GncInt128::gcd(GncInt128 b) const noexcept
     GncInt128 a (isNeg() ? -(*this) : *this);
     if (b.isNeg()) b = -b;
 
-    uint k {};
+    unsigned int k {};
     const uint64_t one {1};
     while (!((a & one) || (b & one))) //B1
     {
@@ -175,7 +175,7 @@ GncInt128::lcm(const GncInt128& b) const noexcept
 
 /* Knuth section 4.6.3 */
 GncInt128
-GncInt128::pow(uint b) const noexcept
+GncInt128::pow(unsigned int b) const noexcept
 {
     if (isZero() || (m_lo == 1 && m_hi == 0) || isNan() || isOverflow())
         return *this;
@@ -231,10 +231,10 @@ GncInt128::abs() const noexcept
     return *this;
 }
 
-uint
+unsigned int
 GncInt128::bits() const noexcept
 {
-    uint bits {static_cast<uint>(m_hi == 0 ? 0 : 64)};
+    unsigned int bits {static_cast<unsigned int>(m_hi == 0 ? 0 : 64)};
     uint64_t temp {(m_hi == 0 ? m_lo : m_hi)};
     for (;temp > 0; temp >>= 1)
         ++bits;
@@ -305,7 +305,7 @@ GncInt128::operator+= (const GncInt128& b) noexcept
 }
 
 GncInt128&
-GncInt128::operator<<= (uint i) noexcept
+GncInt128::operator<<= (unsigned int i) noexcept
 {
     if (i > maxbits)
     {
@@ -322,7 +322,7 @@ GncInt128::operator<<= (uint i) noexcept
 }
 
 GncInt128&
-GncInt128::operator>>= (uint i) noexcept
+GncInt128::operator>>= (unsigned int i) noexcept
 {
     if (i > maxbits)
     {
@@ -407,7 +407,7 @@ GncInt128::operator*= (const GncInt128& b) noexcept
         return *this;
     }
 
-    uint abits {bits()}, bbits {b.bits()};
+    unsigned int abits {bits()}, bbits {b.bits()};
     if (abits + bbits > maxbits)
     {
         m_flags |= overflow;
@@ -794,7 +794,7 @@ GncInt128::asCharBufR(char* buf) const noexcept
 
     if (isNeg()) *(next++) = neg;
     bool trailing {false};
-    for (uint i {dec_array_size}; i; --i)
+    for (unsigned int i {dec_array_size}; i; --i)
         if (d[i - 1] || trailing)
         {
             if (trailing)
@@ -908,16 +908,15 @@ operator^ (GncInt128 a, const GncInt128& b) noexcept
 }
 
 GncInt128
-operator<< (GncInt128 a, uint b) noexcept
+operator<< (GncInt128 a, unsigned int b) noexcept
 {
     a <<= b;
     return a;
 }
 
 GncInt128
-operator>> (GncInt128 a, uint b) noexcept
+operator>> (GncInt128 a, unsigned int b) noexcept
 {
     a >>= b;
     return a;
 }
-

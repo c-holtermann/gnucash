@@ -58,7 +58,7 @@ struct timeval
 #include "gnc-lot.h"
 #include "gnc-event.h"
 #include <gnc-gdate-utils.h>
-
+#include "SchedXaction.h"
 #include "qofbackend-p.h"
 
 /* Notes about xaccTransBeginEdit(), xaccTransCommitEdit(), and
@@ -1627,15 +1627,7 @@ xaccTransCommitEdit (Transaction *trans)
     /* Record the time of last modification */
     if (0 == trans->date_entered.tv_sec)
     {
-        struct timeval tv;
-#ifdef HAVE_GETTIMEOFDAY
-        gettimeofday (&tv, NULL);
-#else
-        time (&(tv.tv_sec));
-        tv.tv_usec = 0;
-#endif
-        trans->date_entered.tv_sec = tv.tv_sec;
-//        trans->date_entered.tv_nsec = 1000 * tv.tv_usec;
+	trans->date_entered.tv_sec = gnc_time(NULL);
         qof_instance_set_dirty(QOF_INSTANCE(trans));
     }
 
@@ -2319,6 +2311,29 @@ xaccTransGetReadOnly (const Transaction *trans)
                trans->inst.kvp_data, TRANS_READ_ONLY_REASON) : NULL;
 }
 
+static gboolean
+xaccTransIsSXTemplate (const Transaction * trans)
+{
+    Split *split0 = xaccTransGetSplit (trans, 0);
+    if (split0 != NULL)
+    {
+	char* formula = NULL;
+	g_object_get (split0, "sx-debit-formula", &formula, NULL);
+	if (formula != NULL)
+	{
+	    g_free (formula);
+	    return TRUE;
+	}
+	g_object_get (split0, "sx-credit-formula", &formula, NULL);
+ 	if (formula != NULL)
+	{
+	    g_free (formula);
+	    return TRUE;
+	}
+    }
+    return FALSE;
+}
+
 gboolean xaccTransIsReadonlyByPostedDate(const Transaction *trans)
 {
     GDate *threshold_date;
@@ -2331,6 +2346,9 @@ gboolean xaccTransIsReadonlyByPostedDate(const Transaction *trans)
     {
         return FALSE;
     }
+
+    if (xaccTransIsSXTemplate (trans))
+	return FALSE;
 
     threshold_date = qof_book_get_autoreadonly_gdate(book);
     g_assert(threshold_date); // ok because we checked uses_autoreadonly before

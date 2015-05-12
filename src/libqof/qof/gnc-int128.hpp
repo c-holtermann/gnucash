@@ -25,7 +25,15 @@
 #ifndef GNCINT128_H
 #define GNCINT128_H
 
-#include <stdint.h>
+extern "C"
+{
+#ifndef __STDC_LIMIT_MACROS
+#define  __STDC_LIMIT_MACROS 1
+#define  __STDC_CONSTANT_MACROS 1
+#define  __STDC_FORMAT_MACROS 1
+#endif
+#include <inttypes.h>
+}
 
 #include <stdexcept>
 #include <string>
@@ -51,9 +59,9 @@ class GncInt128
     uint64_t m_lo;
 
 public:
-static const uint numlegs = 2;
-static const uint legbits = 64;
-static const uint maxbits = legbits * numlegs;
+static const unsigned int numlegs = 2;
+static const unsigned int legbits = 64;
+static const unsigned int maxbits = legbits * numlegs;
 
 enum // Values for m_flags
 {
@@ -129,7 +137,7 @@ enum // Values for m_flags
  * value greater than 128 would overflow on any value other than 1.
  * @return A GncInt128
  */
-    GncInt128 pow (uint n) const noexcept;
+    GncInt128 pow (unsigned int n) const noexcept;
 
 /**
  * Computes a quotient and a remainder, passed as reference parameters.
@@ -184,7 +192,7 @@ enum // Values for m_flags
 /**
  * @return the number of bits used to represent the value
  */
-    uint bits() const noexcept;
+    unsigned int bits() const noexcept;
 
 /**
  * Fills a supplied buffer with a representation of the number in base 10. If
@@ -205,8 +213,8 @@ enum // Values for m_flags
     GncInt128& operator++ (int) noexcept;
     GncInt128& operator-- () noexcept;
     GncInt128& operator-- (int) noexcept;
-    GncInt128& operator<<= (uint i) noexcept;
-    GncInt128& operator>>= (uint i) noexcept;
+    GncInt128& operator<<= (unsigned int i) noexcept;
+    GncInt128& operator>>= (unsigned int i) noexcept;
     GncInt128& operator+= (const GncInt128& b) noexcept;
     GncInt128& operator-= (const GncInt128& b) noexcept;
     GncInt128& operator*= (const GncInt128& b) noexcept;
@@ -229,8 +237,8 @@ GncInt128 operator% (GncInt128 a, const GncInt128& b) noexcept;
 GncInt128 operator& (GncInt128 a, const GncInt128& b) noexcept;
 GncInt128 operator| (GncInt128 a, const GncInt128& b) noexcept;
 GncInt128 operator^ (GncInt128 a, const GncInt128& b) noexcept;
-GncInt128 operator<< (GncInt128 a, uint b) noexcept;
-GncInt128 operator>> (GncInt128 a, uint b) noexcept;
+GncInt128 operator<< (GncInt128 a, unsigned int b) noexcept;
+GncInt128 operator>> (GncInt128 a, unsigned int b) noexcept;
 
 bool operator== (const GncInt128& a, const GncInt128& b) noexcept;
 bool operator!= (const GncInt128& a, const GncInt128& b) noexcept;
@@ -248,7 +256,6 @@ GncInt128 gcd (int64_t a, int64_t b);
 /** Compute the least common multiple of two integers
  */
 GncInt128 lcm (int64_t a, int64_t b);
-
 #endif //GNCINT128_H
 
 /** @} */

@@ -296,6 +296,8 @@ KvpValue * kvp_frame_get_slot_path_gslist (KvpFrame *frame, GSList *key_path);
     SET_ENUM("QOF-COMPARE-GT");
     SET_ENUM("QOF-COMPARE-GTE");
     SET_ENUM("QOF-COMPARE-NEQ");
+    SET_ENUM("QOF-COMPARE-CONTAINS");
+    SET_ENUM("QOF-COMPARE-NCONTAINS");
 
     SET_ENUM("QOF-NUMERIC-MATCH-ANY");
     SET_ENUM("QOF-NUMERIC-MATCH-CREDIT");
@@ -362,7 +364,7 @@ KvpValue * kvp_frame_get_slot_path_gslist (KvpFrame *frame, GSList *key_path);
     SET_ENUM("GNC-HOW-RND-ROUND");
     SET_ENUM("GNC-HOW-RND-NEVER");
 
-#undefine SET_ENUM
+#undef SET_ENUM
   }
 
 }

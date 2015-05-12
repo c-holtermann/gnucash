@@ -53,9 +53,6 @@ typedef struct
 typedef struct
 {
     GtkWidget        *acct_info;
-    GtkWidget        *expense_radio;
-    GtkWidget        *asset_radio;
-    GtkWidget        *liab_eq_radio;
     GtkWidget        *account_treeview;
     GtkWidget        *select_button;
     GtkWidget        *num_acct_label;
@@ -67,30 +64,31 @@ typedef struct
 
 typedef struct
 {
-    CsvExportType export_type;
-    CsvExportDate csvd;
-    CsvExportAcc  csva;
+    CsvExportType   export_type;
+    CsvExportDate   csvd;
+    CsvExportAcc    csva;
+    GList          *trans_list;
     
-    GtkWidget    *start_page;
-    GtkWidget    *account_page;
-    GtkWidget    *file_page;
+    GtkWidget      *start_page;
+    GtkWidget      *account_page;
+    GtkWidget      *file_page;
 
-    GtkWidget    *window;
-    GtkWidget    *assistant;
-    GtkWidget    *start_label;
-    GtkWidget    *custom_entry;
+    GtkWidget      *window;
+    GtkWidget      *assistant;
+    GtkWidget      *start_label;
+    GtkWidget      *custom_entry;
 
-    GtkWidget    *file_chooser;
-    GtkWidget    *finish_label;
-    GtkWidget    *summary_label;
+    GtkWidget      *file_chooser;
+    GtkWidget      *finish_label;
+    GtkWidget      *summary_label;
 
-    gchar        *starting_dir;
-    gchar        *file_name;
+    gchar          *starting_dir;
+    gchar          *file_name;
 
-    char         *separator_str;
-    gboolean      use_quotes;
-    gboolean      use_custom;
-    gboolean      failed;
+    char           *separator_str;
+    gboolean        use_quotes;
+    gboolean        use_custom;
+    gboolean        failed;
 } CsvExportInfo;
 
 

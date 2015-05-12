@@ -29,7 +29,7 @@ gncinclude_HEADERS = \
 
 noinst_DATA = .scm-links
 
-if BUILDING_FROM_SCM
+if BUILDING_FROM_VCS
 swig-gnc-module.c: gnc-module.i ${top_srcdir}/src/base-typemaps.i
 	$(SWIG) -guile $(SWIG_ARGS) -Linkage module \
 	-I${top_srcdir}/src -o $@ $<
@@ -67,22 +67,24 @@ endif
 
 if GNC_HAVE_GUILE_2
 GUILE_COMPILE_ENV = \
-  --library-dir    ${top_builddir}/src/gnc-module
+  --library-dir    ${top_builddir}/src/gnc-module \
+  --library-dir    ${top_builddir}/src/core-utils \
+  --library-dir    ${top_builddir}/src/libqof/qof
 
 %.go : %.scm .scm-links $(lib_LTLIBRARIES)
 	GNC_UNINSTALLED=yes \
 	GNC_BUILDDIR=${top_builddir} \
-	$(shell ${top_builddir}/src/gnc-test-env --no-exports ${GUILE_COMPILE_ENV}) \
+	$(shell ${abs_top_srcdir}/src/gnc-test-env.pl --noexports ${GUILE_COMPILE_ENV}) \
 	$(GUILD) compile -o $@ $<
 
-gncscmmodcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash
+gncscmmodcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash
 gncscmmodcache_DATA = $(gncscmmod_DATA:.scm=.go)
 endif
 
 clean-local:
 	rm -rf gnucash
 
-CLEANFILES = .scm-links ${SCM_FILE_LINKS}
+CLEANFILES = .scm-links ${SCM_FILE_LINKS} ${gncscmmodcache_DATA}
 MAINTAINERCLEANFILES = swig-gnc-module.c
 
 AM_CPPFLAGS += -DG_LOG_DOMAIN=\"gnc.module\"

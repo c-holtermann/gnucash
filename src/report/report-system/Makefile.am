@@ -23,7 +23,7 @@ libgncmod_report_system_la_LIBADD = \
   ${GLIB_LIBS} \
   ${GTK_LIBS}
 
-if BUILDING_FROM_SCM
+if BUILDING_FROM_VCS
 swig-report-system.c: report-system.i ${top_srcdir}/src/base-typemaps.i
 	$(SWIG) -guile $(SWIG_ARGS) -Linkage module \
 	-I${top_srcdir}/src -o $@ $<
@@ -120,24 +120,30 @@ GUILE_COMPILE_ENV = \
   --guile-load-dir ${top_builddir}/src/gnc-module \
   --guile-load-dir ${top_builddir}/src/gnome-utils \
   --guile-load-dir ${top_builddir}/src/scm \
+  --library-dir    ${top_builddir}/src/libqof/qof \
+  --library-dir    ${top_builddir}/src/engine \
   --library-dir    ${top_builddir}/src/app-utils \
   --library-dir    ${top_builddir}/src/core-utils \
   --library-dir    ${top_builddir}/src/gnc-module \
+  --library-dir    ${top_builddir}/src/gnome-utils \
+  --library-dir    ${top_builddir}/src/backend/xml \
+  --library-dir    ${top_builddir}/src/backend/sql \
+  --library-dir    ${top_builddir}/src/html \
   --library-dir    ${top_builddir}/src/report/report-system
 
 %.go : %.scm .scm-links $(pkglib_LTLIBRARIES)
 	GNC_UNINSTALLED=yes \
 	GNC_BUILDDIR=${top_builddir} \
-	$(shell ${top_builddir}/src/gnc-test-env --no-exports ${GUILE_COMPILE_ENV}) \
+	$(shell ${abs_top_srcdir}/src/gnc-test-env.pl --noexports ${GUILE_COMPILE_ENV}) \
 	$(GUILD) compile -o $@ $<
 
-gncscmmodcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash/report
+gncscmmodcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash/report
 gncscmmodcache_DATA = $(gncscmmod_DATA:.scm=.go)
 
-gncmodscmcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash/report/report-system
+gncmodscmcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash/report/report-system
 gncmodscmcache_DATA = $(gncmodscm_DATA:.scm=.go)
 
-gncscmcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@
+gncscmcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@
 gncscmcache_DATA = $(gncscm_DATA:.scm=.go)
 endif
 
@@ -148,7 +154,14 @@ EXTRA_DIST = report-system.i ${gncscmmod_DATA} ${gncscm_DATA} ${gncmodscm_DATA}
 clean-local:
 	rm -rf gnucash
 
-CLEANFILES = report .scm-links ${SCM_FILE_LINKS}
+CLEANFILES = \
+	report \
+	.scm-links \
+	${SCM_FILE_LINKS} \
+	${gncscmmodcache_DATA} \
+	${gncmodscmcache_DATA} \
+	${gncscmcache_DATA}
+
 MAINTAINERCLEANFILES = swig-report-system.c
 
 AM_CPPFLAGS += -DG_LOG_DOMAIN=\"gnc.report.core\"

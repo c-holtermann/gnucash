@@ -23,7 +23,7 @@ libtest_core_la_CPPFLAGS = \
 libtest_core_la_LDFLAGS = \
   -rpath ${exec-prefix}/lib
 
-if BUILDING_FROM_SCM
+if BUILDING_FROM_VCS
 swig-unittest-support-guile.c: unittest-support.i $(top_srcdir)/src/base-typemaps.i
 	$(SWIG) -guile $(SWIG_ARGS) -Linkage module \
 	-I${top_srcdir}/src \
@@ -80,13 +80,17 @@ _unittest_support_la_LIBADD = \
 endif
 
 if WITH_GOOGLE_TEST
+if GOOGLE_TEST_LIBS
+noinst_LIBRARIES = libgmock.a
+else
 noinst_LIBRARIES = \
         libgtest.a \
         libgmock.a
-libgtest_a_SOURCES = ${GTEST_ROOT}/src/gtest-all.cc
-libgmock_a_SOURCES = ${GMOCK_ROOT}/src/gmock-all.cc
-libgtest_a_CPPFLAGS = ${AM_CPPFLAGS} -I${GTEST_HEADERS} -I${GTEST_ROOT}
-libgmock_a_CPPFLAGS = ${libgtest_a_CPPFLAGS} -I${GMOCK_HEADERS} -I${GMOCK_ROOT}
+nodist_libgtest_a_SOURCES = ${GTEST_SRC}/src/gtest-all.cc
+libgtest_a_CPPFLAGS = ${AM_CPPFLAGS} -I${GTEST_HEADERS} -I${GTEST_SRC}
+endif
+nodist_libgmock_a_SOURCES = ${GMOCK_SRC_PATH}/gmock-all.cc
+libgmock_a_CPPFLAGS = ${libgtest_a_CPPFLAGS} -I${GMOCK_HEADERS} -I${GMOCK_SRC}
 endif
 
 gncscmmoddir = ${GNC_SCM_INSTALL_DIR}/gnucash
@@ -110,15 +114,16 @@ endif
 
 if GNC_HAVE_GUILE_2
 GUILE_COMPILE_ENV = \
-  --library-dir    ${top_builddir}/src/test-core
+  --library-dir    ${top_builddir}/src/test-core \
+  --library-dir    ${top_builddir}/src/libqof/qof
 
 %.go : %.scm .scm-links $(noinst_LTLIBRARIES)
 	GNC_UNINSTALLED=yes \
 	GNC_BUILDDIR=${top_builddir} \
-	$(shell ${top_builddir}/src/gnc-test-env --no-exports ${GUILE_COMPILE_ENV}) \
+	$(shell ${abs_top_srcdir}/src/gnc-test-env.pl --noexports ${GUILE_COMPILE_ENV}) \
 	$(GUILD) compile -o $@ $<
 
-gncscmmodcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash
+gncscmmodcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash
 gncscmmodcache_DATA = $(gncscmmod_DATA:.scm=.go)
 endif
 
@@ -126,7 +131,7 @@ clean-local:
 	$(RM) -rf gnucash
 
 noinst_DATA = .scm-links
-CLEANFILES = .scm-links
+CLEANFILES = .scm-links ${gncscmmodcache_DATA}
 
 EXTRA_DIST = \
   $(SCM_FILES) \

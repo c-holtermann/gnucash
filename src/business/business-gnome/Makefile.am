@@ -126,17 +126,25 @@ GUILE_COMPILE_ENV = \
   --guile-load-dir ${top_builddir}/src/report/report-system \
   --guile-load-dir ${top_builddir}/src/report/standard-reports \
   --guile-load-dir ${top_builddir}/src/scm \
+  --library-dir    ${top_builddir}/src/libqof/qof \
+  --library-dir    ${top_builddir}/src/engine \
   --library-dir    ${top_builddir}/src/app-utils \
   --library-dir    ${top_builddir}/src/core-utils \
-  --library-dir    ${top_builddir}/src/gnc-module
+  --library-dir    ${top_builddir}/src/gnc-module \
+  --library-dir    ${top_builddir}/src/gnome-utils \
+  --library-dir    ${top_builddir}/src/backend/xml \
+  --library-dir    ${top_builddir}/src/backend/sql \
+  --library-dir    ${top_builddir}/src/html \
+  --library-dir    ${top_builddir}/src/report/report-system
+
 
 %.go : %.scm .scm-links $(pkglib_LTLIBRARIES)
 	GNC_UNINSTALLED=yes \
 	GNC_BUILDDIR=${top_builddir} \
-	$(shell ${top_builddir}/src/gnc-test-env --no-exports ${GUILE_COMPILE_ENV}) \
+	$(shell ${abs_top_srcdir}/src/gnc-test-env.pl --noexports ${GUILE_COMPILE_ENV}) \
 	$(GUILD) compile -o $@ $<
 
-gncscmmodcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash
+gncscmmodcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash
 gncscmmodcache_DATA = $(gncscmmod_DATA:.scm=.go)
 endif
 
@@ -144,6 +152,10 @@ noinst_DATA = .scm-links
 clean-local:
 	rm -rf gnucash
 
-CLEANFILES = $(BUILT_SOURCES) .scm-links ${SCM_FILE_LINKS}
+CLEANFILES = \
+	$(BUILT_SOURCES) \
+	.scm-links \
+	${SCM_FILE_LINKS} \
+	${gncscmmodcache_DATA}
 
 AM_CPPFLAGS += -DG_LOG_DOMAIN=\"gnc.business.gnome\"

@@ -26,7 +26,7 @@
 ;; http://www.felfri.de/winston/schnittstellen.htm
 ;;
 
-(use-modules (gnucash gettext))
+(use-modules (gnucash app-utils))
 
 (define txf-tax-entity-types
   (list

@@ -52,6 +52,8 @@ GUILE_COMPILE_ENV = \
   --guile-load-dir ${top_builddir}/src/engine \
   --guile-load-dir ${top_builddir}/src/gnc-module \
   --guile-load-dir ${top_builddir}/src/scm \
+  --library-dir    ${top_builddir}/src/libqof/qof \
+  --library-dir    ${top_builddir}/src/engine \
   --library-dir    ${top_builddir}/src/app-utils \
   --library-dir    ${top_builddir}/src/core-utils \
   --library-dir    ${top_builddir}/src/gnc-module
@@ -59,13 +61,13 @@ GUILE_COMPILE_ENV = \
 %.go : %.scm .scm-links $(pkglib_LTLIBRARIES)
 	GNC_UNINSTALLED=yes \
 	GNC_BUILDDIR=${top_builddir} \
-	$(shell ${top_builddir}/src/gnc-test-env --no-exports ${GUILE_COMPILE_ENV}) \
+	$(shell ${abs_top_srcdir}/src/gnc-test-env.pl --noexports ${GUILE_COMPILE_ENV}) \
 	$(GUILD) compile -o $@ $<
 
-gncscmmodcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash/tax
+gncscmmodcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@/gnucash/tax
 gncscmmodcache_DATA = $(gncscmmod_DATA:.scm=.go)
 
-gncscmcachedir = ${GNC_SCM_INSTALL_DIR}/ccache/@GUILE_EFFECTIVE_VERSION@
+gncscmcachedir = ${pkglibdir}/scm/ccache/@GUILE_EFFECTIVE_VERSION@
 gncscmcache_DATA = $(gncscm_DATA:.scm=.go)
 endif
 
@@ -78,5 +80,6 @@ EXTRA_DIST = \
   ${gncscmmod_DATA} \
   ${gncscm_DATA}
 
-CLEANFILES = .scm-links
+CLEANFILES = .scm-links ${gncscmmodcache_DATA} ${gncscmcache_DATA}
+
 DISTCLEANFILES = ${SCM_FILE_LINKS}

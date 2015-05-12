@@ -81,7 +81,7 @@ typedef struct _SchedXaction SchedXaction;
  *  . copying the fields of the template
  *  . setting the date to the calculated "due" date.
  *
- * We should be able to use the GeneralLedger [or, yet-another-subtype
+ * We should be able to use the GeneralJournal [or, yet-another-subtype
  * of the internal ledger] for this editing.
  **/
 struct _SchedXaction
@@ -303,7 +303,7 @@ void gnc_sx_remove_defer_instance( SchedXaction *sx, void *deferStateData );
 */
 GList *gnc_sx_get_defer_instances( SchedXaction *sx );
 
-/* #defines for KvpFrame strings and QOF */
+/* #defines for Properties and GncModule */
 #define GNC_SX_SHARES                "shares"
 #define GNC_SX_FREQ_SPEC             "scheduled-frequency"
 #define GNC_SX_NAME                  "sched-xname"

@@ -45,6 +45,9 @@ extern "C"
 #else
 #define _Q "`"
 #endif
+#if defined(__clang__) && (__clang_major__ == 5 || (__clang_major__ == 3 && __clang_minor__ < 5))
+#define USE_CLANG_FUNC_SIG 1
+#endif
 
 static const gchar *suitename = "/engine/Split";
 void test_suite_split ( void );
@@ -1281,7 +1284,7 @@ test_get_corr_account_split (Fixture *fixture, gconstpointer pData)
     Account *acc1 = xaccMallocAccount (book);
     Account *acc2 = xaccMallocAccount (book);
     Account *acc3 = xaccMallocAccount (book);
-#ifdef __clang__
+#ifdef USE_CLANG_FUNC_SIG
 #define _func "gboolean get_corr_account_split(const Split *, const Split **)"
 #else
 #define _func "get_corr_account_split"
@@ -1805,7 +1808,7 @@ test_xaccSplitGetOtherSplit (Fixture *fixture, gconstpointer pData)
     g_assert (kvp_frame_get_slot (split1->inst.kvp_data, "lot-split") == NULL);
     qof_book_begin_edit (book);
     qof_instance_set (QOF_INSTANCE (book),
-		      "trading-accts", "t",
+		      "currency-accounting", "trading",
 		      NULL);
     qof_book_commit_edit (book);
     g_assert (xaccTransUseTradingAccounts (txn));

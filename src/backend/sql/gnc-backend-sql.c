@@ -1879,6 +1879,10 @@ typedef void (*TimespecSetterFunc)( const gpointer, Timespec );
 #define TIMESPEC_STR_FORMAT "%04d%02d%02d%02d%02d%02d"
 #define TIMESPEC_COL_SIZE (4+2+2+2+2+2)
 
+/* This is required because we're passing be->timespace_format to
+ * g_strdup_printf.
+ */
+#pragma GCC diagnostic ignored "-Wformat-nonliteral"
 gchar*
 gnc_sql_convert_timespec_to_string( const GncSqlBackend* be, Timespec ts )
 {
@@ -1897,6 +1901,7 @@ gnc_sql_convert_timespec_to_string( const GncSqlBackend* be, Timespec ts )
     gnc_tm_free (tm);
     return datebuf;
 }
+#pragma GCC diagnostic warning "-Wformat-nonliteral"
 
 static void
 load_timespec( const GncSqlBackend* be, GncSqlRow* row,
@@ -2052,12 +2057,10 @@ load_date( const GncSqlBackend* be, GncSqlRow* row,
 	if (G_VALUE_HOLDS_INT64 (val))
 	{
 	    gint64 time = g_value_get_int64 (val);
-	    GDateTime *gdt = g_date_time_new_from_unix_utc (time);
+	    Timespec ts = {time, 0};
+	    struct tm tm;
 	    gint day, month, year;
-	    GDate *date;
-	    g_date_time_get_ymd (gdt, &year, &month, &day);
-	    date = g_date_new_dmy (day, month, year);
-	    g_date_time_unref (gdt);
+	    GDate date = timespec_to_gdate(ts);
 	    if ( table_row->gobj_param_name != NULL )
 	    {
 		if (QOF_IS_INSTANCE (pObject))
@@ -2068,9 +2071,8 @@ load_date( const GncSqlBackend* be, GncSqlRow* row,
 	    }
 	    else
 	    {
-		(*setter)( pObject, date );
+		(*setter)( pObject, &date );
 	    }
-	    g_date_free( date );
 	}
         else if ( G_VALUE_HOLDS_STRING( val ) )
         {
