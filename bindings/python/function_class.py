@@ -69,6 +69,10 @@ class ClassFromFunctions(object):
         else:
             self.__instance = getattr(self._module, self._new_instance)(
                 *process_list_convert_to_instance(args) )
+        try:
+            self.instance.__WrappingObject = self 
+        except:
+            pass
 
     def get_instance(self):
         """Get the instance data.
