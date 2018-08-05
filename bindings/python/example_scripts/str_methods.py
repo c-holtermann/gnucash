@@ -382,6 +382,7 @@ gnucash.gnucash_business.Entry.add_method("__entry__str__", "__str__")
 
 from gnucash import GncNumeric
 
+
 def __gncnumeric__str__(self):
     """Returns a human readable numeric value string as UTF8.
 
@@ -393,15 +394,12 @@ def __gncnumeric__str__(self):
 
     """
 
-    if hasattr(self, '_ClassFromFunctions__WrappingObject'):
-        higherself = getattr(self, '_ClassFromFunctions__WrappingObject')
-    else:
-        higherself = GncNumeric(instance=self)
+    tempself = GncNumeric(instance=self)
 
-    if higherself.denom() == 0:
+    if tempself.denom() == 0:
         return "Division by zero"
     else:
-        value_float = higherself.to_double()
+        value_float = tempself.to_double()
         value_str = u"{0:.{1}f}".format(value_float, 2)
         # The second argument is the precision.
         # It would be nice to be able to make it configurable.
@@ -412,7 +410,6 @@ def __gncnumeric__str__(self):
 def __gncnumeric__format__(self, formatstring):
     """Format function for GncNumeric"""
 
-    from gnucash import GncNumeric
     tempself = GncNumeric(instance=self)
 
     return format(str(tempself), formatstring)
