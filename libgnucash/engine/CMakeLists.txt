@@ -115,6 +115,7 @@ set (engine_HEADERS
   qofutil.h
   qof-gobject.h
   qof-string-cache.h
+  kitty.h
 )
 
 # Command to generate the swig-engine.c wrapper file
@@ -202,6 +203,7 @@ set (engine_SOURCES
   qofsession.cpp
   qofutil.cpp
   qof-string-cache.cpp
+  kitty.cc
 )
 
 if (WIN32)
