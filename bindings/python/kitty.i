@@ -1,4 +1,4 @@
-%module kitty
+%module(package="gnucash") gnucash_core_kitty
 %{
   #include "kitty.h"
 %}
