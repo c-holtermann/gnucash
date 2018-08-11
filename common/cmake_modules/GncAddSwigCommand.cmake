@@ -87,6 +87,14 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
         )
 
         set (PYTHON_SWIG_FLAGS ${DEFAULT_SWIG_PYTHON_FLAGS})
+	
+	string(REGEX MATCH "_[^_]+$" _c_or_cc ${_out_var})
+	
+	if (${_c_or_cc} STREQUAL "_CC")
+		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS})
+		message ( "target ${_target} c++")
+	endif()
+
         foreach (dir ${DEFAULT_SWIG_PYTHON_C_INCLUDES})
             list (APPEND PYTHON_SWIG_FLAGS "-I${dir}")
         endforeach (dir)
