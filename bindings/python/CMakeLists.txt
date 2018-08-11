@@ -1,9 +1,11 @@
 add_subdirectory(example_scripts)
 add_subdirectory(tests)
+# add_subdirectory(kitty)
 
 set(PYEXEC_FILES  __init__.py function_class.py gnucash_business.py gnucash_core.py)
 
-set(SWIG_FILES ${CMAKE_CURRENT_SOURCE_DIR}/gnucash_core.i ${CMAKE_CURRENT_SOURCE_DIR}/time64.i)
+set(SWIG_FILES ${CMAKE_CURRENT_SOURCE_DIR}/gnucash_core.i ${CMAKE_CURRENT_SOURCE_DIR}/time64.i )
+set(SWIG_FILES_KITTY ${CMAKE_CURRENT_SOURCE_DIR}/kitty.i)
 set(GNUCASH_CORE_C_INCLUDES
     ${CONFIG_H}
     ${CMAKE_SOURCE_DIR}/libgnucash/engine/qofsession.h
@@ -13,6 +15,7 @@ set(GNUCASH_CORE_C_INCLUDES
     ${CMAKE_SOURCE_DIR}/libgnucash/engine/qofutil.h
     ${CMAKE_SOURCE_DIR}/libgnucash/engine/qofid.h
     ${CMAKE_SOURCE_DIR}/libgnucash/engine/guid.h
+    ${CMAKE_SOURCE_DIR}/libgnucash/engine/kitty.h
     ${CMAKE_SOURCE_DIR}/libgnucash/gnc-module/gnc-module.h
     ${CMAKE_SOURCE_DIR}/libgnucash/engine/gnc-engine.h
     ${CMAKE_SOURCE_DIR}/libgnucash/engine/Transaction.h
@@ -45,6 +48,16 @@ gnc_add_swig_python_command (swig-gnucash-core
     ${GNUCASH_CORE_C_INCLUDES}
 )
 
+gnc_add_swig_python_command (swig-gnucash-kitty
+    SWIG_GNUCASH_KITTY_CC SWIG_GNUCASH_KITTY_PY
+    gnucash_kitty.cc gnucash_kitty.py
+    ${SWIG_FILES_KITTY}
+    ${CMAKE_SOURCE_DIR}/common/base-typemaps.i
+    ${CMAKE_SOURCE_DIR}/libgnucash/engine/engine-common.i
+    ${GNUCASH_CORE_C_INCLUDES}
+)
+
+
 if(WITH_PYTHON)
 
   set(gnucash_core_c_INCLUDE_DIRS
@@ -61,13 +74,23 @@ if(WITH_PYTHON)
   )
 
   add_library(gnucash_core_c MODULE ${SWIG_GNUCASH_CORE_C})
+  add_library(gnucash_core_kitty MODULE ${SWIG_GNUCASH_KITTY_CC}) 
+  
   target_include_directories(gnucash_core_c PRIVATE ${gnucash_core_c_INCLUDE_DIRS})
-
+  target_include_directories(gnucash_core_kitty PRIVATE ${gnucash_core_c_INCLUDE_DIRS})
+  
   target_link_libraries(gnucash_core_c gncmod-app-utils gncmod-engine gnc-module ${GLIB_LIBS} ${PYTHON_LIBRARIES})
+  target_link_libraries(gnucash_core_kitty gncmod-app-utils gncmod-engine gnc-module ${GLIB_LIBS} ${PYTHON_LIBRARIES})
+  
   set_target_properties(gnucash_core_c PROPERTIES PREFIX "_")
+  set_target_properties(gnucash_core_kitty PROPERTIES PREFIX "_")
+  
   target_compile_options(gnucash_core_c PRIVATE -Wno-implicit -Wno-missing-prototypes -Wno-declaration-after-statement -Wno-missing-declarations)
+  target_compile_options(gnucash_core_kitty PRIVATE -Wno-missing-declarations)
+
   if (HAVE_STRINGOP_TRUNCATION)
     target_compile_options(gnucash_core_c PRIVATE -Wno-error=stringop-truncation)
+    target_compile_options(gnucash_core_kitty PRIVATE -Wno-error=stringop-truncation)
   endif()
 
   add_executable(sqlite3test EXCLUDE_FROM_ALL sqlite3test.c ${SWIG_GNUCASH_CORE_C})
@@ -85,7 +108,15 @@ if(WITH_PYTHON)
     LIBRARY DESTINATION ${PYTHON_SYSCONFIG_OUTPUT}/gnucash
     ARCHIVE DESTINATION ${PYTHON_SYSCONFIG_OUTPUT}/gnucash
   )
+  install(TARGETS gnucash_core_kitty
+    LIBRARY DESTINATION ${PYTHON_SYSCONFIG_OUTPUT}/gnucash
+    ARCHIVE DESTINATION ${PYTHON_SYSCONFIG_OUTPUT}/gnucash
+  )
+
   install(FILES ${PYEXEC_FILES} ${SWIG_GNUCASH_CORE_PY}
+    DESTINATION ${PYTHON_SYSCONFIG_OUTPUT}/gnucash
+  )
+  install(FILES ${PYEXEC_FILES} ${SWIG_GNUCASH_KITTY_PY}
     DESTINATION ${PYTHON_SYSCONFIG_OUTPUT}/gnucash
   )
 
