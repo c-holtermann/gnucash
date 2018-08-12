@@ -79,6 +79,12 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
             -Wall -Werror
             ${SWIG_ARGS}
         )
+
+        set (DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR
+            -python -py3
+            ${SWIG_ARGS}
+        )
+        
         set (DEFAULT_SWIG_PYTHON_C_INCLUDES
             ${GLIB2_INCLUDE_DIRS}
             ${CMAKE_SOURCE_DIR}/common
@@ -91,7 +97,7 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
 	string(REGEX MATCH "_[^_]+$" _c_or_cc ${_out_var})
 	
 	if (${_c_or_cc} STREQUAL "_CC")
-		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS})
+		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR})
 		message ( "target ${_target} c++")
 	endif()
 
