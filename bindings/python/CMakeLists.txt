@@ -126,9 +126,17 @@ if(WITH_PYTHON)
     COMMAND ${CMAKE_COMMAND} -E copy ${SWIG_GNUCASH_CORE_PY} ${PYTHON_SYSCONFIG_BUILD}/gnucash
     DEPENDS ${SWIG_GNUCASH_CORE_C})
 
+  add_custom_target(gnucash-core-kitty-py ALL
+    COMMAND ${CMAKE_COMMAND} -E copy ${SWIG_GNUCASH_KITTY_PY} ${PYTHON_SYSCONFIG_BUILD}/gnucash
+    DEPENDS ${SWIG_GNUCASH_KITTY_CC})
+  
   add_custom_target(gnucash-core-c-build ALL
     COMMAND ${CMAKE_COMMAND} -E copy ${LIBDIR_BUILD}/gnucash/_gnucash_core_c${CMAKE_SHARED_MODULE_SUFFIX} ${PYTHON_SYSCONFIG_BUILD}/gnucash
     DEPENDS gnucash_core_c)
+
+  add_custom_target(gnucash-kitty-cc-build ALL
+    COMMAND ${CMAKE_COMMAND} -E copy ${LIBDIR_BUILD}/gnucash/_gnucash_core_kitty_cc${CMAKE_SHARED_MODULE_SUFFIX} ${PYTHON_SYSCONFIG_BUILD}/gnucash
+    DEPENDS gnucash_core_kitty_cc)
 
 endif()
 
