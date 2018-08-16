@@ -2,12 +2,15 @@
 
 %{
   #include <string>
+  #include "gnc-rational.hpp"
+  #include "gnc-rational-rounding.hpp"
   #include "gnc-numeric.hpp"
   #include "qofsession.h"
   #include "qofsession.hpp"
 %}
 
-/* %include <gnc-numeric.hpp> */
+%include <gnc-rational-rounding.hpp>
+%include <gnc-numeric.hpp>
 
 %ignore save_in_progress;
 %ignore qof_session_get_book_id;
