@@ -9,6 +9,8 @@
   #include "qofsession.hpp"
 %}
 
+%include <std_string.i>
+
 %include <gnc-rational-rounding.hpp>
 %include <gnc-numeric.hpp>
 
