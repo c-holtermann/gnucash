@@ -52,6 +52,7 @@ endmacro (gnc_add_swig_guile_command)
 # - _out_var will be set to the full path to the generated wrapper file
 #   when building from git, it points to the actually generated file
 #   however when building from a tarball, it will point to the version from the tarball instead
+#   if name ends with _CC it will be treated as C++ and respective SWIG flags will be set
 # - _py_out_var is the same but for the python module that's generated together with the wrapper
 # - _output is the name of the wrapper file to generate (or to look up in the tarball)
 # - _py_output is the name of the python module associated with this wrapper
@@ -79,6 +80,12 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
             -Wall -Werror
             ${SWIG_ARGS}
         )
+
+        set (DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR
+            -python -py3
+            ${SWIG_ARGS}
+        )
+        
         set (DEFAULT_SWIG_PYTHON_C_INCLUDES
             ${GLIB2_INCLUDE_DIRS}
             ${CMAKE_SOURCE_DIR}/common
@@ -87,6 +94,14 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
         )
 
         set (PYTHON_SWIG_FLAGS ${DEFAULT_SWIG_PYTHON_FLAGS})
+	
+	# check if _out_var ends with _CC - in that case set swig flag c++ and disable werror (for now)
+	string(REGEX MATCH "_[^_]+$" _c_or_cc ${_out_var})
+	if (${_c_or_cc} STREQUAL "_CC")
+		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR})
+		message ( "target ${_target} c++")
+	endif()
+
         foreach (dir ${DEFAULT_SWIG_PYTHON_C_INCLUDES})
             list (APPEND PYTHON_SWIG_FLAGS "-I${dir}")
         endforeach (dir)
