@@ -29,6 +29,7 @@
 #  @ingroup python_bindings
 
 import gnucash.gnucash_core_c as gnucash_core_c
+import gnucash.gnucash_core_cc as gnucash_core_cc
 
 from gnucash.function_class import \
      ClassFromFunctions, extract_attributes_with_prefix, \
