@@ -7,6 +7,22 @@
 /* TODO: restrict to this class */
 %rename(_from) from; // qofsession.hpp:118 qof_instance_copy_data.from -> qof_instance_copy_data._from as from is reserved keyword in python
 
+/* renames for gnc-numeric.hpp */
+/* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
+%rename(operator_plus) operator +;
+%rename(operator_minus) operator -;
+%rename(operator_multiply) operator *;
+%rename(operator_divide) operator /;
+%rename(operator_greater) operator >;
+%rename(operator_smaller) operator <;
+%rename(operator_equals) operator ==;
+%rename(operator_inequal) operator !=;
+%rename(operator_greaterequal) operator >=;
+%rename(operator_smallerequal) operator <=;
+%rename(operator_insert) operator <<;
+%rename(operator_double) operator double;
+%rename(operator_gnc_numeric) operator gnc_numeric;
+
 %{
   #include <string>
   #include "gnc-rational.hpp"
