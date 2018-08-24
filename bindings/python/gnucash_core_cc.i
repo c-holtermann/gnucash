@@ -2,7 +2,7 @@
 
 %include <std_string.i>
 
-/* renames for qofsession.hpp */
+/* rename and ignore for qofsession.hpp */
 /* prevent Warning 314: 'from' is a python keyword, renaming to '_from' qofsession.hpp:118 */
 %rename(_from) qof_instance_copy_data::from;
 /* prevent qofsession.hpp:132: Warning 322: Redundant redeclaration of 'qof_session_get_backend' TODO: refine to only ignore redundancy*/
