@@ -3,9 +3,10 @@
 %include <std_string.i>
 
 /* renames for qofsession.hpp */
-/* prevent Warning 314: 'from' is a python keyword, renaming to '_from' */
-/* TODO: restrict to this class */
-%rename(_from) from; // qofsession.hpp:118 qof_instance_copy_data.from -> qof_instance_copy_data._from as from is reserved keyword in python
+/* prevent Warning 314: 'from' is a python keyword, renaming to '_from' qofsession.hpp:118 */
+%rename(_from) qof_instance_copy_data::from;
+/* prevent qofsession.hpp:132: Warning 322: Redundant redeclaration of 'qof_session_get_backend' TODO: refine to only ignore redundancy*/
+%ignore qof_session_get_backend;
 
 /* renames and igonres for gnc-numeric.hpp */
 /* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
