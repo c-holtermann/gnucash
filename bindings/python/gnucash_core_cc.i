@@ -27,6 +27,13 @@
 %ignore GncNumeric::operator=;
 /* prevent Warning 509: in lines 140+141 */ 
 %ignore GncNumeric::GncNumeric(GncNumeric &&);
+%rename(__abs__) GncNumeric::abs;
+/* prevent Warning 321: line 180 */
+%rename(__reduce__) GncNumeric::reduce;
+%rename(__cmp__) GncNumeric::cmp;
+%rename(_cmp_GncNumeric_GncNumeric) cmp(GncNumeric a, GncNumeric b);
+%rename(_cmp_GncNumeric_int64) cmp(GncNumeric a, int64_t b);
+%rename(_cmp_int64_GncNumeric) cmp(int64_t a, GncNumeric b);
 
 %{
   #include <string>
