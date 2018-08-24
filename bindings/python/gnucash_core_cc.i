@@ -7,7 +7,7 @@
 /* TODO: restrict to this class */
 %rename(_from) from; // qofsession.hpp:118 qof_instance_copy_data.from -> qof_instance_copy_data._from as from is reserved keyword in python
 
-/* renames for gnc-numeric.hpp */
+/* renames and igonres for gnc-numeric.hpp */
 /* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
 %rename(operator_plus) operator +;
 %rename(operator_minus) operator -;
@@ -22,6 +22,8 @@
 %rename(operator_insert) operator <<;
 %rename(operator_double) operator double;
 %rename(operator_gnc_numeric) operator gnc_numeric;
+/* prevent Warning 362: operator= ignored in lines 142  and 143 */
+%ignore GncNumeric::operator=;
 
 %{
   #include <string>
