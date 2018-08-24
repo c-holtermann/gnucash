@@ -22,8 +22,10 @@
 %rename(operator_insert) operator <<;
 %rename(operator_double) operator double;
 %rename(operator_gnc_numeric) operator gnc_numeric;
-/* prevent Warning 362: operator= ignored in lines 142  and 143 */
+/* prevent Warning 362: operator= ignored in lines 142 and 143 */
 %ignore GncNumeric::operator=;
+/* prevent Warning 509: in lines 140+141 */ 
+%ignore GncNumeric::GncNumeric(GncNumeric &&);
 
 %{
   #include <string>
