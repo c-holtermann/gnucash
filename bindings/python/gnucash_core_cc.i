@@ -2,7 +2,10 @@
 
 %include <std_string.i>
 
-%rename(_from) from; // qofsession:118 qof_instance_copy_data.from -> qof_instance_copy_data._from as from is reserved keyword in python
+/* renames for qofsession.hpp */
+/* prevent Warning 314: 'from' is a python keyword, renaming to '_from' */
+/* TODO: restrict to this class */
+%rename(_from) from; // qofsession.hpp:118 qof_instance_copy_data.from -> qof_instance_copy_data._from as from is reserved keyword in python
 
 %{
   #include <string>
