@@ -2,6 +2,8 @@
 
 %include <std_string.i>
 %include "stdint.i"
+%include <std_except.i>
+
 
 /* rename and ignore for qofsession.hpp */
 /* prevent Warning 314: 'from' is a python keyword, renaming to '_from' qofsession.hpp:118 */
@@ -15,6 +17,7 @@
 /* TODO: implement arithmetics etc. with GncNumeric */
 /* TODO: implement arithmetics etc. with floats for convenience in python */
 /* TODO: check what needs to implement on python side to have a solid arithmetic type */
+/* TODO: to_decimal is broken when needs to round when shouldn't and tries to throw error 'std::domain_error', including std_except.i doesn't solve this*/
 
 /* GncNumeric is already the name for the python wrapper for gnc_numeric */
 %rename(GncNumericCC) GncNumeric;
