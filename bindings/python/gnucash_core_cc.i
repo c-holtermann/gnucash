@@ -41,6 +41,120 @@
 %rename(_cmp_GncNumeric_int64) cmp(GncNumeric a, int64_t b);
 %rename(_cmp_int64_GncNumeric) cmp(int64_t a, GncNumeric b);
 
+%extend GncNumeric {
+public:
+                bool __eq__(GncNumeric b) {
+                        return *self == b;
+                }
+
+                bool __eq__(int64_t b) {
+                        return *self == b;
+                }
+
+                bool __ne__(GncNumeric b) {
+                        return *self != b;
+                }
+
+                bool __ne__(int64_t b) {
+                        return *self != b;
+                }
+
+                bool __lt__(GncNumeric b) {
+                        return *self < b;
+                }
+
+                bool __lt__(int64_t b) {
+                        return *self < b;
+                }
+                
+                bool __gt__(GncNumeric b) {
+                        return *self > b;
+                }
+
+                bool __gt__(int64_t b) {
+                        return *self > b;
+                }
+                
+                bool __le__(GncNumeric b) {
+                        return *self <= b;
+                }
+
+                bool __le__(int64_t b) {
+                        return *self <= b;
+                }
+                
+                bool __ge__(GncNumeric b) {
+                        return *self >= b;
+                }
+
+                bool __ge__(int64_t b) {
+                        return *self >= b;
+                }
+
+                GncNumeric __add__(GncNumeric b) {
+                        return *self + b;
+                }
+
+                GncNumeric __add__(int64_t b) {
+                        return *self + b;
+                }
+                
+                GncNumeric __sub__(GncNumeric b) {
+                        return *self - b;
+                }
+
+                GncNumeric __sub__(int64_t b) {
+                        return *self - b;
+                }
+
+                GncNumeric __mul__(GncNumeric b) {
+                        return *self * b;
+                }
+
+                GncNumeric __mul__(int64_t b) {
+                        return *self * b;
+                }
+                
+                /* div is Python 2.0 only */
+                GncNumeric __div__(GncNumeric b) {
+                        return *self / b;
+                }
+
+                GncNumeric __div__(int64_t b) {
+                        return *self / b;
+                } /* div is Python 2.0 only */
+        
+                GncNumeric __truediv__(GncNumeric b) {
+                        return *self / b;
+                }
+
+                GncNumeric __truediv__(int64_t b) {
+                        return *self / b;
+                }
+
+                GncNumeric __floordiv__(GncNumeric b) {
+                        return *self / b;
+                }
+
+                GncNumeric __floordiv__(int64_t b) {
+                        return *self / b;
+                }
+
+                /* not implemented ?
+                GncNumeric __mod__(GncNumeric b) {
+                        return *self % b;
+                }
+
+                GncNumeric __mod__(int64_t b) {
+                        return *self % b;
+                }*/
+       
+                /* __repr__ shall show the same as __str__ */ 
+                std::string __repr__() {
+                        return self->to_string();
+                }
+};
+
 %{
   #include <string>
   #include "gnc-rational.hpp"
