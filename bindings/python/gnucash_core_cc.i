@@ -1,6 +1,7 @@
 %module(package="gnucash") gnucash_core_cc
 
 %include <std_string.i>
+%include "stdint.i"
 
 /* rename and ignore for qofsession.hpp */
 /* prevent Warning 314: 'from' is a python keyword, renaming to '_from' qofsession.hpp:118 */
