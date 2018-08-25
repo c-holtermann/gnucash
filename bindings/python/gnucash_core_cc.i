@@ -183,6 +183,8 @@ public:
 /* TODO: join with gnc-numeric-stuff from above */
 %template(convert_round_half_up) GncNumeric::convert<RoundType::half_up>;
 %template(convert_round_never) GncNumeric::convert<RoundType::never>;
+%template(convert_sigfigs_round_half_up) GncNumeric::convert_sigfigs<RoundType::half_up>;
+%template(convert_sigfigs_round_never) GncNumeric::convert_sigfigs<RoundType::never>;
 
 %ignore save_in_progress;
 %ignore qof_session_get_book_id;
