@@ -192,8 +192,12 @@ public:
                 return self->convert<RoundType::half_up>(1);
         }
 
-        double __round__(int64_t ndigits) {
+        double __round_digits__(int64_t ndigits) {
                 return self->convert_sigfigs<RoundType::half_up>(ndigits);
+        }
+
+        int64_t __round_nodigits__() {
+                return self->convert_sigfigs<RoundType::half_up>(1);
         }
 
         int64_t __trunc__() {
@@ -214,6 +218,13 @@ public:
          if _newclass: 
                  denominator = property(denom)
                  numerator = property(num)
+
+        /* TODO: Should __round__ return an int if rounding leads to an int (with ndigits present) ? */
+         def __round__(self, *args):
+                if len(args) == 1:
+                        return self.__round_digits__(args[0])
+                else:
+                        return self.__round_nodigits__()
         %}
 }
 
