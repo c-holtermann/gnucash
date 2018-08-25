@@ -13,6 +13,7 @@
 /* just so that swig runs without warnings */
 /* TODO: go through all gnc-numeric.hpp and check what is good to wrap */
 /* TODO: implement arithmetics with floats for convenience in python */
+/* TODO: check what needs to implement on python side to have a solid arithmetic type */
 /* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
 %rename(__add__) operator +;
 %rename(__sub__) operator -;
