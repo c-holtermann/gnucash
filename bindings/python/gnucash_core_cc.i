@@ -32,6 +32,7 @@
 %ignore GncNumeric::operator=;
 /* prevent Warning 509: in lines 140+141 */ 
 %ignore GncNumeric::GncNumeric(GncNumeric &&);
+%rename(__str__) GncNumeric::to_string;
 %rename(__abs__) GncNumeric::abs;
 /* prevent Warning 321: line 180 */
 %rename(__reduce__) GncNumeric::reduce;
