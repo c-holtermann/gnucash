@@ -196,6 +196,18 @@ public:
                 return self->convert_sigfigs<RoundType::half_up>(ndigits);
         }
 
+        int64_t __trunc__() {
+                return self->convert<RoundType::truncate>(1);
+        }
+
+        int64_t __floor__() {
+                return self->convert<RoundType::floor>(1);
+        }
+
+        int64_t __ceil__() {
+                return self->convert<RoundType::ceiling>(1);
+        }
+        
         %pythoncode %{
          __swig_getmethods__["denominator"] = denom
          __swig_getmethods__["numerator"] = num
