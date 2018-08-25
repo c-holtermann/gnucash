@@ -9,8 +9,8 @@
 /* prevent qofsession.hpp:132: Warning 322: Redundant redeclaration of 'qof_session_get_backend' TODO: refine to only ignore redundancy*/
 %ignore qof_session_get_backend;
 
-/* renames and igonres for gnc-numeric.hpp */
-/* just so that swig runs without warnings */
+/* renames and ignores for gnc-numeric.hpp */
+/* for the moment just so that swig runs without warnings */
 /* TODO: go through all gnc-numeric.hpp and check what is good to wrap */
 /* TODO: implement arithmetics with floats for convenience in python */
 /* TODO: check what needs to implement on python side to have a solid arithmetic type */
