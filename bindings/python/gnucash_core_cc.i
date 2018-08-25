@@ -180,6 +180,9 @@ public:
 %include <gnc-rational-rounding.hpp>
 %include <gnc-numeric.hpp>
 
+%template(convert_round_half_up) GncNumeric::convert<RoundType::half_up>;
+%template(convert_round_never) GncNumeric::convert<RoundType::never>;
+
 %ignore save_in_progress;
 %ignore qof_session_get_book_id;
 %include <qofsession.h>
@@ -187,3 +190,5 @@ public:
 %include <qof-backend.hpp>
 
 %include <qofsession.hpp>
+
+
