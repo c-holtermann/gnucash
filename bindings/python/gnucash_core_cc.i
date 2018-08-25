@@ -15,6 +15,10 @@
 /* TODO: implement arithmetics etc. with GncNumeric */
 /* TODO: implement arithmetics etc. with floats for convenience in python */
 /* TODO: check what needs to implement on python side to have a solid arithmetic type */
+
+/* GncNumeric is already the name for the python wrapper for gnc_numeric */
+%rename(GncNumericCC) GncNumeric;
+
 /* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
 %rename(__add__) operator +;
 %rename(__sub__) operator -;
