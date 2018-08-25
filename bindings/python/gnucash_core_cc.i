@@ -10,6 +10,7 @@
 %ignore qof_session_get_backend;
 
 /* renames and igonres for gnc-numeric.hpp */
+/* just so that swig runs without warnings */
 /* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
 %rename(operator_plus) operator +;
 %rename(operator_minus) operator -;
