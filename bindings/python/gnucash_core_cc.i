@@ -186,6 +186,13 @@ public:
 %template(convert_sigfigs_round_half_up) GncNumeric::convert_sigfigs<RoundType::half_up>;
 %template(convert_sigfigs_round_never) GncNumeric::convert_sigfigs<RoundType::never>;
 
+%extend GncNumeric {
+public:
+        int64_t __int__() {
+                return self->convert<RoundType::half_up>(1);
+        }
+}
+
 %ignore save_in_progress;
 %ignore qof_session_get_book_id;
 %include <qofsession.h>
