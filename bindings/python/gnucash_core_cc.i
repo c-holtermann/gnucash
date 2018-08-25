@@ -195,6 +195,14 @@ public:
         double __round__(int64_t ndigits) {
                 return self->convert_sigfigs<RoundType::half_up>(ndigits);
         }
+
+        %pythoncode %{
+         __swig_getmethods__["denominator"] = denom
+         __swig_getmethods__["numerator"] = num
+         if _newclass: 
+                 denominator = property(denom)
+                 numerator = property(num)
+        %}
 }
 
 %ignore save_in_progress;
