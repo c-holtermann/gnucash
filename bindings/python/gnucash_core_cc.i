@@ -191,6 +191,10 @@ public:
         int64_t __int__() {
                 return self->convert<RoundType::half_up>(1);
         }
+
+        double __round__(int64_t ndigits) {
+                return self->convert_sigfigs<RoundType::half_up>(ndigits);
+        }
 }
 
 %ignore save_in_progress;
