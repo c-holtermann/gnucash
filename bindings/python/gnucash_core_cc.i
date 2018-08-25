@@ -34,7 +34,7 @@
 %rename(__ge__) operator >=;
 %rename(__le__) operator <=;
 %rename(operator_insert) operator <<;
-%rename(__float__) operator double;
+%rename(__float__) GncNumeric::operator double;
 %rename(to_gnc_numeric) operator gnc_numeric;
 /* prevent Warning 362: operator= ignored in lines 142 and 143 */
 %ignore GncNumeric::operator=;
