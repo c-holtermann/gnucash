@@ -12,16 +12,19 @@
 /* renames and igonres for gnc-numeric.hpp */
 /* just so that swig runs without warnings */
 /* prevent Warning 503: Can't wrap 'operator ...' unless renamed to a valid identifier. */
-%rename(operator_plus) operator +;
-%rename(operator_minus) operator -;
-%rename(operator_multiply) operator *;
-%rename(operator_divide) operator /;
-%rename(operator_greater) operator >;
-%rename(operator_smaller) operator <;
-%rename(operator_equals) operator ==;
-%rename(operator_inequal) operator !=;
-%rename(operator_greaterequal) operator >=;
-%rename(operator_smallerequal) operator <=;
+%rename(__add__) operator +;
+%rename(__sub__) operator -;
+%rename(__mul__) operator *;
+%rename(__div__) operator /;
+%rename(__gt__) operator >;
+%rename(__lt__) operator <;
+/* make all these type aware variants accessible or ignore them ? */
+%rename(_eq_GncNumeric_GncNumeric) operator ==(GncNumeric a, GncNumeric b);
+%rename(_eq_GncNumeric_int64) operator ==(GncNumeric a, int64_t b);
+%rename(_eq_int64_GncNumeric) operator ==(int64_t a, GncNumeric b);
+%rename(__ne__) operator !=;
+%rename(__ge__) operator >=;
+%rename(__le__) operator <=;
 %rename(operator_insert) operator <<;
 %rename(operator_double) operator double;
 %rename(operator_gnc_numeric) operator gnc_numeric;
