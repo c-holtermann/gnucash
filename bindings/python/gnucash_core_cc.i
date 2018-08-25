@@ -49,6 +49,7 @@
 %rename(_cmp_GncNumeric_int64) cmp(GncNumeric a, int64_t b);
 %rename(_cmp_int64_GncNumeric) cmp(int64_t a, GncNumeric b);
 
+/* TODO: does it make sense to inline these ? */
 %extend GncNumeric {
 public:
                 bool __eq__(GncNumeric b) {
