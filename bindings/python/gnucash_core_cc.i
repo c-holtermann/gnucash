@@ -72,6 +72,12 @@
 %template(convert_sigfigs_round_half_up) GncNumeric::convert_sigfigs<RoundType::half_up>;
 %template(convert_sigfigs_round_never) GncNumeric::convert_sigfigs<RoundType::never>;
 
+%pythoncode %{
+        from fractions import Fraction
+        import numbers
+        import gnucash
+%}
+
 /* TODO: does it make sense to inline some of these ? */
 %extend GncNumeric {
 public:
@@ -232,6 +238,52 @@ public:
                 else:
                         return NotImplemented
 
+         # from https://docs.python.org/3/library/numbers.html#numbers.Integral
+         # and https://github.com/python/cpython/blob/3.7/Lib/fractions.py
+         def _operator_fallbacks(monomorphic_operator, fallback_operator):
+            def forward(a, b):
+                if isinstance(b, (int, GncNumericCC)):
+                    return monomorphic_operator(a, b)
+                elif isinstance(b, gnucash.GncNumeric):
+                    return monomorphic_operator(a, GncNumericCC(b.num(), b.denom()))
+                elif isinstance(b, Fraction):
+                    return monomorphic_operator(a, GncNumericCC(b.numerator, b.denominator))
+                elif isinstance(b, float):
+                    return monomorphic_operator(a, GncNumericCC(b))
+                elif isinstance(b, complex):
+                    return fallback_operator(complex(a), b)
+                else:
+                    return NotImplemented
+            forward.__name__ = '__' + fallback_operator.__name__ + '__'
+            forward.__doc__ = monomorphic_operator.__doc__
+
+            def reverse(b, a):
+                if isinstance(a, Fraction):
+                    return fallback_operator(a, Fraction(b.numerator, b.denominator))
+                elif isinstance(a, numbers.Rational):
+                    # Includes ints.
+                    return monomorphic_operator(a, b)
+                elif isinstance(a, gnucash.GncNumeric):
+                    temp = monomorphic_operator(GncNumericCC(a.num(), a.denom()), b)
+                    return gnucash.GncNumeric(temp.numerator, temp.denominator)
+                elif isinstance(a, numbers.Real):
+                    return fallback_operator(float(a), float(b)) 
+                elif isinstance(a, numbers.Complex):
+                    return fallback_operator(complex(a), complex(b))
+                else:
+                    return NotImplemented
+            reverse.__name__ = '__r' + fallback_operator.__name__ + '__'
+            reverse.__doc__ = monomorphic_operator.__doc__
+
+            return forward, reverse
+
+         import operator
+
+         __add__, __radd__ = _operator_fallbacks(__add_cc__, operator.add)
+         __sub__, __rsub__ = _operator_fallbacks(__sub_cc__, operator.sub)
+         __mul__, __rmul__ = _operator_fallbacks(__mul_cc__, operator.mul)
+         __truediv__, __rtruediv__ = _operator_fallbacks(__div_cc__, operator.truediv)
+         __floordiv__, __rfloordiv__ = _operator_fallbacks(__div_cc__, operator.floordiv)
         %}
 }
 
