@@ -257,6 +257,7 @@ public:
             forward.__name__ = '__' + fallback_operator.__name__ + '__'
             forward.__doc__ = monomorphic_operator.__doc__
 
+            # TODO: is there GncNumericCC missing here ?
             def reverse(b, a):
                 if isinstance(a, Fraction):
                     return fallback_operator(a, Fraction(b.numerator, b.denominator))
@@ -288,6 +289,7 @@ public:
          __truediv__, __rtruediv__ = _operator_fallbacks(__div_cc__, operator.truediv)
          __itruediv__ = __truediv__
          __floordiv__, __rfloordiv__ = _operator_fallbacks(__div_cc__, operator.floordiv)
+         __ifloordiv__ = __floordiv__
         %}
 }
 
