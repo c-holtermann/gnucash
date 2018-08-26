@@ -88,6 +88,27 @@
 %include <time64.i>
 
 %include <base-typemaps.i>
+%include <typemaps.i>
+%include <cpointer.i>
+
+/* https://github.com/cdsi/sam/blob/master/share/swig/glib-types.i */
+%typemap(in) gint8, gint16, gint32, gint64, gint, gshort, glong {
+        $1 = ($1_type)PyInt_AsLong($input);
+}
+
+%typemap(out) gint8, gint16, gint32, gint64, gint, gshort, glong {
+        $result = PyInt_FromLong($1);
+}
+
+%typemap(in) guint8, guint16, guint32, guint64, guint, gushort, gulong {
+        $1 = ($1_type)PyLong_AsUnsignedLong($input);
+}
+
+%typemap(out) guint8, guint16, guint32, guint64, guint, gushort, gulong {
+        $result = PyLong_FromUnsignedLong($1);
+}
+
+%pointer_class(guint8, guint8p)
 
 %include <engine-common.i>
 
