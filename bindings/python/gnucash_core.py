@@ -321,6 +321,84 @@ class GncNumeric(GnuCashCoreClass):
         else:
             raise TypeError('Required single int/float/str or two ints: ' + str(args))
 
+    # from https://docs.python.org/3/library/numbers.html#numbers.Integral
+    # and https://github.com/python/cpython/blob/3.7/Lib/fractions.py
+
+    import numbers
+    from fractions import Fraction
+
+    #denominator = property(denom)
+    #numerator = property(num)
+
+    def _operator_fallbacks(monomorphic_operator, fallback_operator):
+        def forward(a, b):
+            if isinstance(b, (int, GncNumeric)):
+                return monomorphic_operator(a, b)
+            #elif isinstance(b, gnucash.gnucash_core_cc.GncNumericCC):
+            #    return monomorphic_operator(a, GncNumeric(b.numerator,
+            #    b.denominator))
+            elif isinstance(b, Fraction):
+                return monomorphic_operator(a, GncNumeric(b.numerator, b.denominator))
+            elif isinstance(b, float):
+                return monomorphic_operator(a, GncNumeric(b))
+            #elif isinstance(b, complex):
+            #    return fallback_operator(complex(a), b)
+            else:
+                return NotImplemented
+        forward.__name__ = '__' + fallback_operator.__name__ + '__'
+        forward.__doc__ = monomorphic_operator.__doc__
+
+        def reverse(b, a):
+            if isinstance(a, Fraction):
+                return fallback_operator(a, Fraction(b.numerator, b.denominator))
+            elif isinstance(a, (numbers.Rational, GncNumeric)):
+                # Includes ints.
+                return monomorphic_operator(a, b)
+            #elif isinstance(a, gnucash.GncNumeric):
+            #    temp = monomorphic_operator(GncNumericCC(a.num(), a.denom()), b)
+            #    return gnucash.GncNumeric(temp.numerator, temp.denominator)
+            elif isinstance(a, numbers.Real):
+                return fallback_operator(float(a), float(b))
+            #elif isinstance(a, numbers.Complex):
+            #    return fallback_operator(complex(a), complex(b))
+            else:
+                return NotImplemented
+        reverse.__name__ = '__r' + fallback_operator.__name__ + '__'
+        reverse.__doc__ = monomorphic_operator.__doc__
+
+        return forward, reverse
+
+    import operator
+
+    def _add(a, b):
+        return a.add(b, GNC_DENOM_AUTO, GNC_HOW_RND_ROUND_HALF_UP)
+
+    def _sub(a, b):
+        return a.sub(b, GNC_DENOM_AUTO, GNC_HOW_RND_ROUND_HALF_UP)
+
+    def _mul(a, b):
+        return a.mul(b, GNC_DENOM_AUTO, GNC_HOW_RND_ROUND_HALF_UP)
+
+    def _div(a, b):
+        return a.div(b, GNC_DENOM_AUTO, GNC_HOW_RND_ROUND_HALF_UP)
+
+    __add__, __radd__ = _operator_fallbacks(_add, operator.add)
+    __iadd__ = __add__
+    __sub__, __rsub__ = _operator_fallbacks(_sub, operator.sub)
+    __isub__ = __sub__
+    __mul__, __rmul__ = _operator_fallbacks(_mul, operator.mul)
+    __imul__ = __mul__
+    __truediv__, __rtruediv__ = _operator_fallbacks(_div, operator.truediv)
+    __itruediv__ = __truediv__
+    __floordiv__, __rfloordiv__ = _operator_fallbacks(_div, operator.floordiv)
+    __ifloordiv__ = __floordiv__
+
+    def __float__(self):
+        return self.to_double()
+
+    def __int__(self):
+        return int(self.to_double())  # hack !
+
     def to_fraction(self):
         from fractions import Fraction
         return Fraction(self.num(), self.denom())
@@ -328,6 +406,9 @@ class GncNumeric(GnuCashCoreClass):
     def __str__(self):
         """Returns a human readable numeric value string as UTF8."""
         return gnc_numeric_to_string(self.instance)
+
+
+
 
 class GncPrice(GnuCashCoreClass):
     '''
