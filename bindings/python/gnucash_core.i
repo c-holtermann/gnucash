@@ -110,6 +110,35 @@
 
 %pointer_class(guint8, guint8p)
 
+/* %apply guint8 *INPUT { guint8 * max_decimal_places}; */
+
+/* gboolean gnc_numeric_to_decimal(gnc_numeric * INPUT, guint8 * INPUT);*/
+
+/*%typemap(in) guint8 * {
+        $1 = (guint8 *)PyLong_AsUnsignedLong($input);
+}
+
+%typemap(out) guint8 * {
+        $result = PyLong_FromUnsignedLong($1);
+}*/
+
+/*%typemap(in) gfloat, gdouble {
+        $1 = ($1_type)PyFloat_AsDouble($input);
+}
+
+%typemap(out) gfloat, gdouble {
+        $result = PyFloat_FromDouble($1);
+}
+
+%typemap(in) gchar * {
+        $1 = ($1_ltype)PyString_AsString($input);
+}
+
+%typemap(out) gchar * {
+        $result = PyString_FromString($1);
+}*/
+
+
 %include <engine-common.i>
 
 %include <qofbackend.h>
