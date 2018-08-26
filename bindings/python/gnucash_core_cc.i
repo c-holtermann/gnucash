@@ -217,7 +217,7 @@ public:
                  denominator = property(denom)
                  numerator = property(num)
 
-        /* TODO: Should __round__ return an int if rounding leads to an int (with ndigits present) ? */
+         # TODO: Should __round__ return an int if rounding leads to an int representable value (with ndigits present) or always a float ?
          def __round__(self, *args):
                 if len(args) == 1:
                         return self.__round_digits__(args[0])
