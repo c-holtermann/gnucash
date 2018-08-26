@@ -280,9 +280,13 @@ public:
          import operator
 
          __add__, __radd__ = _operator_fallbacks(__add_cc__, operator.add)
+         __iadd__ = __add__
          __sub__, __rsub__ = _operator_fallbacks(__sub_cc__, operator.sub)
+         __isub__ = __sub__
          __mul__, __rmul__ = _operator_fallbacks(__mul_cc__, operator.mul)
+         __imul__ = __mul__
          __truediv__, __rtruediv__ = _operator_fallbacks(__div_cc__, operator.truediv)
+         __itruediv__ = __truediv__
          __floordiv__, __rfloordiv__ = _operator_fallbacks(__div_cc__, operator.floordiv)
         %}
 }
