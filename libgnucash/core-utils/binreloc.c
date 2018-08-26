@@ -452,7 +452,7 @@ gchar *
 gnc_gbr_find_bin_dir (const gchar *default_bin_dir)
 {
     gchar *prefix, *dir, *bindir;
-    prefix = gnc_gbr_find_prefix (NULL);
+    prefix = gnc_gbr_find_prefix (PREFIX);
     if (prefix == NULL)
     {
         /* BinReloc not initialized. */
@@ -487,7 +487,7 @@ gnc_gbr_find_data_dir (const gchar *default_data_dir)
 {
     gchar *prefix, *dir, *datadir;
 
-    prefix = gnc_gbr_find_prefix (NULL);
+    prefix = gnc_gbr_find_prefix (PREFIX);
     if (prefix == NULL)
     {
         /* BinReloc not initialized. */
@@ -522,7 +522,7 @@ gnc_gbr_find_lib_dir (const gchar *default_lib_dir)
 {
     gchar *prefix, *dir, *libdir;
 
-    prefix = gnc_gbr_find_prefix (NULL);
+    prefix = gnc_gbr_find_prefix (PREFIX);
     if (prefix == NULL)
     {
         /* BinReloc not initialized. */
@@ -557,7 +557,7 @@ gnc_gbr_find_etc_dir (const gchar *default_etc_dir)
 {
     gchar *prefix, *dir, *sysconfdir;
 
-    prefix = gnc_gbr_find_prefix (NULL);
+    prefix = gnc_gbr_find_prefix (PREFIX);
     if (prefix == NULL)
     {
         /* BinReloc not initialized. */
