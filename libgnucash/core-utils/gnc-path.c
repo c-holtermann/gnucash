@@ -47,7 +47,7 @@ gchar *gnc_path_get_bindir()
  * @returns A newly allocated string. */
 gchar *gnc_path_get_libdir()
 {
-    //printf("Returning libdir %s\n", gnc_gbr_find_lib_dir (LIBDIR));
+    printf("Returning libdir %s\n", gnc_gbr_find_lib_dir (LIBDIR));
     return gnc_gbr_find_lib_dir (LIBDIR);
 }
 

@@ -99,7 +99,9 @@ _br_find_exe (Gnc_GbrInitError *error)
     ssize_t size;
     struct stat stat_buf;
     FILE *f;
-
+    
+    g_print("_br_find_exe\n");
+    
     /* Read from /proc/self/exe (symlink) */
     if (sizeof (path) > SSIZE_MAX)
         buf_size = SSIZE_MAX - 1;
@@ -125,6 +127,8 @@ _br_find_exe (Gnc_GbrInitError *error)
 
     strncpy (path2, "/proc/self/exe", buf_size - 1);
 
+    g_print("path2: %s\n", path2);
+    
     while (1)
     {
         int i;
@@ -132,7 +136,9 @@ _br_find_exe (Gnc_GbrInitError *error)
         size = readlink (path2, path, buf_size - 1);
         if (size == -1)
         {
-            /* Error. */
+	    g_print("_br_find_exe size == -1 \n");
+            
+	    /* Error. */
             g_free (path2);
             break;
         }
@@ -145,7 +151,9 @@ _br_find_exe (Gnc_GbrInitError *error)
         i = stat (path, &stat_buf);
         if (i == -1)
         {
-            /* Error. */
+	    g_print("_br_find_exe i == -1 \n");
+            
+	    /* Error. */
             g_free (path2);
             break;
         }
@@ -153,7 +161,9 @@ _br_find_exe (Gnc_GbrInitError *error)
         /* stat() success. */
         if (!S_ISLNK (stat_buf.st_mode))
         {
-            /* path is not a symlink. Done. */
+	    g_print("path: %s\n", path);
+            
+	    /* path is not a symlink. Done. */
             g_free (path2);
             return path;
         }
@@ -162,6 +172,7 @@ _br_find_exe (Gnc_GbrInitError *error)
         strncpy (path, path2, buf_size - 1);
     }
 
+    g_print("_br_find_exe\n");
 
     /* readlink() or stat() failed; this can happen when the program is
      * running in Valgrind 2.2. Read from /proc/self/maps as fallback. */
@@ -225,6 +236,7 @@ _br_find_exe (Gnc_GbrInitError *error)
     }
 
     path = g_strdup (path);
+    g_print("path: %s\n", path);
     g_free (line);
     fclose (f);
     return path;
@@ -418,6 +430,9 @@ gchar *
 gnc_gbr_find_prefix (const gchar *default_prefix)
 {
     gchar *dir1, *dir2;
+    g_print("get_builddir_prefix: %s\n", get_builddir_prefix());
+    g_print("get_mac_bundle_prefix: %s\n", get_mac_bundle_prefix());
+    g_print("default_prefix: %s\n", default_prefix);
     if ((dir2 = get_builddir_prefix()) || (dir2 = get_mac_bundle_prefix()))
         return dir2;
     if (exe == NULL)
@@ -522,10 +537,12 @@ gnc_gbr_find_lib_dir (const gchar *default_lib_dir)
 {
     gchar *prefix, *dir, *libdir;
 
+    g_print("default lib dir: %s\n", default_lib_dir);
     prefix = gnc_gbr_find_prefix (PREFIX);
     if (prefix == NULL)
     {
-        /* BinReloc not initialized. */
+        g_print("BinReloc not initialized\n");
+	/* BinReloc not initialized. */
         if (default_lib_dir != NULL)
             return g_strdup (default_lib_dir);
         else

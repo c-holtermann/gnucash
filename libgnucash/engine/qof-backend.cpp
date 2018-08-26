@@ -93,9 +93,12 @@ QofBackend::register_backend(const char* directory, const char* module_name)
     }
 
     auto absdir = directory;
+    PWARN("absdir: %s", absdir);
+    PWARN("module_name: %s", module_name);
     if (!absdir || !g_path_is_absolute(absdir))
         absdir = gnc_path_get_pkglibdir ();
     auto fullpath = g_module_build_path (absdir, module_name);
+    PWARN("fullpath: %s", fullpath);
 /* Darwin modules can have either .so or .dylib for a suffix */
     if (!g_file_test (fullpath, G_FILE_TEST_EXISTS) &&
         g_strcmp0 (G_MODULE_SUFFIX, "so") == 0)
@@ -109,7 +112,7 @@ QofBackend::register_backend(const char* directory, const char* module_name)
     g_free (fullpath);
     if (!backend)
     {
-        PINFO ("%s: %s\n", PACKAGE, g_module_error ());
+        PWARN ("%s: %s\n", PACKAGE, g_module_error ());
         return false;
     }
     void (*module_init_func)(void);
