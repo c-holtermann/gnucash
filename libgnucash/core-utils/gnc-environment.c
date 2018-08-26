@@ -170,26 +170,32 @@ gnc_environment_setup (void)
 
     /* Export default parameters to the environment */
     env_parm = gnc_path_get_prefix();
+    g_print("GNC_HOME: %s\n", env_parm);
     if (!g_setenv("GNC_HOME", env_parm, FALSE))
         g_warning ("Couldn't set/override environment variable GNC_HOME.");
     g_free (env_parm);
     env_parm = gnc_path_get_bindir();
+    g_print("GNC_BIN: %s\n", env_parm);
     if (!g_setenv("GNC_BIN", env_parm, FALSE))
         g_warning ("Couldn't set/override environment variable GNC_BIN.");
     g_free (env_parm);
     env_parm = gnc_path_get_pkglibdir();
+    g_print("GNC_LIB: %s\n", env_parm);
     if (!g_setenv("GNC_LIB", env_parm, FALSE))
         g_warning ("Couldn't set/override environment variable GNC_LIB.");
     g_free (env_parm);
     env_parm = gnc_path_get_pkgdatadir();
+    g_print("GNC_DATA: %s\n", env_parm);
     if (!g_setenv("GNC_DATA", env_parm, FALSE))
         g_warning ("Couldn't set/override environment variable GNC_DATA.");
     g_free (env_parm);
     env_parm = gnc_path_get_pkgsysconfdir();
+    g_print("GNC_CONF: %s\n", env_parm);
     if (!g_setenv("GNC_CONF", env_parm, FALSE))
         g_warning ("Couldn't set/override environment variable GNC_CONF.");
     g_free (env_parm);
     env_parm = gnc_path_get_libdir();
+    g_print("SYS_LIB: %s\n", env_parm);
     if (!g_setenv("SYS_LIB", env_parm, FALSE))
         g_warning ("Couldn't set/override environment variable SYS_LIB.");
     g_free (env_parm);
