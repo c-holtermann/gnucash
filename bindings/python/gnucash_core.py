@@ -291,6 +291,7 @@ class GncNumeric(GnuCashCoreClass):
 
     @staticmethod
     def __args_to_instance(args):
+        from fractions import Fraction
         if len(args) == 0:
             return gnc_numeric_zero()
         elif len(args) == 1:
@@ -324,14 +325,12 @@ class GncNumeric(GnuCashCoreClass):
     # from https://docs.python.org/3/library/numbers.html#numbers.Integral
     # and https://github.com/python/cpython/blob/3.7/Lib/fractions.py
 
-    import numbers
-    from fractions import Fraction
-
     #denominator = property(denom)
     #numerator = property(num)
 
     def _operator_fallbacks(monomorphic_operator, fallback_operator):
         def forward(a, b):
+            from fractions import Fraction
             if isinstance(b, (int, GncNumeric)):
                 return monomorphic_operator(a, b)
             #elif isinstance(b, gnucash.gnucash_core_cc.GncNumericCC):
@@ -349,17 +348,19 @@ class GncNumeric(GnuCashCoreClass):
         forward.__doc__ = monomorphic_operator.__doc__
 
         def reverse(b, a):
+            from numbers import Real, Rational #, Complex
+            from fractions import Fraction
             if isinstance(a, Fraction):
                 return fallback_operator(a, Fraction(b.numerator, b.denominator))
-            elif isinstance(a, (numbers.Rational, GncNumeric)):
+            elif isinstance(a, (Rational, GncNumeric)):
                 # Includes ints.
                 return monomorphic_operator(a, b)
             #elif isinstance(a, gnucash.GncNumeric):
             #    temp = monomorphic_operator(GncNumericCC(a.num(), a.denom()), b)
             #    return gnucash.GncNumeric(temp.numerator, temp.denominator)
-            elif isinstance(a, numbers.Real):
+            elif isinstance(a, Real):
                 return fallback_operator(float(a), float(b))
-            #elif isinstance(a, numbers.Complex):
+            #elif isinstance(a, Complex):
             #    return fallback_operator(complex(a), complex(b))
             else:
                 return NotImplemented
