@@ -98,8 +98,8 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
 	# check if _out_var ends with _CC - in that case set swig flag c++ and disable werror (for now)
 	string(REGEX MATCH "_[^_]+$" _c_or_cc ${_out_var})
 	if (${_c_or_cc} STREQUAL "_CC")
-		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR})
-		message ( "target ${_target} c++")
+		# set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR})
+		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS})
 	endif()
 
         foreach (dir ${DEFAULT_SWIG_PYTHON_C_INCLUDES})
