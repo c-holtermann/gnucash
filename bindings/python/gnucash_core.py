@@ -368,8 +368,6 @@ class GncNumeric(GnuCashCoreClass):
 
         return forward, reverse
 
-    import operator
-
     def _add(a, b):
         return a.add(b, GNC_DENOM_AUTO, GNC_HOW_RND_ROUND_HALF_UP)
 
@@ -381,6 +379,8 @@ class GncNumeric(GnuCashCoreClass):
 
     def _div(a, b):
         return a.div(b, GNC_DENOM_AUTO, GNC_HOW_RND_ROUND_HALF_UP)
+
+    import operator
 
     __add__, __radd__ = _operator_fallbacks(_add, operator.add)
     __iadd__ = __add__
