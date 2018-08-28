@@ -83,6 +83,7 @@
 #include "gnc-prefs-utils.h"
 #include "cap-gains.h"
 #include "Scrub3.h"
+#include "binreloc.h"
 %}
 
 %include <time64.i>
@@ -92,6 +93,8 @@
 %include <engine-common.i>
 
 %include <qofbackend.h>
+
+// %include <binreloc.h>
 
 // this function is defined in qofsession.h, but isnt found in the libraries,
 // ignored because SWIG attempts to link against (to create language bindings)
@@ -226,5 +229,13 @@ gnc_module_system_init();
 char * no_args[1] = { NULL };
 gnc_engine_init(0, no_args);
 gnc_prefs_init();
+if (!gnc_gbr_find_exe(NULL)) //Make sure binreloc is initialized
+    {
+        g_print("binreloc had not been initialized.\n");
+        GError *error = NULL;
+        if (!gnc_gbr_init(&error))
+            g_print("Failed to initialize binreloc: %s\n", error->message); else g_print("binreloc has been initialized.\n");
+        g_clear_error(&error);
+    }
 %}
 
