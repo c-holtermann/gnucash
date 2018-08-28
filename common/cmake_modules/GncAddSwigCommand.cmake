@@ -100,7 +100,6 @@ macro (gnc_add_swig_python_command _target _out_var _py_out_var _output _py_outp
 	if (${_c_or_cc} STREQUAL "_CC")
 		# set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS_NO_WERROR})
 		set (PYTHON_SWIG_FLAGS -c++ ${DEFAULT_SWIG_PYTHON_FLAGS})
-		message ( "target ${_target} c++")
 	endif()
 
         foreach (dir ${DEFAULT_SWIG_PYTHON_C_INCLUDES})
