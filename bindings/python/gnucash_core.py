@@ -305,8 +305,10 @@ class GncNumeric(GnuCashCoreClass):
                 if not string_to_gnc_numeric(arg, instance):
                     raise TypeError('Failed to convert to GncNumeric: ' + str(args))
                 return instance
+            elif isinstance(arg, Fraction):
+                return gnc_numeric_create(arg.numerator, arg.denominator)
             else:
-                raise TypeError('Only single int/float/str allowed: ' + str(args))
+                raise TypeError('Only single int/float/str/Fraction allowed: ' + str(args))
         elif len(args) == 2:
             if isinstance(args[0], int) and isinstance(args[1], int):
                 return gnc_numeric_create(*args)
