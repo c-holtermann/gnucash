@@ -220,7 +220,9 @@ static const GncGUID * gncEntryGetGUID(GncEntry *x);
 %include <Scrub3.h>
 
 %init %{
-//gnc_gbr_init(); // tried to solve the path problem - did only partially work
+GError *error = NULL;
+gnc_gbr_init(&error); // tried to solve the path problem - did only partially work
+g_clear_error(&error);
 gnc_environment_setup();
 qof_log_init();
 qof_init();
