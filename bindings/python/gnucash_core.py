@@ -326,9 +326,6 @@ class GncNumeric(GnuCashCoreClass):
     # from https://docs.python.org/3/library/numbers.html#numbers.Integral
     # and https://github.com/python/cpython/blob/3.7/Lib/fractions.py
 
-    #denominator = property(denom)
-    #numerator = property(num)
-
     def _operator_fallbacks(monomorphic_operator, fallback_operator):
         def forward(a, b):
             from fractions import Fraction
@@ -642,6 +639,9 @@ gncnumeric_dict =   {
                         'reduce' : GncNumeric
                     }
 methods_return_instance(GncNumeric, gncnumeric_dict)
+
+GncNumeric.numerator = property( GncNumeric.num )
+GncNumeric.denominator = property( GncNumeric.denom )
 
 # GncCommodity
 GncCommodity.add_constructor_and_methods_with_prefix('gnc_commodity_', 'new')
