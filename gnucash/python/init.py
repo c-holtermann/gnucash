@@ -11,7 +11,7 @@ noisy = gnc_prefs_is_extra_enabled()
 if noisy:
     print("woop", os.path.dirname(__file__))
 # Importing the console class causes SIGTTOU to be thrown if GnuCash is
-# started in the background.  This causes a hang if it is not handled, 
+# started in the background.  This causes a hang if it is not handled,
 # so ignore it for the duration
 import signal
 old_sigttou = signal.signal(signal.SIGTTOU, signal.SIG_IGN)
@@ -59,7 +59,7 @@ class Console (cons.Console):
 
     def key_press_event (self, widget, event):
         """ Handle key press event """
-        
+
         if self.active_canvas:
             self.active_canvas.emit ('key-press-event', event)
             return True
@@ -70,7 +70,7 @@ class Console (cons.Console):
         if self.active_canvas:
             return True
         return False
- 
+
     def button_press_event (self, widget, event):
         """ Button press event """
         return self.refresh()
@@ -85,7 +85,8 @@ class Console (cons.Console):
 
 # Change this to "if True:" to switch on a python console at gnucash
 # startup:
-if False:
+if True:
+    print("test4")
     console = Console(argv = [], shelltype = 'python', banner = [['woop', 'title']], size = 100)
 
     window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
