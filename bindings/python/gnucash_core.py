@@ -410,6 +410,34 @@ class GncNumeric(GnuCashCoreClass):
     __floordiv__, __rfloordiv__ = _operator_fallbacks(_div, operator.floordiv)
     __ifloordiv__ = __floordiv__
 
+    # Taken from https://github.com/python/cpython/blob/3.7/Lib/fractions.py
+    # TODO: Should 4/2 equal 2/1 ? Just now it doesn't
+    def __eq__(a, b):
+        """a == b"""
+        import numbers
+        import math
+        if type(b) is int:
+            return a.numerator == b and a.denominator == 1
+        elif isinstance(b, GncNumeric):
+            return (a.numerator == b.numerator and
+                    a.denominator == b.denominator)
+        elif isinstance(b, numbers.Rational):
+            return (a.numerator == b.numerator and
+                    a.denominator == b.denominator)
+        #if isinstance(b, numbers.Complex) and b.imag == 0:
+        #    b = b.real
+        elif isinstance(b, float):
+            if math.isnan(b) or math.isinf(b):
+                # comparisons with an infinity or nan should behave in
+                # the same way for any finite a, so treat a as zero.
+                return 0.0 == b
+            else:
+                return a == GncNumeric(b)
+        else:
+            # Since a doesn't know how to compare with b, let's give b
+            # a chance to compare itself with a.
+            return NotImplemented
+
     def __float__(self):
         return self.to_double()
 
