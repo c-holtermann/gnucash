@@ -112,5 +112,106 @@ class TestGncNumeric( TestCase ):
         with self.assertRaises(TypeError):
             GncNumeric(complex(1, 1))
 
+    def test_add_different_types(self):
+        from fractions import Fraction
+        import numbers
+
+        num = GncNumeric(1, 2)
+        num2 = GncNumeric(2, 1)
+        fraction = Fraction(1, 2)
+
+        addArray = [1, 1.0, num2, fraction]
+        typesExpectedBackward = [(numbers.Real, numbers.Rational),
+                                 numbers.Real, GncNumeric, Fraction]
+
+        # forward
+        for addValue in addArray:
+            num2 = num + addValue
+            self.assertEqual(type(num2), type(num))
+
+        # backward
+        for addValue, typeExpected in zip(addArray, typesExpectedBackward):
+            num2 = addValue + num
+            self.assertIsInstance(num2, typeExpected)
+
+        for addValue in addArray:
+            num += addValue
+            self.assertIsInstance(num, GncNumeric)
+
+    def test_sub_different_types(self):
+        from fractions import Fraction
+        import numbers
+
+        num = GncNumeric(1, 2)
+        num2 = GncNumeric(2, 1)
+        fraction = Fraction(1, 2)
+
+        subArray = [1, 1.0, num2, fraction]
+        typesExpectedBackward = [(numbers.Real, numbers.Rational),
+                                 numbers.Real, GncNumeric, Fraction]
+
+        # forward
+        for subValue in subArray:
+            num2 = num - subValue
+            self.assertEqual(type(num2), type(num))
+
+        # backward
+        for subValue, typeExpected in zip(subArray, typesExpectedBackward):
+            num2 = subValue - num
+
+        for subValue in subArray:
+            num -= subValue
+            self.assertIsInstance(num, GncNumeric)
+
+    def test_mul_different_types(self):
+        from fractions import Fraction
+        import numbers
+
+        num = GncNumeric(1, 2)
+        num2 = GncNumeric(2, 1)
+        fraction = Fraction(1, 2)
+
+        mulArray = [1, 1.0, num2, fraction]
+        typesExpectedBackward = [(numbers.Real, numbers.Rational),
+                                 numbers.Real, GncNumeric, Fraction]
+
+        # forward
+        for mulValue in mulArray:
+            num2 = num * mulValue
+            self.assertEqual(type(num2), type(num))
+
+        # backward
+        for mulValue, typeExpected in zip(mulArray, typesExpectedBackward):
+            num2 = mulValue * num
+
+        for mulValue in mulArray:
+            num *= mulValue
+            self.assertIsInstance(num, GncNumeric)
+
+    def test_div_different_types(self):
+        from fractions import Fraction
+        import numbers
+
+        num = GncNumeric(1, 2)
+        num2 = GncNumeric(2, 1)
+        fraction = Fraction(1, 2)
+
+        divArray = [1, 1.0, num2, fraction]
+        typesExpectedBackward = [(numbers.Real, numbers.Rational),
+                                 numbers.Real, GncNumeric, Fraction]
+
+        # forward
+        for divValue in divArray:
+            num2 = num / divValue
+            self.assertEqual(type(num2), type(num))
+
+        # backward
+        for divValue, typeExpected in zip(divArray, typesExpectedBackward):
+            num2 = divValue / num
+
+        for divValue in divArray:
+            num /= divValue
+            self.assertIsInstance(num, GncNumeric)
+
 if __name__ == '__main__':
     main()
