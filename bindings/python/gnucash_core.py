@@ -408,8 +408,6 @@ class GncNumeric(GnuCashCoreClass):
         return gnc_numeric_to_string(self.instance)
 
 
-
-
 class GncPrice(GnuCashCoreClass):
     '''
     Each priceEach price in the database represents an "instantaneous"
