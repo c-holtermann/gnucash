@@ -416,14 +416,10 @@ class GncNumeric(GnuCashCoreClass):
         """a == b"""
         import numbers
         import math
-        if type(b) is int:
-            return a.numerator == b and a.denominator == 1
-        elif isinstance(b, GncNumeric):
-            return (a.numerator == b.numerator and
-                    a.denominator == b.denominator)
+        if isinstance(b, GncNumeric):
+            return (a.equal(b))
         elif isinstance(b, numbers.Rational):
-            return (a.numerator == b.numerator and
-                    a.denominator == b.denominator)
+            return (a.equal(GncNumeric(b)))
         #if isinstance(b, numbers.Complex) and b.imag == 0:
         #    b = b.real
         elif isinstance(b, float):
