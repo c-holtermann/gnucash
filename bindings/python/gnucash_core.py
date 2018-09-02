@@ -328,6 +328,7 @@ class GncNumeric(GnuCashCoreClass):
         """Returns a human readable numeric value string as UTF8."""
         return gnc_numeric_to_string(self.instance)
 
+
 class GncPrice(GnuCashCoreClass):
     '''
     Each priceEach price in the database represents an "instantaneous"
