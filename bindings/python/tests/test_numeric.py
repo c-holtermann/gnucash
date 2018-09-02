@@ -69,6 +69,18 @@ class TestGncNumeric( TestCase ):
         self.assertEqual(num.num(), 1)
         self.assertEqual(num.denom(), 3)
 
+    def test_from_fraction(self):
+        from fractions import Fraction
+        f = Fraction(1,3)
+        g = GncNumeric(f)
+
+    def test_fraction_numerator_denominator(self):
+        from fractions import Fraction
+        f = Fraction(1,3)
+        g = GncNumeric(f)
+        self.assertEqual(f.numerator, g.numerator)
+        self.assertEqual(f.denominator, g.denominator)
+
     def test_to_str(self):
         num = GncNumeric("1000/3")
         self.assertEqual(str(num), "1000/3")
@@ -81,7 +93,9 @@ class TestGncNumeric( TestCase ):
             self.assertEqual(GncNumeric(test_num).to_double(), test_num)
 
     def test_to_fraction(self):
+        from fractions import Fraction
         fraction = GncNumeric("1000/3").to_fraction()
+        self.assertIsInstance(fraction, Fraction)
         self.assertEqual(fraction.numerator, 1000)
         self.assertEqual(fraction.denominator, 3)
 
