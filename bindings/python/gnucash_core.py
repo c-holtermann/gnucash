@@ -323,6 +323,19 @@ class GncNumeric(GnuCashCoreClass):
         else:
             raise TypeError('Required single int/float/str or two ints: ' + str(args))
 
+    # taken from Fraction class
+    def __hash__(self):
+        if self.denominator == 1:
+            # Get integers right.
+            return hash(self.numerator)
+        # Expensive check, but definitely correct.
+        if self == float(self):
+            return hash(float(self))
+        else:
+            # Use tuple's hash to avoid a high collision rate on
+            # simple fractions.
+            return hash((self.numerator, self.denominator))
+
     # from https://docs.python.org/3/library/numbers.html#numbers.Integral
     # and https://github.com/python/cpython/blob/3.7/Lib/fractions.py
 
