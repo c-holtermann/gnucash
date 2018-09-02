@@ -89,6 +89,10 @@
 
 %include <base-typemaps.i>
 
+%typemap(in) gint32 {
+        $1 = ($1_type)PyLong_AsLong($input);
+}
+
 %include <engine-common.i>
 
 %include <qofbackend.h>
