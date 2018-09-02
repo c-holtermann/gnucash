@@ -115,6 +115,10 @@
 #endif
 }*/
 
+%typemap(in) gint32 {
+        $1 = ($1_type)PyLong_AsLong($input);
+}
+
 %typemap(in) guint8, guint16, guint32, guint64, guint, gushort, gulong {
         g_print("in");
         if (PyLong_Check($input)) {
