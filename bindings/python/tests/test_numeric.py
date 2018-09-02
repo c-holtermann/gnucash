@@ -213,5 +213,16 @@ class TestGncNumeric( TestCase ):
             num /= divValue
             self.assertIsInstance(num, GncNumeric)
 
+    def test_equality(self):
+        from fractions import Fraction
+
+        num = GncNumeric(2, 1)
+
+        eqArray = [2, 2.0, GncNumeric(2, 1), Fraction(2, 1)]
+
+        for eqValue in eqArray:
+            self.assertEqual(num, eqValue)
+
+
 if __name__ == '__main__':
     main()
