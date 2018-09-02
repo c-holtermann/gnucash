@@ -27,6 +27,8 @@ class TestGncNumeric( TestCase ):
 
         #On Linux it raises an OverflowError while on MacOS it's a TypeError.
         #In some situations these errors go along with a SystemError
+        #actually only when using typemap for gint. Using gnucash standards
+        #there's no problem.
         self.assertTrue(isinstance(context.exception, TypeError) or
                         isinstance(context.exception, OverflowError)) # or
 #                        isinstance(context.exception, SystemError))
