@@ -779,6 +779,7 @@ Query.add_method('qof_query_add_boolean_match', 'add_boolean_match')
 Query.add_method('qof_query_add_guid_list_match', 'add_guid_list_match')
 Query.add_method('qof_query_add_guid_match', 'add_guid_match')
 Query.add_method('qof_query_destroy', 'destroy')
+Query.add_method("qof_query_build_param_list", "build_param_list")
 
 class QueryStringPredicate(GnuCashCoreClass):
     pass
