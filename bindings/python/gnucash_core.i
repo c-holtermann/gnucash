@@ -92,23 +92,43 @@
 %include <cpointer.i>
 
 /* https://github.com/cdsi/sam/blob/master/share/swig/glib-types.i */
-%typemap(in) gint8, gint16, gint32, gint64, gint, gshort, glong {
-        $1 = ($1_type)PyInt_AsLong($input);
+/*%typemap(in) gint8, gint16, gint32, gint64, gint, gshort, glong {
+#if PY_MAJOR_VERSION >= 3
+        g_print("in3\n");
+        $1 = ($1_type)PyLong_AsLong($input);
+#else
+        g_print("in2\n");
+        if (PyLong_Check($input)) {
+                g_print("check\n");
+                $1 = ($1_type)PyInt_AsLong($input);
+        } else g_print("fail\n");
+#endif
 }
 
 %typemap(out) gint8, gint16, gint32, gint64, gint, gshort, glong {
-        $result = PyInt_FromLong($1);
-}
+#if PY_MAJOR_VERSION >= 3
+        g_print("out3\n");
+        $result = PyLong_FromLong($1);
+#else
+        g_print("out2\n");
+        $result = PyInt_FromLong($1);   
+#endif
+}*/
 
 %typemap(in) guint8, guint16, guint32, guint64, guint, gushort, gulong {
-        $1 = ($1_type)PyLong_AsUnsignedLong($input);
+        g_print("in");
+        if (PyLong_Check($input)) {
+                SWIG_fail;
+                $1 = ($1_type)PyLong_AsUnsignedLong($input + 1);
+        } else SWIG_fail;
 }
 
 %typemap(out) guint8, guint16, guint32, guint64, guint, gushort, gulong {
+        g_print("out");
         $result = PyLong_FromUnsignedLong($1);
 }
 
-%pointer_class(guint8, guint8p)
+// %pointer_class(guint8, guint8p)
 
 /* %apply guint8 *INPUT { guint8 * max_decimal_places}; */
 
