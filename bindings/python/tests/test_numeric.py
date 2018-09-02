@@ -216,9 +216,9 @@ class TestGncNumeric( TestCase ):
     def test_equality(self):
         from fractions import Fraction
 
-        num = GncNumeric(2, 1)
+        num = GncNumeric(4, 2)
 
-        eqArray = [2, 2.0, GncNumeric(2, 1), Fraction(2, 1)]
+        eqArray = [2, 2.0, GncNumeric(4, 2), GncNumeric(2, 1), Fraction(2, 1)]
 
         for eqValue in eqArray:
             self.assertEqual(num, eqValue)
