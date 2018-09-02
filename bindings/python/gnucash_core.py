@@ -342,8 +342,10 @@ class GncNumeric(GnuCashCoreClass):
     def _operator_fallbacks(monomorphic_operator, fallback_operator):
         def forward(a, b):
             from fractions import Fraction
-            if isinstance(b, (int, GncNumeric)):
+            if isinstance(b, GncNumeric):
                 return monomorphic_operator(a, b)
+            if isinstance(b, int):
+                return monomorphic_operator(a, GncNumeric(b))
             #elif isinstance(b, gnucash.gnucash_core_cc.GncNumericCC):
             #    return monomorphic_operator(a, GncNumeric(b.numerator,
             #    b.denominator))
@@ -363,9 +365,12 @@ class GncNumeric(GnuCashCoreClass):
             from fractions import Fraction
             if isinstance(a, Fraction):
                 return fallback_operator(a, Fraction(b.numerator, b.denominator))
-            elif isinstance(a, (Rational, GncNumeric)):
+            elif isinstance(a, GncNumeric):
                 # Includes ints.
                 return monomorphic_operator(a, b)
+            elif isinstance(a, Rational):
+                # Includes ints.
+                return fallback_operator(a, b.to_double())
             #elif isinstance(a, gnucash.GncNumeric):
             #    temp = monomorphic_operator(GncNumericCC(a.num(), a.denom()), b)
             #    return gnucash.GncNumeric(temp.numerator, temp.denominator)
