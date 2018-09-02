@@ -261,6 +261,22 @@ gnc_numeric gnc_numeric_create(gint64 num, gint64 denom)
     return out;
 }
 
+static inline
+gint64 gnc_numeric_create2(gint64 num, gint64 denom)
+{
+    return 1;
+}
+
+static inline
+void gnc_numeric_create3(int num)
+{
+}
+	
+static inline
+void gnc_numeric_create4(gint64 num)
+{
+}
+
 /** Returns a newly created gnc_numeric of value zero, that is "0/1". */
 static inline
 gnc_numeric gnc_numeric_zero(void)
