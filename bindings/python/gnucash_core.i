@@ -69,6 +69,7 @@
 #include "qofutil.h"
 #include "qofid.h"
 #include "guid.h"
+#include "qofclass.h"
 #include "qofquery.h"
 #include "qofquerycore.h"
 #include "gnc-module.h"
@@ -122,6 +123,97 @@
 %include <qofid.h>
 
 %include <qofquery.h>
+
+
+
+%newobject copy_obj_type;
+%{
+void qof_query_search_for_invoice (QofQuery *q)
+{   
+    qof_query_search_for(q, GNC_INVOICE_MODULE_NAME);
+    g_print("query: %p obj_type: %s\n", q, GNC_INVOICE_MODULE_NAME);
+}
+
+
+
+void qof_query_search_for2 (QofQuery *q, gchar *obj_type)
+{  
+    char *obj_type_copy;
+    obj_type_copy = (char *) malloc(strlen(obj_type)+1);
+    strcpy(obj_type_copy, obj_type);
+
+    qof_query_search_for(q, obj_type_copy);
+    g_print("query: %p obj_type: %s\n", q, obj_type_copy);
+}
+
+char *copy_obj_type (gchar *obj_type)
+{  
+    char *obj_type_copy;
+    obj_type_copy = (char *) malloc(strlen(obj_type)+1);
+    strcpy(obj_type_copy, obj_type);
+    return obj_type_copy;
+}
+
+
+
+void qof_query_search_for3 (QofQuery *q, gchar *obj_type)
+{ 
+    if (strcmp(obj_type, GNC_INVOICE_MODULE_NAME) == 0) 
+        {
+                qof_query_search_for(q, GNC_INVOICE_MODULE_NAME);
+        }
+    else if (strcmp(obj_type, GNC_CUSTOMER_MODULE_NAME) == 0) 
+        {
+                qof_query_search_for(q, GNC_CUSTOMER_MODULE_NAME);
+        }
+    else if (strcmp(obj_type, GNC_VENDOR_MODULE_NAME) == 0) 
+        {
+                qof_query_search_for(q, GNC_VENDOR_MODULE_NAME);
+        }
+}
+
+char *obj_type_buf;
+
+void qof_query_search_for4 (QofQuery *q, gchar *obj_type)
+{  
+    if (obj_type_buf) free(obj_type_buf);
+    obj_type_buf = (char *) malloc(strlen(obj_type)+1);
+    strcpy(obj_type_buf, obj_type);
+
+    qof_query_search_for(q, obj_type_buf);
+    g_print("query: %p obj_type: %s\n", q, obj_type);
+}
+
+void qof_query_search_for5 (QofQuery *q, gchar *obj_type)
+{  
+    const char * obj_type_buf;
+    obj_type_buf = qof_query_get_search_for(q);
+    /*if (obj_type_buf) free(obj_type_buf);
+    obj_type_buf = (char *) malloc(strlen(obj_type)+1);
+    strcpy(obj_type_buf, obj_type);
+
+    qof_query_search_for(q, obj_type_buf);*/
+    g_print("query: %p obj_type: %s\n", q, obj_type_buf);
+}
+
+#define _ID_INVOICE "gncInvoice";
+
+%}
+
+/*%extend QofQuery {
+   void __test__() {}
+}*/
+
+void qof_query_search_for_invoice (QofQuery *q);
+void qof_query_search_for2 (QofQuery *q, gchar *obj_type);
+void qof_query_search_for3 (QofQuery *q, gchar *obj_type);
+void qof_query_search_for4 (QofQuery *q, gchar *obj_type);
+void qof_query_search_for5 (QofQuery *q, gchar *obj_type);
+char *copy_obj_type (gchar *obj_type);
+
+#define GNC_ID_INVOICE2  "gncInvoice"
+#define _ID_INVOICE "gncInvoice";
+%constant char * _ID_INVOICE2 = "gncInvoice";
 
 %include <qofquerycore.h>
 
