@@ -44,6 +44,10 @@
 %feature("autodoc", "1");
 %module(package="gnucash") gnucash_core_c
 
+/*%typemap(in) (QofIdTypeConst obj_type) {
+        $1 = PyUnicode_AsUTF8($input);
+}*/
+
 %typemap(in) QofIdTypeConst {
     if (PyUnicode_Check($input)) {
       $1 = PyUnicode_AsUTF8($input);
