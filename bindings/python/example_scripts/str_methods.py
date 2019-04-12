@@ -302,10 +302,16 @@ def __invoice__str__(self):
         "owner_value":self.GetOwner().GetName(),
         "total_name":"Total:",
         "total_value":str(self.GetTotal()),
-        "currency_mnemonic":self.GetCurrency().get_mnemonic()}
+        "currency_mnemonic":self.GetCurrency().get_mnemonic(),
+        "date_opened_name":"Date opened:",
+        "date_opened":str(self.GetDateOpened()),
+        "date_posted_name":"Date posted:",
+        "date_posted":str(self.GetDatePosted()),
+        "date_due_name":"Date due:",
+        "date_due":str(self.GetDateDue()),}
 
     ret_invoice= ("{id_name:4}{id_value:10} {notes_name:7}{notes_value:20} {active_name:8}{active_value:7} {owner_name:12}{owner_value:20}"+
-                  "{total_name:8}{total_value:10}{currency_mnemonic:3}").\
+            "{total_name:8}{total_value:10}{currency_mnemonic:3}\n{date_opened_name:13}{date_opened:13} {date_posted_name:13}{date_posted:13} {date_due_name:13}{date_due:13}").\
                     format(**all_as_classwithcutting__format__keys(**fmt_dict))
 
     ret_entries=""
