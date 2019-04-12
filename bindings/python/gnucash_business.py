@@ -368,7 +368,8 @@ entry_dict = {
                  'GetBillTaxTable': TaxTable,
                  'Copy': Entry,
                  'GetInvoice': Invoice,
-                 'GetBill': Invoice
+                 'GetBill': Invoice,
+                 'GetPrice': GncNumeric
              }
 methods_return_instance(Entry, entry_dict)
 Entry.decorate_functions(
