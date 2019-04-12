@@ -20,7 +20,7 @@
 
 #   @author Christoph Holtermann, c.holtermann@gmx.de
 #   @ingroup python_bindings_examples
-#   @date May 2011
+#   @date May 2011, 2019
 #
 #   ToDo :
 #
@@ -28,7 +28,8 @@
 #   * dealing the cutting format in a bit more elegant way
 #   * having setflag as a classmethod makes it probably impossible to have flags on instance level. Would changing that be useful ?
 #   * It seems useful to have an object for each modification. That is because there is some Initialisation to be done.
-#
+#   * Localize using gnucash translations
+#   * make formatstrings accessible on runtime (something like a formatter object with accessible properties)
 
 import gnucash
 from gnucash import function_class
