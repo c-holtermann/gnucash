@@ -156,6 +156,9 @@ class ClassWithCutting__format__():
             value = value.replace("\t","|")
             value = value.replace("\n","|")
 
+        if value is None:
+            value = "None"
+            
         # Do regular formatting of object
         value = value.__format__(fmt)
 
