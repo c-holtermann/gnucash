@@ -16,7 +16,7 @@
 import os
 import sys
 import re
-from StringIO import StringIO
+from io import StringIO
 try:
     import IPython
     from IPython import ipapi
