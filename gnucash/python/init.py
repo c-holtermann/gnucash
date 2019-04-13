@@ -89,6 +89,12 @@ class Console (cons.Console):
 if True:
     console = Console(argv = [], shelltype = 'python', banner = [['woop', 'title']], size = 100)
 
+    console.shell.globals.update({"top_globals":globals(), "top_locals":locals()})
+    console.shell.globals.update({"_sw_app_utils":_sw_app_utils,
+                                  "gnucash": gnucash,
+                                  "gnucash_core_c": gnucash_core_c})
+    
+    
     window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
     window.set_position(Gtk.WindowPosition.CENTER)
     window.set_default_size(800,600)
