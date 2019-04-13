@@ -1,5 +1,6 @@
 import sys
 import gnucash._sw_app_utils as _sw_app_utils
+import gnucash
 from gnucash import *
 from gnucash._sw_core_utils import gnc_prefs_is_extra_enabled
 from gi import require_version
