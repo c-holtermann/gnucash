@@ -23,7 +23,7 @@ import pycons.console as cons
 # Restore the SIGTTOU handler
 signal.signal(signal.SIGTTOU, old_sigttou)
 
-if noisy:
+if True:
     print("Hello from python!")
     print("test", sys.modules.keys())
     print("test2", dir(_sw_app_utils))
