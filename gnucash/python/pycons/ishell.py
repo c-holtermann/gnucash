@@ -19,8 +19,8 @@ import re
 from io import StringIO
 try:
     import IPython
-    from IPython import ipapi
-except Exception,e:
+    from IPython import get_ipython_
+except Exception as e:
     raise "Error importing IPython (%s)" % str(e)
 
 
@@ -54,7 +54,7 @@ class Shell:
                                                 header='IPython system call: ',
                                                 verbose=self.IP.rc.system_verbose)
         # Get a hold of the public IPython API object and use it
-        self.ip = ipapi.get()
+        self.ip = get_ipython()
         self.ip.magic('colors LightBG')                
         sys.excepthook = excepthook
         self.iter_more = 0
