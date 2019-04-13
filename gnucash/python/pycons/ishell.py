@@ -17,9 +17,10 @@ import os
 import sys
 import re
 from io import StringIO
+from pkg_resources import parse_version
 try:
     import IPython
-    from IPython import get_ipython_
+    from IPython import get_ipython
 except Exception as e:
     raise "Error importing IPython (%s)" % str(e)
 
