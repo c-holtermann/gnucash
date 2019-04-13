@@ -229,7 +229,7 @@ def __split__str__(self, encoding=None, error=None):
     # This dict and the return statement can be changed according to individual needs
     fmt_dict={
         "account":self.GetAccount().name,
-        "value":self.GetValue(),
+        "value":str(self.GetValue()),
         "memo":self.GetMemo(),
         "lot":lot_str}
 
@@ -239,7 +239,7 @@ def __split__str__(self, encoding=None, error=None):
 
     if self.optionflags & self.OPTIONFLAGS_BY_NAME["PRINT_TRANSACTION"]:
         fmt_t_dict={
-            "transaction_time":time.ctime(transaction.GetDate()),
+            "transaction_time":transaction.GetDate().ctime(),
             "transaction2":transaction.GetDescription()}
         fmt_t_str=(
             "Transaction: {transaction_time:30} "+
@@ -262,7 +262,7 @@ def __transaction__str__(self):
     import time
     self=Transaction(instance=self)
 
-    fmt_tuple=('Date:',time.ctime(self.GetDate()),
+    fmt_tuple=('Date:',self.GetDate().ctime(),
           'Description:',self.GetDescription(),
           'Notes:',self.GetNotes())
 
