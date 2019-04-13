@@ -33,17 +33,18 @@ class Shell:
     def __init__(self,argv=None,user_ns=None,user_global_ns=None,
                  cin=None, cout=None,cerr=None, input_func=None):
         """ """
+        io = IPython.utils.io
         if input_func:
             if parse_version(IPython.release.version) >= parse_version("1.2.1"):
                  IPython.terminal.interactiveshell.raw_input_original = input_func
             else:
                  IPython.frontend.terminal.interactiveshell.raw_input_original = input_func
         if cin:
-            IPython.Shell.Term.cin = cin
+            io.stdin = io.IOStream(cin)
         if cout:
-            IPython.Shell.Term.cout = cout
+            io.stdout = io.IOStream(cout)
         if cerr:
-            IPython.Shell.Term.cerr = cerr
+            io.stderr = io.IOStream(cerr)
         if argv is None:
             argv=[]
         io.raw_input = lambda x: None
