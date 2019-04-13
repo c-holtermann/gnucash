@@ -32,18 +32,18 @@ class Shell:
     def __init__(self,argv=None,user_ns=None,user_global_ns=None,
                  cin=None, cout=None,cerr=None, input_func=None):
         """ """
+        io = IPython.utils.io
         if input_func:
             IPython.iplib.raw_input_original = input_func
         if cin:
-            IPython.Shell.Term.cin = cin
+            io.stdin = io.IOStream(cin)
         if cout:
-            IPython.Shell.Term.cout = cout
+            io.stdout = io.IOStream(cout)
         if cerr:
-            IPython.Shell.Term.cerr = cerr
+            io.stderr = io.IOStream(cerr)
         if argv is None:
             argv=[]
-        IPython.iplib.raw_input = lambda x: None
-        self.term = IPython.genutils.IOTerm(cin=cin, cout=cout, cerr=cerr)
+        io.raw_input = lambda x: None
         os.environ['TERM'] = 'dumb'
         excepthook = sys.excepthook
         self.IP = IPython.Shell.make_IPython(argv,
@@ -68,7 +68,7 @@ class Shell:
     def eval(self, console):
         console.write ('\n')
         orig_stdout = sys.stdout
-        sys.stdout = IPython.Shell.Term.cout
+        sys.stdout = IPython.utils.io.stdout
         try:
             line = self.IP.raw_input(None, self.iter_more)
             if self.IP.autoindent:
