@@ -86,7 +86,7 @@ class Console (cons.Console):
 
 # Change this to "if True:" to switch on a python console at gnucash
 # startup:
-if False:
+if True:
     console = Console(argv = [], shelltype = 'python', banner = [['woop', 'title']], size = 100)
 
     window = Gtk.Window(Gtk.WindowType.TOPLEVEL)
