@@ -7,6 +7,7 @@
 # @organization: IBM Corporation
 # @copyright: Copyright (c) 2007 IBM Corporation
 # @license: BSD
+# updates: https://dev.gajim.org/gajim/gajim/commit/c3eba4037e902280436fe5afd8df22e1289e1f33
 #
 # All rights reserved. This program and the accompanying materials are made 
 # available under the terms of the BSD which accompanies this distribution, and 
@@ -34,7 +35,10 @@ class Shell:
         """ """
         io = IPython.utils.io
         if input_func:
-            IPython.iplib.raw_input_original = input_func
+            if parse_version(IPython.release.version) >= parse_version("1.2.1"):
+                 IPython.terminal.interactiveshell.raw_input_original = input_func
+            else:
+                 IPython.frontend.terminal.interactiveshell.raw_input_original = input_func
         if cin:
             io.stdin = io.IOStream(cin)
         if cout:
@@ -44,22 +48,66 @@ class Shell:
         if argv is None:
             argv=[]
         io.raw_input = lambda x: None
+        
+        # self.term = IPython.genutils.IOTerm(cin=cin, cout=cout, cerr=cerr)
+        
         os.environ['TERM'] = 'dumb'
         excepthook = sys.excepthook
-        self.IP = IPython.Shell.make_IPython(argv,
-                                             user_ns=user_ns,
-                                             user_global_ns=user_global_ns,
-                                             embedded=True,
-                                             shell_class=IPython.Shell.InteractiveShell)
+
+        from traitlets.config import Config
+        cfg = Config()
+        cfg.InteractiveShell.colors = "Linux"
+
+        print("__init__ ipython")
+
+        old_stdout, old_stderr = sys.stdout, sys.stderr
+        # sys.stdout, sys.stderr = io.stdout.stream, io.stderr.stream
+
+        print("__init__ ipython 0.0")
+       
+        try:
+          if parse_version(IPython.release.version) >= parse_version("1.2.1"):
+           print("__init__ ipython 0.01")
+           self.IP = IPython.terminal.embed.InteractiveShellEmbed(config=cfg, user_ns=user_ns)
+          else:
+           self.IP = IPython.frontend.terminal.embed.InteractiveShellEmbed.instance(\
+                   config=cfg, user_ns=user_ns, user_global_ns=user_global_ns)
+        except:
+            print("ERR")
+
+        print("__init__ ipython 0.1")
+        
+        sys.stdout, sys.stderr = old_stdout, old_stderr
+
+        print("__init__ ipython 0")
+        
+        #self.IP = IPython.Shell.make_IPython(argv,
+        #                                     user_ns=user_ns,
+        #                                     user_global_ns=user_global_ns,
+        #                                     embedded=True,
+        #                                     shell_class=IPython.Shell.InteractiveShell)
+        
+        
         self.IP.system = lambda cmd: self.shell(self.IP.var_expand(cmd),
                                                 header='IPython system call: ',
-                                                verbose=self.IP.rc.system_verbose)
+                                                #verbose=self.IP.rc.system_verbose,
+                                                local_ns=user_ns)
+        print("__init__ ipython 1")
+        
+        self.IP.raw_input = input_func
+        
+        print("__init__ ipython 2")
         # Get a hold of the public IPython API object and use it
-        self.ip = get_ipython()
-        self.ip.magic('colors LightBG')                
+        #self.ip = get_ipython()
+        #self.ip.magic('colors LightBG')                
+        
+        print("__init__ ipython 3")
+        
         sys.excepthook = excepthook
         self.iter_more = 0
         self.complete_sep =  re.compile('[\s\{\}\[\]\(\)]')
+
+        print("__init__ ipython finished")
 
 
     def namespace(self):
@@ -69,30 +117,49 @@ class Shell:
         console.write ('\n')
         orig_stdout = sys.stdout
         sys.stdout = IPython.utils.io.stdout
-        try:
-            line = self.IP.raw_input(None, self.iter_more)
+        
+        orig_stdin = sys.stdin
+        sys.stdin = IPython.utils.io.stdin
+        
+        self.prompt = self.generatePrompt(self.iter_more)
+
+        self.IP.hooks.pre_prompt_hook()
+        if self.iter_more:
+            try:
+                self.prompt = self.generatePrompt(True)
+            except:
+                self.IP.showtraceback()
             if self.IP.autoindent:
-                self.IP.readline_startup_hook(None)
+                self.IP.rl_do_indent = True
+
+        try:
+            line = self.IP.raw_input(self.prompt)
         except KeyboardInterrupt:
             self.IP.write('\nKeyboardInterrupt\n')
-            self.IP.resetbuffer()
-            self.IP.outputcache.prompt_count -= 1
-            if self.IP.autoindent:
-                self.IP.indent_current_nsp = 0
-            self.iter_more = 0
+            self.IP.input_splitter.reset()
         except:
+            import traceback
+            self.IP.write(traceback.format_exc())
             self.IP.showtraceback()
         else:
-            self.iter_more = self.IP.push(line)
-            if (self.IP.SyntaxTB.last_syntax_error and self.IP.rc.autoedit_syntax):
-                self.IP.edit_syntax_error()
-        if self.iter_more:
-            self.prompt = str(self.IP.outputcache.prompt2).strip()
-            if self.IP.autoindent:
-                self.IP.readline_startup_hook(self.IP.pre_readline)
-        else:
-            self.prompt = str(self.IP.outputcache.prompt1).strip()
+            self.IP.input_splitter.push(line)
+            self.iter_more = self.IP.input_splitter.push_accepts_more()
+            self.prompt = self.generatePrompt(self.iter_more)
+            #if (self.IP.SyntaxTB.last_syntax_error and self.IP.rc.autoedit_syntax):
+            #    self.IP.edit_syntax_error()
+            if not self.iter_more:
+                source_raw = self.IP.input_splitter.source_raw
+                # credits: https://github.com/ipython/ipython/blob/master/docs/source/whatsnew/version2.0.rst
+                print(source_raw)
+                #_reset()[1]
+                self.IP.run_cell(source_raw, store_history=True)
+            else:
+                # TODO: Auto-indent
+                pass
+            
         sys.stdout = orig_stdout
+        sys.stdin = orig_stdin
+
 
         # System output (if any)
         while True:
@@ -101,7 +168,8 @@ class Shell:
             except:
                 break
             else:
-                console.write (buf)
+                print(buf)
+                console.write (buf.decode('utf-8'))
             if len(buf) < 256: break
 
         # Command output
@@ -113,6 +181,34 @@ class Shell:
             console.write ('\n')
         console.cout.truncate(0)
         console.prompt()
+
+    def generatePrompt(self, is_continuation):
+        '''
+        Generate prompt depending on is_continuation value
+
+        @param is_continuation
+        @type is_continuation: boolean 
+
+        @return: The prompt string representation
+        @rtype: string
+
+        '''
+
+        # Backwards compatibility with ipython-0.11
+        #
+        ver = IPython.__version__
+        if '0.11' in ver:
+          prompt = self.IP.hooks.generate_prompt(is_continuation)
+        elif parse_version(IPython.release.version) < parse_version("5.0.0"):
+          if is_continuation:
+            prompt = self.IP.prompt_manager.render('in2')
+          else:
+            prompt = self.IP.prompt_manager.render('in')
+        else:
+            # thanks to https://gitlab.gnome.org/GNOME/accerciser/commit/5a3242b4c7f5a5c844a20821881d68d1cabcae1e
+            # TODO: update to IPython 5.x and later
+            prompt = "In [%d]: " % self.IP.execution_count
+        return prompt
 
     def complete(self, line):
         split_line = self.complete_sep.split(line)
