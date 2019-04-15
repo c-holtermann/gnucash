@@ -99,6 +99,7 @@ if True:
 
     console.shell.globals.update({"top_globals":globals(), "top_locals":locals()})
     console.shell.globals.update({"_sw_app_utils":_sw_app_utils,
+                                  "_sw_core_utils":gnucash._sw_core_utils,
                                   "gnucash": gnucash,
                                   "gnucash_core_c": gnucash_core_c})
     
