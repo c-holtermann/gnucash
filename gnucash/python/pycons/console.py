@@ -39,8 +39,9 @@ from gi.repository import Gdk
 from gi.repository import Pango
 import io
 import pycons.shell as shell
-try:    import pycons.ishell as ishell
-except: pass
+#try:    
+import pycons.ishell as ishell
+#except: pass
 
 ansi_colors =  {'0;30': '#2E3436',
                 '0;31': '#CC0000',
@@ -130,6 +131,8 @@ class Console (Gtk.ScrolledWindow):
 
         """ Console interface building + initialization"""
 
+        print("console __init__")
+
         # GTK interface
         self.do_quit = False
         GObject.GObject.__init__(self)
@@ -184,6 +187,9 @@ class Console (Gtk.ScrolledWindow):
         self.history_init(filename, size)
         self.cout = io.StringIO()
         self.cout.truncate(0)
+
+        print("shell")
+
         if shelltype=='ipython':
             self.shell = ishell.Shell(argv,locals(),globals(),
                                 cout=self.cout, cerr=self.cout,
@@ -205,6 +211,8 @@ class Console (Gtk.ScrolledWindow):
         self.pipewrite = os.open (self.fifoname, os.O_WRONLY | os.O_NONBLOCK)
         self.shell.eval(self)
         self.cout.truncate(0)
+
+        print("end __init__")
 
     def history_init(self, filename, size):
         self.history_file = filename
@@ -264,8 +272,12 @@ class Console (Gtk.ScrolledWindow):
             ansi_tags = self.color_pat.findall(text)
             for tag in ansi_tags:
                 i = segments.index(tag)
-                self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(),
-                                                     segments[i+1], tag)
+                try:
+                    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(),
+                                                            segments[i+1], tag)
+                except:
+                    import traceback
+                    traceback.print_exc()
                 segments.pop(i)
         self.view.scroll_mark_onscreen(self.buffer.get_insert())
 
