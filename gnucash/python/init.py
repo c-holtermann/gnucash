@@ -87,7 +87,15 @@ class Console (cons.Console):
 # Change this to "if True:" to switch on a python console at gnucash
 # startup:
 if True:
-    console = Console(argv = [], shelltype = 'python', banner = [['woop', 'title']], size = 100)
+
+    import traceback
+    try:
+        console = Console(argv = [], shelltype = 'python', banner = [['woop', 'title']], size = 100)
+    except :
+        e = sys.exc_info()
+        print("ERR in console:")
+        print(e)
+        traceback.print_exc()
 
     console.shell.globals.update({"top_globals":globals(), "top_locals":locals()})
     console.shell.globals.update({"_sw_app_utils":_sw_app_utils,
