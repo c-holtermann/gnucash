@@ -131,8 +131,6 @@ class Console (Gtk.ScrolledWindow):
 
         """ Console interface building + initialization"""
 
-        print("console __init__")
-
         # GTK interface
         self.do_quit = False
         GObject.GObject.__init__(self)
@@ -188,8 +186,6 @@ class Console (Gtk.ScrolledWindow):
         self.cout = io.StringIO()
         self.cout.truncate(0)
 
-        print("shell")
-
         if shelltype=='ipython':
             self.shell = ishell.Shell(argv,locals(),globals(),
                                 cout=self.cout, cerr=self.cout,
@@ -211,8 +207,6 @@ class Console (Gtk.ScrolledWindow):
         self.pipewrite = os.open (self.fifoname, os.O_WRONLY | os.O_NONBLOCK)
         self.shell.eval(self)
         self.cout.truncate(0)
-
-        print("end __init__")
 
     def history_init(self, filename, size):
         self.history_file = filename
