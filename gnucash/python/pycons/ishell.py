@@ -58,29 +58,21 @@ class Shell:
         cfg = Config()
         cfg.InteractiveShell.colors = "Linux"
 
-        print("__init__ ipython")
-
         old_stdout, old_stderr = sys.stdout, sys.stderr
         # sys.stdout, sys.stderr = io.stdout.stream, io.stderr.stream
 
-        print("__init__ ipython 0.0")
-       
         try:
           if parse_version(IPython.release.version) >= parse_version("1.2.1"):
-           print("__init__ ipython 0.01")
            self.IP = IPython.terminal.embed.InteractiveShellEmbed(config=cfg, user_ns=user_ns)
           else:
            self.IP = IPython.frontend.terminal.embed.InteractiveShellEmbed.instance(\
                    config=cfg, user_ns=user_ns, user_global_ns=user_global_ns)
+           
         except:
             print("ERR")
 
-        print("__init__ ipython 0.1")
-        
         sys.stdout, sys.stderr = old_stdout, old_stderr
 
-        print("__init__ ipython 0")
-        
         #self.IP = IPython.Shell.make_IPython(argv,
         #                                     user_ns=user_ns,
         #                                     user_global_ns=user_global_ns,
@@ -92,23 +84,15 @@ class Shell:
                                                 header='IPython system call: ',
                                                 #verbose=self.IP.rc.system_verbose,
                                                 local_ns=user_ns)
-        print("__init__ ipython 1")
-        
         self.IP.raw_input = input_func
         
-        print("__init__ ipython 2")
         # Get a hold of the public IPython API object and use it
-        #self.ip = get_ipython()
-        #self.ip.magic('colors LightBG')                
-        
-        print("__init__ ipython 3")
+        self.ip = self.IP.get_ipython()
+        self.ip.magic('colors LightBG')                
         
         sys.excepthook = excepthook
         self.iter_more = 0
         self.complete_sep =  re.compile('[\s\{\}\[\]\(\)]')
-
-        print("__init__ ipython finished")
-
 
     def namespace(self):
         return self.IP.user_ns
@@ -168,7 +152,7 @@ class Shell:
             except:
                 break
             else:
-                print(buf)
+                # print(buf)
                 console.write (buf.decode('utf-8'))
             if len(buf) < 256: break
 
