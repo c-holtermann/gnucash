@@ -196,7 +196,9 @@ class Console (Gtk.ScrolledWindow):
         self.input_mode = False
         self.input = None
         self.stdout = ConsoleOut (self, sys.stdout.fileno(), 'output')
+        self.stdout_bak = self.stdout
         self.stderr = ConsoleOut (self, sys.stderr.fileno(), 'error')
+        self.stderr_bak = self.stderr
         self.stdin  = ConsoleIn  (self, sys.stdin.fileno())
 
         # Create a named pipe for system stdout/stderr redirection
