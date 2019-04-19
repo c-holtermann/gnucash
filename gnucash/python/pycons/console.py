@@ -166,6 +166,9 @@ class Console (Gtk.ScrolledWindow):
                                 font='Mono 10')
         self.buffer.create_tag('0')
         self.color_pat = re.compile('\x01?\x1b\[(.*?)m\x02?')
+        self.color_pat_simple = re.compile('([01]);([34])([0-7]).*')
+        self.color_pat_8bit = re.compile('([01]);([34])[8];5;([0-7]*).*')
+        self.control_pat = re.compile('\x01?\x1b\[[\x30-\x3f]*[\x20-\x2f0-7;:]+h\x02?')
         for code in ansi_colors:
             self.buffer.create_tag(code,
                                    foreground=ansi_colors[code],
@@ -257,6 +260,11 @@ class Console (Gtk.ScrolledWindow):
 
     def write (self, text, style=None):
         """ Write text using given style (if any) """
+        control_patterns = re.findall(self.control_pat, text)
+        if control_patterns:
+            # print("remove control patterns: "+str(control_patterns))
+            text = re.sub(self.control_pat, '', text) # remove control patterns
+        
         segments = self.color_pat.split(text)
         segment = segments.pop(0)
         start,end = self.buffer.get_bounds()
@@ -268,12 +276,65 @@ class Console (Gtk.ScrolledWindow):
             ansi_tags = self.color_pat.findall(text)
             for tag in ansi_tags:
                 i = segments.index(tag)
-                try:
-                    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(),
-                                                            segments[i+1], tag)
-                except:
-                    import traceback
-                    traceback.print_exc()
+                
+                #print('\ntag: "'+tag+", text: '"+segments[i+1]+"'")
+                #print("simple color:", self.color_pat_simple.match(tag))
+                
+                if self.color_pat_8bit.match(tag):
+                    
+                    #print("8bit color:", self.color_pat_8bit.findall(tag))
+                    p1, fgbg, color = self.color_pat_8bit.findall(tag)[0]
+                    
+                    color_int_raw = int(color)
+                    if color_int_raw > 15:
+                        color_int = color_int_raw - 16
+                        r6 = color_int // 36
+                        r = r6 / 6
+                        g6 = (color_int % 36) // 6
+                        g = g6 / 6
+                        b6 = (color_int % 6)
+                        b = b6 / 6
+                        #print(r,g,b)
+                    
+                        colorRGBA = Gdk.RGBA(r,g,b,1)
+
+                        #print(colorRGBA)
+
+                        try:
+                            end_iter = self.buffer.get_end_iter()
+                            tag_temp_name = 'rgba%0.2X%0.2X%0.2X%0.2X' % (int(r*0xFF),int(g*0xFF),int(b*0xFF),int(1.0*0xFF)) 
+                            tag_temp = self.buffer.get_tag_table().lookup(tag_temp_name)
+                            if not tag_temp:
+                              tag_temp = self.buffer.create_tag (tag_temp_name, foreground_rgba=colorRGBA)
+                            self.buffer.insert_with_tags(end_iter,segments[i+1], tag_temp)
+                        except:
+                            import traceback
+                            traceback.print_exc()
+                    
+                    
+                    elif color_int_raw >= 0:
+                        if color_int_raw < 8:
+                            color_code_ansi = "0;3"+str(color_int_raw)
+                        else:
+                            color_code_ansi = "1;3"+str(color_int_raw-8)
+                    
+                        #print(color_code_ansi)
+
+                        try:
+                            self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(),
+                                                                segments[i+1], tag)
+                        except:
+                            import traceback
+                            traceback.print_exc()
+                    else:
+                        pass # illegal color code
+
+                #try:
+                #    self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(),
+                #                                            segments[i+1], tag)
+                #except:
+                #    import traceback
+                #    traceback.print_exc()
                 segments.pop(i)
         self.view.scroll_mark_onscreen(self.buffer.get_insert())
 
