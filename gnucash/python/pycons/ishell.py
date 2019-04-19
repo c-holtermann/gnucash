@@ -123,8 +123,9 @@ class Shell:
             self.IP.input_splitter.reset()
         except:
             import traceback
-            self.IP.write(traceback.format_exc())
+            self.IP.write('\n'+traceback.format_exc()+'\n')
             self.IP.showtraceback()
+            self.IP.write('\n')
         else:
             self.IP.input_splitter.push(line)
             self.iter_more = self.IP.input_splitter.push_accepts_more()
