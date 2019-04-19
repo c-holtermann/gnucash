@@ -130,16 +130,22 @@ class Shell:
             self.IP.input_splitter.push(line)
             self.iter_more = self.IP.input_splitter.push_accepts_more()
             self.prompt = self.generatePrompt(self.iter_more)
-            #if (self.IP.SyntaxTB.last_syntax_error and self.IP.rc.autoedit_syntax):
-            #    self.IP.edit_syntax_error()
+            if (self.IP.SyntaxTB.last_syntax_error and self.IP.autoedit_syntax):
+                self.IP.edit_syntax_error()
             if not self.iter_more:
-                source_raw = self.IP.input_splitter.source_raw
+                if parse_version(IPython.release.version) >= parse_version("2.0.0-dev"):
+                    source_raw = self.IP.input_splitter.raw_reset()
+                else:
+                    source_raw = self.IP.input_splitter.source_raw_reset()[1]
+
+                #source_raw = self.IP.input_splitter.source_raw
                 # credits: https://github.com/ipython/ipython/blob/master/docs/source/whatsnew/version2.0.rst
-                print(source_raw)
-                #_reset()[1]
+                # print(source_raw)
                 self.IP.run_cell(source_raw, store_history=True)
+                self.IP.rl_do_indent = False
             else:
                 # TODO: Auto-indent
+                self.IP.rl_do_indent = True
                 pass
             
         sys.stdout = orig_stdout
