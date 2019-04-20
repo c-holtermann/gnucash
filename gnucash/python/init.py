@@ -1,3 +1,11 @@
+# python shell
+#
+# use pycons to provide python / ipython shell for the gnucash executable
+
+## @file
+#  @brief (i)python shell for gnucash executable
+#  @ingroup python
+
 import sys
 import gnucash._sw_app_utils as _sw_app_utils
 import gnucash
