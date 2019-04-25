@@ -260,6 +260,8 @@ class Console (Gtk.ScrolledWindow):
 
     def write (self, text, style=None):
         """ Write text using given style (if any) """
+        print("write")
+        
         control_patterns = re.findall(self.control_pat, text)
         if control_patterns:
             # print("remove control patterns: "+str(control_patterns))
