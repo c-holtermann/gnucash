@@ -286,6 +286,7 @@ class Console (Gtk.ScrolledWindow):
                     p1, fgbg, color = self.color_pat_8bit.findall(tag)[0]
                     
                     color_int_raw = int(color)
+                    #print(color_int_raw)
                     if color_int_raw > 15:
                         color_int = color_int_raw - 16
                         r6 = color_int // 36
