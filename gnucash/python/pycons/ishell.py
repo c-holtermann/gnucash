@@ -59,7 +59,7 @@ class Shell:
         cfg.InteractiveShell.colors = "Linux"
 
         old_stdout, old_stderr = sys.stdout, sys.stderr
-        # sys.stdout, sys.stderr = io.stdout.stream, io.stderr.stream
+        sys.stdout, sys.stderr = io.stdout.stream, io.stderr.stream
 
         try:
           if parse_version(IPython.release.version) >= parse_version("1.2.1"):
