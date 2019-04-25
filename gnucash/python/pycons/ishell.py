@@ -99,9 +99,13 @@ class Shell:
 
     def eval(self, console):
         console.write ('\n')
+        # print("eval:")
         orig_stdout = sys.stdout
         sys.stdout = IPython.utils.io.stdout
         
+        #console.write("orig_stdout: "+str(orig_stdout)+'\n')
+        #console.write("sys.stdout: "+str(sys.stdout)+'\n')
+
         orig_stdin = sys.stdin
         sys.stdin = IPython.utils.io.stdin
         
@@ -112,6 +116,7 @@ class Shell:
             try:
                 self.prompt = self.generatePrompt(True)
             except:
+                print("ERR - generatePrompt")
                 self.IP.showtraceback()
             if self.IP.autoindent:
                 self.IP.rl_do_indent = True
@@ -123,10 +128,11 @@ class Shell:
             self.IP.input_splitter.reset()
         except:
             import traceback
-            self.IP.write('\n'+traceback.format_exc()+'\n')
+            self.IP.write('\nERR\n'+traceback.format_exc()+'\n')
             self.IP.showtraceback()
             self.IP.write('\n')
         else:
+            # print("line:", line)
             self.IP.input_splitter.push(line)
             self.iter_more = self.IP.input_splitter.push_accepts_more()
             self.prompt = self.generatePrompt(self.iter_more)
@@ -140,7 +146,7 @@ class Shell:
 
                 #source_raw = self.IP.input_splitter.source_raw
                 # credits: https://github.com/ipython/ipython/blob/master/docs/source/whatsnew/version2.0.rst
-                # print(source_raw)
+                # print("source_raw:", source_raw)
                 self.IP.run_cell(source_raw, store_history=True)
                 self.IP.rl_do_indent = False
             else:
@@ -157,14 +163,22 @@ class Shell:
             try:
                 buf = os.read(console.piperead, 256)
             except:
+                # print("error while reading console.piperead")
+                # import traceback
+                # self.IP.write('\nERR\n'+traceback.format_exc()+'\n')
+                # self.IP.showtraceback()
+                # self.IP.write('\n')
                 break
             else:
                 # print(buf)
                 console.write (buf.decode('utf-8'))
             if len(buf) < 256: break
 
+        
         # Command output
         rv = console.cout.getvalue()
+        # print("console.cout.getvalue():", rv)
+        
         if rv:
             rv = rv.strip('\n')
         console.write (rv)
