@@ -101,13 +101,14 @@ class Shell:
         console.write ('\n')
         # print("eval:")
         orig_stdout = sys.stdout
-        sys.stdout = IPython.utils.io.stdout
-        
+        if parse_version(IPython.release.version) <= parse_version("5.0"):
+            sys.stdout = IPython.utils.io.stdout
+            sys.stdin = IPython.utils.io.stdin
+       
         #console.write("orig_stdout: "+str(orig_stdout)+'\n')
         #console.write("sys.stdout: "+str(sys.stdout)+'\n')
 
         orig_stdin = sys.stdin
-        sys.stdin = IPython.utils.io.stdin
         
         self.prompt = self.generatePrompt(self.iter_more)
 
