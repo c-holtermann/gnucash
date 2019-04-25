@@ -323,7 +323,7 @@ class Console (Gtk.ScrolledWindow):
 
                         try:
                             self.buffer.insert_with_tags_by_name(self.buffer.get_end_iter(),
-                                                                segments[i+1], tag)
+                                                                segments[i+1], color_code_ansi)
                         except:
                             import traceback
                             traceback.print_exc()
