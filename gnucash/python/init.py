@@ -107,7 +107,7 @@ class Console (cons.Console):
 # Change this to "if True:" to switch on a python console at gnucash
 # startup:
 # shelltype can either be "python" or "ipython" (the latter is not yet fully functional)
-if False:
+if True:
     shelltype = "python"
     title = _("gnucash {0} shell".format(shelltype))
     banner_style = 'title'
