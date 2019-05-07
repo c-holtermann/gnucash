@@ -137,6 +137,7 @@ class Shell:
 
 
     def execute (self, console):
+        # console.write("exec, "+str(self.command))
         if not self.command:
             return
         try:

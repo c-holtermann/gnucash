@@ -260,7 +260,6 @@ class Console (Gtk.ScrolledWindow):
 
     def write (self, text, style=None):
         """ Write text using given style (if any) """
-        print("write")
         
         control_patterns = re.findall(self.control_pat, text)
         if control_patterns:
@@ -270,6 +269,7 @@ class Console (Gtk.ScrolledWindow):
         segments = self.color_pat.split(text)
         segment = segments.pop(0)
         start,end = self.buffer.get_bounds()
+        # self.buffer.insert(end, "style: "+str(style)+",text: "+str(text)+"\n")
         if style==None:
             self.buffer.insert(end, segment)
         else:
@@ -475,6 +475,7 @@ class Console (Gtk.ScrolledWindow):
 
 
     def execute (self):
+        # self.write("execute")
         # Python stdout, stderr, stdin redirection
         sys.stdout, self.stdout = self.stdout, sys.stdout
         sys.stderr, self.stderr = self.stderr, sys.stderr

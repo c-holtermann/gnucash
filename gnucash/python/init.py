@@ -115,6 +115,7 @@ class Console (cons.Console):
 if True:
     shelltype = "python"
     title = _("gnucash {0} shell").format(shelltype)
+    import traceback
     banner_style = 'title'
     banner = _("Welcome to {0}!\n").format(title)
     console = Console(argv = [], shelltype = shelltype, banner = [[banner, banner_style]], size = 100)
