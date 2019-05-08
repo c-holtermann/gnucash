@@ -118,9 +118,9 @@ class Console (cons.Console):
 if True:
     shelltype = "python"
     if shelltype=="python":
-        shelltypeName = _("Python")
+        shelltypeName = "Python"
     else:
-        shelltypeName = _("IPython")
+        shelltypeName = "IPython"
     banner_style = 'title'
     banner = _("Welcome to GnuCash %s Shell") % shelltypeName
     console = Console(argv = [], shelltype = shelltype, banner = [[banner, banner_style]], size = 100)
