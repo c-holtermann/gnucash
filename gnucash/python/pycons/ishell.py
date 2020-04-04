@@ -63,7 +63,8 @@ class Shell:
 
         try:
           if parse_version(IPython.release.version) >= parse_version("1.2.1"):
-            self.IP = IPython.terminal.embed.InteractiveShellEmbed(config=cfg, user_ns=user_ns)
+            ns = {**user_ns, **user_global_ns}
+            self.IP = IPython.terminal.embed.InteractiveShellEmbed(config=cfg, user_ns=ns)
           else:
             self.IP = IPython.frontend.terminal.embed.InteractiveShellEmbed.instance(\
                    config=cfg, user_ns=user_ns, user_global_ns=user_global_ns)
