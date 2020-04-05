@@ -220,13 +220,13 @@ class Shell:
         possibilities = self.IP.complete(split_line[-1])
         if possibilities:
             common_prefix = possibilities[0]
-            if possibilities[0][0] != "%":
+            if possibilities[0][0] != "%" and 
+                    sum([pos.startswith("%") for pos in possibilities[1]]) !=
+                    len(possibilities[1]):
                 possibilities_cleaned = [pos.lstrip("%") for pos in possibilities[1]]
             else:
                 possibilities_cleaned = possibilities[1]
             common_prefix = os.path.commonprefix(possibilities_cleaned)
-            if len(possibilities[1]) == 1:
-                common_prefix = possibilities[1][0]
             completed = line[:-len(split_line[-1])]+common_prefix
         else:
             completed = line
