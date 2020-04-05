@@ -219,11 +219,18 @@ class Shell:
         split_line = self.complete_sep.split(line)
         possibilities = self.IP.complete(split_line[-1])
         if possibilities:
-            common_prefix = os.path.commonprefix (possibilities)
+            common_prefix = possibilities[0]
+            if possibilities[0][0] != "%":
+                possibilities_cleaned = [pos.lstrip("%") for pos in possibilities[1]]
+            else:
+                possibilities_cleaned = possibilities[1]
+            common_prefix = os.path.commonprefix(possibilities_cleaned)
+            if len(possibilities[1]) == 1:
+                common_prefix = possibilities[1][0]
             completed = line[:-len(split_line[-1])]+common_prefix
         else:
             completed = line
-        return completed, possibilities
+        return completed, possibilities[1]
 
     def shell(self, cmd,verbose=0,debug=0,header=''):
         stat = 0
