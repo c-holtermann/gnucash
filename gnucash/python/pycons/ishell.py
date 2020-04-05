@@ -219,15 +219,17 @@ class Shell:
         split_line = self.complete_sep.split(line)
         possibilities = self.IP.complete(split_line[-1])
         if possibilities:
-            common_prefix = possibilities[0]
-            if possibilities[0][0] != "%" and 
-                    sum([pos.startswith("%") for pos in possibilities[1]]) !=
-                    len(possibilities[1]):
-                possibilities_cleaned = [pos.lstrip("%") for pos in possibilities[1]]
-            else:
-                possibilities_cleaned = possibilities[1]
-            common_prefix = os.path.commonprefix(possibilities_cleaned)
-            completed = line[:-len(split_line[-1])]+common_prefix
+            possibilities_cleaned_alphanum = [pos.replace("%","")
+                    for pos in possibilities[1]]
+            possibilities_cleaned_percent = [pos[:len(possibilities[1][i]) -\
+                    len(possibilities_cleaned_alphanum[i])]
+                    for i, pos in enumerate(possibilities[1])]
+            common_prefix_alphanum = os.path.commonprefix(
+                    possibilities_cleaned_alphanum)
+            common_prefix_percent = os.path.commonprefix(
+                    possibilities_cleaned_percent)
+            completed = line[:-len(split_line[-1])] + common_prefix_percent +\
+                    common_prefix_alphanum
         else:
             completed = line
         return completed, possibilities[1]
