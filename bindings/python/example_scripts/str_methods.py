@@ -156,6 +156,9 @@ class ClassWithCutting__format__():
             value = value.replace("\n","|")
 
         # Do regular formatting of object
+        # print(value, fmt)
+        if value is None:
+            value = "---"
         value = value.__format__(fmt)
 
         # Cut resulting value if longer than specified by width
@@ -193,7 +196,25 @@ def all_as_classwithcutting__format__keys(encoding=None, error=None, **keys):
 
     return d
 
+# GncNumeric
 
+def __gncnumeric__str__(self):
+    """__str__ method for GncNumeric class"""
+
+    value = self.num/self.denom
+
+    # This dict and the return statement can be changed according to individual needs
+    fmt_dict={
+        "value":value}
+
+    ret_gncnumeric= ("{value:.2f}").\
+                    format(**all_as_classwithcutting__format__keys(**fmt_dict))
+
+
+    return ret_gncnumeric
+
+gnucash.gnucash_core_c.__gncnumeric__str__=__gncnumeric__str__
+gnucash.GncNumeric.add_method("__gncnumeric__str__","__str__")
 
 # Split
 def __split__str__(self, encoding=None, error=None):
@@ -210,7 +231,8 @@ def __split__str__(self, encoding=None, error=None):
 
     from gnucash import Split
     import time
-    #self=Split(instance=self)
+    if type(self) != Split:
+        self=Split(instance=self)
 
     lot=self.GetLot()
     if lot:
@@ -225,7 +247,7 @@ def __split__str__(self, encoding=None, error=None):
     # This dict and the return statement can be changed according to individual needs
     fmt_dict={
         "account":self.GetAccount().name,
-        "value":self.GetValue(),
+        "value":str(self.GetValue()),
         "memo":self.GetMemo(),
         "lot":lot_str}
 
@@ -235,7 +257,7 @@ def __split__str__(self, encoding=None, error=None):
 
     if self.optionflags & self.OPTIONFLAGS_BY_NAME["PRINT_TRANSACTION"]:
         fmt_t_dict={
-            "transaction_time":time.ctime(transaction.GetDate()),
+            "transaction_time":transaction.GetDate().ctime(),
             "transaction2":transaction.GetDescription()}
         fmt_t_str=(
             "Transaction: {transaction_time:30} "+
@@ -258,7 +280,7 @@ def __transaction__str__(self):
     import time
     self=Transaction(instance=self)
 
-    fmt_tuple=('Date:',time.ctime(self.GetDate()),
+    fmt_tuple=('Date:',self.GetDate().ctime(),
           'Description:',self.GetDescription(),
           'Notes:',self.GetNotes())
 
@@ -287,8 +309,9 @@ def __invoice__str__(self):
     """__str__ method for Invoice"""
 
     from gnucash.gnucash_business import Invoice
-    self=Invoice(instance=self)
 
+    if type(self) != Invoice:
+        self = Invoice(instance = self)
 
     # This dict and the return statement can be changed according to individual needs
     fmt_dict={
@@ -302,10 +325,15 @@ def __invoice__str__(self):
         "owner_value":self.GetOwner().GetName(),
         "total_name":"Total:",
         "total_value":str(self.GetTotal()),
-        "currency_mnemonic":self.GetCurrency().get_mnemonic()}
+        "currency_mnemonic":self.GetCurrency().get_mnemonic(),
+        "is_paid_name":"Paid:",
+        "is_paid_value":self.IsPaid(),
+        "is_posted_name":"Posted:",
+        "is_posted_value":self.IsPosted()}
 
-    ret_invoice= ("{id_name:4}{id_value:10} {notes_name:7}{notes_value:20} {active_name:8}{active_value:7} {owner_name:12}{owner_value:20}"+
-                  "{total_name:8}{total_value:10}{currency_mnemonic:3}").\
+    ret_invoice= ("{id_name:4}{id_value:10}  {active_name:8}{active_value:7} {owner_name:12}{owner_value:20} {is_paid_name:9}{is_paid_value:2} {is_posted_name:9}{is_posted_value:2} "+\
+                  "{total_name:8}{total_value:10}{currency_mnemonic:3}\n"+\
+                  "{notes_name:7}{notes_value:80}").\
                     format(**all_as_classwithcutting__format__keys(**fmt_dict))
 
     ret_entries=""
@@ -342,11 +370,41 @@ def __entry__str__(self):
         "invprice_name":"InvPrice:",
         "invprice_value":str(self.GetInvPrice())}
 
-    return ("{date_name:6}{date_value:15} {description_name:13}{description_value:20} {notes_name:7}{notes_value:20}"+
-            "{quant_name:12}{quant_value:7} {invprice_name:10}{invprice_value:7}").\
+    return ("{date_name:6}{date_value:20} {description_name:13}{description_value:20} {notes_name:7}{notes_value:20}"+
+            "{quant_name:12}{quant_value:12} {invprice_name:10}{invprice_value:7}").\
                 format(**all_as_classwithcutting__format__keys(**fmt_dict))
 
 from gnucash.gnucash_business import Entry
 
 gnucash.gnucash_core_c.__entry__str__=__entry__str__
 gnucash.gnucash_business.Entry.add_method("__entry__str__","__str__")
+
+def __gnclot__str__(self):
+    """__str__ method for GncLot"""
+
+    from gnucash.gnucash_business import GncLot
+    from gnucash import Split
+
+    # This dict and the return statement can be changed according to individual needs
+    fmt_dict={
+        "title_name":"Title:",
+        "title_value":self.get_title(),
+        "notes_name":"Notes:",
+        "notes_value":self.get_notes()}
+
+    ret_lot = "{title_name:13}{title_value:20} {notes_name:7}{notes_value:20}".\
+                format(**all_as_classwithcutting__format__keys(**fmt_dict))
+
+    ret_splits=""
+    split_list = self.get_split_list()
+    for split in split_list: # Type of entry has to be checked
+      if not(type(split)==Split):
+        split=Split(instance=split)
+      ret_splits += "  "+str(split)+"\n"
+
+    return ret_lot+"\n"+ret_splits
+
+from gnucash.gnucash_business import GncLot
+
+gnucash.gnucash_core_c.__gnclot__str__=__gnclot__str__
+gnucash.gnucash_business.GncLot.add_method("__gnclot__str__","__str__")
