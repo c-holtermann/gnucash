@@ -119,6 +119,7 @@
 
 %include <gnc-commodity.h>
 
+
 %typemap(out) GncOwner * {
     GncOwnerType owner_type = gncOwnerGetType($1);
     PyObject * owner_tuple = PyTuple_New(2);
@@ -226,3 +227,24 @@ gnc_prefs_init();
 %}
 //We must explicitly declare this or it gets left out and we can't create books.
 QofBook* qof_book_new (void);
+
+%{
+/*typedef struct {
+  PyObject_HEAD
+  void *ptr; // This is the pointer to the actual C++ instance
+  void *ty;  // swig_type_info originally, but shouldn't matter
+  int own;
+  PyObject *next;
+} SwigPyObject;*/
+uintptr_t GetSwigPyObjId(PyObject *o)
+{
+        SwigPyObject *s = (SwigPyObject *) 0;
+        s = (SwigPyObject *)(o);
+
+        uintptr_t number = (uintptr_t)s->ptr;
+
+        return number;
+}
+%}
+uintptr_t GetSwigPyObjId(PyObject *o);
+
