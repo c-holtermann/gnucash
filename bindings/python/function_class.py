@@ -56,11 +56,11 @@ class ClassFromFunctions(object):
         # values, where this is desirable...
 
         if INSTANCE_ARGUMENT in kargs and kargs[INSTANCE_ARGUMENT] is not None:
+            from gnucash.gnucash_core_c import GetSwigPyObjId
             instance = kargs[INSTANCE_ARGUMENT]
             # print(f"instance {instance}")
-            if id(instance) in instances:
-                print(f"existing instance {instances[id(instance)]}")
-                return instances[id(instance)]
+            if GetSwigPyObjId(instance) in instances:
+                return instances[GetSwigPyObjId(instance)]
 
         return super(ClassFromFunctions, cls).__new__(cls)
 
@@ -78,13 +78,15 @@ class ClassFromFunctions(object):
         data. (by calling the .instance property)
         """
 
+        from gnucash.gnucash_core_c import GetSwigPyObjId
+
         if INSTANCE_ARGUMENT in kargs and kargs[INSTANCE_ARGUMENT] is not None:
             self.__instance = kargs[INSTANCE_ARGUMENT]
         else:
             self.__instance = getattr(self._module, self._new_instance)(
                 *process_list_convert_to_instance(args),
                 **process_dict_convert_to_instance(kargs))
-        instances[id(self.__instance)] = self
+        instances[GetSwigPyObjId(self.__instance)] = self
 
     def get_instance(self):
         """Get the instance data.
