@@ -28,6 +28,8 @@
 
 INSTANCE_ARGUMENT = "instance"
 
+instances = {}
+
 class ClassFromFunctions(object):
     """Inherit this class to give yourself a python class that wraps a set of
     functions that together constitute the methods of the class.
@@ -52,6 +54,14 @@ class ClassFromFunctions(object):
         # use new to avoid creating new instances when existing instances
         # already exist with the same __instance value, or equivalent __instance
         # values, where this is desirable...
+
+        if INSTANCE_ARGUMENT in kargs and kargs[INSTANCE_ARGUMENT] is not None:
+            instance = kargs[INSTANCE_ARGUMENT]
+            # print(f"instance {instance}")
+            if id(instance) in instances:
+                print(f"existing instance {instances[id(instance)]}")
+                return instances[id(instance)]
+
         return super(ClassFromFunctions, cls).__new__(cls)
 
     def __init__(self, *args, **kargs):
@@ -67,12 +77,14 @@ class ClassFromFunctions(object):
         are instances of ClassFromFunctions will be switched with the instance
         data. (by calling the .instance property)
         """
+
         if INSTANCE_ARGUMENT in kargs and kargs[INSTANCE_ARGUMENT] is not None:
             self.__instance = kargs[INSTANCE_ARGUMENT]
         else:
             self.__instance = getattr(self._module, self._new_instance)(
                 *process_list_convert_to_instance(args),
                 **process_dict_convert_to_instance(kargs))
+        instances[id(self.__instance)] = self
 
     def get_instance(self):
         """Get the instance data.
