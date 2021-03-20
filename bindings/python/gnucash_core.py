@@ -303,6 +303,10 @@ class Book(GnuCashCoreClass):
     get_root_account -- Returns the root level Account
     get_table -- Returns a commodity lookup table, of type GncCommodityTable
     """
+    def get_root_accounf(self):
+        """ get root account """
+        pass
+
     def InvoiceLookup(self, guid):
         from gnucash.gnucash_business import Invoice
         return self.do_lookup_create_oo_instance(
