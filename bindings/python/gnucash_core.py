@@ -303,7 +303,7 @@ class Book(GnuCashCoreClass):
     get_root_account -- Returns the root level Account
     get_table -- Returns a commodity lookup table, of type GncCommodityTable
     """
-    def get_root_accounf(self):
+    def get_root_account(self):
         """ get root account """
         pass
 
