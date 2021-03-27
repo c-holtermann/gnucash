@@ -94,7 +94,8 @@ class ClassFromFunctions(object):
         @param function_name string: name of the function to add
         @param method_name string: name of the method that function will be called
 
-        function will be wrapped by method_function"""
+        function will be wrapped by method_function
+        """
 
         def method_function(self, *meth_func_args, **meth_func_kargs):
             """! wrapper method for function
@@ -129,7 +130,8 @@ class ClassFromFunctions(object):
         @param function_name string: name of the function to add
         @param method_name string: name of the classmethod that function will be called
 
-        function will be wrapped by method_function"""
+        function will be wrapped by method_function
+        """
 
         def method_function(self, *meth_func_args, **meth_func_kargs):
             """! wrapper method for function
@@ -139,7 +141,8 @@ class ClassFromFunctions(object):
             @param *meth_func_args: arguments to be passed to function. All FunctionClass
                 objects will be turned to their respective instances.
             @param **meth_func_kargs: keyword arguments to be passed to function. All
-                FunctionClass objects will be turned to their respective instances."""
+                FunctionClass objects will be turned to their respective instances.
+            """
             return getattr(self._module, function_name)(
                 self,
                 *process_list_convert_to_instance(meth_func_args),
@@ -162,7 +165,8 @@ class ClassFromFunctions(object):
         @param function_name string: name of the function to add
         @param method_name string: name of the method that function will be called
 
-        function will be wrapped by method_function"""
+        function will be wrapped by method_function
+        """
 
         def method_function(self, *meth_func_args, **meth_func_kargs):
             """! wrapper method for function
@@ -172,7 +176,8 @@ class ClassFromFunctions(object):
             @param *meth_func_args: arguments to be passed to function. All FunctionClass
                 objects will be turned to their respective instances.
             @param **meth_func_kargs: keyword arguments to be passed to function. All
-                FunctionClass objects will be turned to their respective instances."""
+                FunctionClass objects will be turned to their respective instances.
+            """
             return getattr(self._module, function_name)(
                 self,
                 *process_list_convert_to_instance(meth_func_args),
@@ -221,7 +226,8 @@ class ClassFromFunctions(object):
             @param decorator: function to decorate method
             @param method_name: name of method to decorate (string)
             @param *args: positional arguments for decorator
-            @param **kargs: keyword arguments for decorator"""
+            @param **kargs: keyword arguments for decorator
+        """
         setattr(cls, method_name,
                     decorator(getattr(cls, method_name), *args, **kargs))
 
