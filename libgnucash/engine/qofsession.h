@@ -258,7 +258,7 @@ QofBackend * qof_session_get_backend(const QofSession *session);
  *    made to the session. For the file backend, this is nothing
  *    more than a write to the file of the current Accounts & etc.
  *    For the SQL backend, this is typically a no-op (since all data
- *    has already been written out to the database.
+ *    has already been written out to the database).
  */
 void     qof_session_save (QofSession *session,
                            QofPercentageFunc percentage_func);
