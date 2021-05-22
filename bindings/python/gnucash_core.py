@@ -144,7 +144,7 @@ class SessionOpenMode(IntEnum):
 
 
 class Session(GnuCashCoreClass):
-    """A GnuCash book editing session
+    """! A GnuCash book editing session
 
     To commit changes to the session you may need to call save,
     (this is always the case with the file backend).
@@ -248,7 +248,7 @@ class Session(GnuCashCoreClass):
         self.end()
 
     def raise_backend_errors(self, called_function="qof_session function"):
-        """Raises a GnuCashBackendException if there are outstanding
+        """! Raises a GnuCashBackendException if there are outstanding
         QOF_BACKEND errors.
 
         set called_function to name the function that was last called
@@ -285,7 +285,7 @@ class Session(GnuCashCoreClass):
         return new_function
 
 class Book(GnuCashCoreClass):
-    """A Book encapsulates all of the GnuCash data, it is the place where
+    """! A Book encapsulates all of the GnuCash data, it is the place where
     all GnuCash entities (Transaction, Split, Vendor, Invoice...), are
     stored. You'll notice that all of the constructors for those entities
     need a book to be associated with.
@@ -546,7 +546,7 @@ class GncLot(GnuCashCoreClass):
             gncInvoiceGetInvoiceFromLot, Invoice )
 
 class Transaction(GnuCashCoreClass):
-    """A GnuCash Transaction
+    """! A GnuCash Transaction
 
     Consists of at least one (generally two) splits to represent a transaction
     between two accounts.
@@ -590,8 +590,9 @@ def decorate_monetary_list_returning_function(orig_function):
                 for item in orig_function(self, *args) ]
     return new_function
 
+@doxyCleanAll
 class Split(GnuCashCoreClass):
-    """A GnuCash Split
+    """! A GnuCash Split
 
     The most basic representation of a movement of currency from one account to
     another.
@@ -601,8 +602,9 @@ class Split(GnuCashCoreClass):
     def __eq__(self, other):
         return self.Equal(other, True, False, False)
 
+@doxyCleanAll
 class Account(GnuCashCoreClass):
-    """A GnuCash Account.
+    """! A GnuCash Account.
 
     A fundamental entity in accounting, an Account provides representation
     for a financial object, such as a ACCT_TYPE_BANK account, an
