@@ -42,7 +42,7 @@
       <attribute name="temp" translatable="no">yes</attribute>
     </item>
   </menu>
-  
+
   <menu id="EditPlaceholder2-e">
     <item>
       <attribute name="label" translatable="yes">E_dit Employee</attribute>
@@ -169,6 +169,11 @@
         <attribute name="label" translatable="yes">Process Payment</attribute>
         <attribute name="action">GncPluginPageOwnerTreeActions.OTProcessPaymentAction</attribute>
         <attribute name="tooltip" translatable="yes">Process Payment</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Customer's Invoices</attribute>
+        <attribute name="action">GncPluginPageOwnerTreeActions.OTSearchInvoicesAction</attribute>
+        <attribute name="tooltip" translatable="yes">Customer's Invoices</attribute>
       </item>
     </section>
   </menu>
