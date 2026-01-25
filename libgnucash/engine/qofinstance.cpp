@@ -244,7 +244,7 @@ static void qof_instance_class_init(QofInstanceClass *klass)
 
     g_object_class_install_property
     (object_class,
-     PROP_EDITLEVEL,
+     PROP_IDATA,
      g_param_spec_uint ("idata",
                         "Object IData",
                         "Per instance backend private data.",
