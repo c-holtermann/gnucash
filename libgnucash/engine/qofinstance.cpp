@@ -1216,7 +1216,6 @@ qof_instance_kvp_remove_guid (const QofInstance *inst, const char *path,
         if (kvp_match_guid (v, {key}, guid))
         {
             delete inst->kvp_data->set_path({path}, nullptr);
-            delete v;
         }
         break;
     case KvpValue::Type::GLIST:
