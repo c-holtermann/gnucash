@@ -17,24 +17,25 @@
 # Leo Moons <Leo.Moons@proximus.be>, 2025.
 # BlueRains <lu@schoevaars.eu>, 2025.
 # Ceaus <github@pohw.nl>, 2025.
+# hamaryns <hendrik@hendrikmaryns.name>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: GnuCash 5.14\n"
-"Report-Msgid-Bugs-To: https://bugs.gnucash.org/enter_bug.cgi?"
-"product=GnuCash&component=Translations\n"
+"Report-Msgid-Bugs-To: https://bugs.gnucash.org/"
+"enter_bug.cgi?product=GnuCash&component=Translations\n"
 "POT-Creation-Date: 2025-12-14 10:54-0800\n"
-"PO-Revision-Date: 2025-10-24 10:54+0000\n"
-"Last-Translator: Ceaus <github@pohw.nl>\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/gnucash/gnucash/nl/"
-">\n"
+"PO-Revision-Date: 2026-01-20 09:45+0000\n"
+"Last-Translator: hamaryns <hendrik@hendrikmaryns.name>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/gnucash/gnucash/"
+"nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.1-dev\n"
-"X-Bugs: Report translation errors to https://bugs.gnucash.org/enter_bug.cgi?"
-"product=GnuCash&component=Translations\n"
+"X-Generator: Weblate 5.16-dev\n"
+"X-Bugs: Report translation errors to https://bugs.gnucash.org/"
+"enter_bug.cgi?product=GnuCash&component=Translations\n"
 
 #: bindings/guile/date-utilities.scm:173
 #: gnucash/report/reports/example/daily-reports.scm:260
@@ -5369,15 +5370,13 @@ msgid "Save Config As…"
 msgstr "Config opslaan als…"
 
 #: gnucash/gnome/gnc-plugin-page-report.cpp:243
-#, fuzzy
-#| msgid "Export as P_DF…"
 msgid "Export as PDF"
-msgstr "Als P_DF exporteren…"
+msgstr "Als PDF exporteren"
 
 #: gnucash/gnome/gnc-plugin-page-report.cpp:377
 #: gnucash/gnome/gnc-plugin-page-report.cpp:378
 msgid "The numeric ID of the report."
-msgstr "De identificatienummer van het rapport."
+msgstr "Het identificatienummer van het rapport."
 
 #: gnucash/gnome/gnc-plugin-page-report.cpp:1265
 #, c-format
@@ -5460,6 +5459,8 @@ msgstr "Overzicht"
 #, c-format
 msgid "This will update and overwrite the existing saved report named \"%s\"."
 msgstr ""
+"Dit zal het bestaande opgeslagen rapport genaamd “%s” bijwerken en "
+"overschrijven."
 
 #: gnucash/gnome/gnc-plugin-page-report.cpp:1797
 #: gnucash/gnome/gnc-plugin-page-report.cpp:1823
@@ -5468,8 +5469,8 @@ msgid ""
 "This report must be upgraded to return a document object with export-string "
 "or export-error."
 msgstr ""
-"Dit rapport moet opgewaardeerd worden om een document object terug te geven "
-"via 'export-string' of 'export-error'."
+"Dit rapport moet opgewaardeerd worden om een documentobject terug te geven "
+"via ‘export-string’ of ‘export-error’."
 
 #: gnucash/gnome/gnc-plugin-page-report.cpp:1834
 #, c-format
