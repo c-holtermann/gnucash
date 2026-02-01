@@ -5,22 +5,23 @@
 # Petr Pisar <petr.pisar@atlas.cz>, 2012.
 # Tomáš Václavík <t3vaclavik@gmail.com>, 2022.
 # Kryštof Černý <cleverline1mc@gmail.com>, 2023.
+# Mirek Špaňko <mirekspanko@hotmail.cz>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: GnuCash 5.14\n"
-"Report-Msgid-Bugs-To: https://bugs.gnucash.org/enter_bug.cgi?"
-"product=GnuCash&component=Translations\n"
+"Report-Msgid-Bugs-To: https://bugs.gnucash.org/"
+"enter_bug.cgi?product=GnuCash&component=Translations\n"
 "POT-Creation-Date: 2025-12-14 10:54-0800\n"
-"PO-Revision-Date: 2023-02-18 19:39+0000\n"
-"Last-Translator: Kryštof Černý <cleverline1mc@gmail.com>\n"
-"Language-Team: Czech <https://hosted.weblate.org/projects/gnucash/gnucash/cs/"
-">\n"
+"PO-Revision-Date: 2026-01-10 15:09+0000\n"
+"Last-Translator: Mirek Špaňko <mirekspanko@hotmail.cz>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/gnucash/gnucash/"
+"cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.16-dev\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15.1\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: bindings/guile/date-utilities.scm:173
@@ -37,7 +38,7 @@ msgstr ""
 #: gnucash/report/reports/standard/price-scatter.scm:186
 #, scheme-format
 msgid "~a to ~a"
-msgstr ""
+msgstr "~a až ~a"
 
 #: bindings/guile/date-utilities.scm:519
 #, scheme-format
@@ -45,6 +46,9 @@ msgid ""
 "Tried to look up an undefined date symbol '~a'. This report was probably "
 "saved by a later version of GnuCash. Defaulting to today."
 msgstr ""
+"Pokus o vyhledání nedefinovaného symbolu data „~a“. Tato zpráva byla "
+"pravděpodobně uložena novější verzí programu GnuCash. Výchozí nastavení je "
+"dnešní datum."
 
 #: bindings/guile/date-utilities.scm:715
 #: gnucash/gnome-utils/gnc-period-select.c:70
@@ -54,9 +58,8 @@ msgstr "Začátek tohoto roku"
 
 #: bindings/guile/date-utilities.scm:718
 #: libgnucash/engine/gnc-option-date.cpp:265
-#, fuzzy
 msgid "First day of the current calendar year."
-msgstr "Začátek současného kalendářního roku"
+msgstr "První den aktuálního kalendářního roku."
 
 #: bindings/guile/date-utilities.scm:722
 #: gnucash/gnome-utils/gnc-period-select.c:86
