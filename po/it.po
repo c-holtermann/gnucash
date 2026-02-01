@@ -1,7 +1,7 @@
 # Italian translation of Gnucash.
 # Copyright (C) 2020 by the GnuCash developers and the translators below.
 # This file is distributed under the same license as the Gnucash package.
-# Giuseppe Foti <foti.giuseppe@gmail.com>, 2020;, 2021, 2022, 2023.
+# Giuseppe Foti <foti.giuseppe@gmail.com>, 2020;, 2021, 2022, 2023, 2026.
 # Cristian Marchi <cri79@libero.it>, 2008, 2009, 2010;
 # Simone Zinanni <simone@develer.com>, 2008;
 # Lorenzo Cappelletti <lorenzo.cappelletti@email.com>, 2003-2005.
@@ -54,11 +54,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GnuCash 5.14\n"
-"Report-Msgid-Bugs-To: https://bugs.gnucash.org/enter_bug.cgi?"
-"product=GnuCash&component=Translations\n"
+"Report-Msgid-Bugs-To: https://bugs.gnucash.org/"
+"enter_bug.cgi?product=GnuCash&component=Translations\n"
 "POT-Creation-Date: 2025-12-14 10:54-0800\n"
-"PO-Revision-Date: 2024-04-17 21:03+0000\n"
-"Last-Translator: Nathan Hadley <nathanhadley.pigeon@gmail.com>\n"
+"PO-Revision-Date: 2026-02-01 15:01+0000\n"
+"Last-Translator: Giuseppe Foti <foti.giuseppe@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/gnucash/gnucash/"
 "it/>\n"
 "Language: it\n"
@@ -66,7 +66,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: bindings/guile/date-utilities.scm:173
 #: gnucash/report/reports/example/daily-reports.scm:260
@@ -2217,16 +2217,12 @@ msgstr ""
 "sotto un fornitore."
 
 #: gnucash/gnome/dialog-commodities.cpp:183
-#, fuzzy
-#| msgid ""
-#| "That commodity is currently used by at least one of your accounts. You "
-#| "may not delete it."
 msgid ""
 "This commodity is currently used by the following accounts. You may not "
 "delete it.\n"
 msgstr ""
 "Questa commodity è utilizzata da almeno un conto. Si consiglia di non "
-"cancellarla."
+"cancellarla.\n"
 
 #: gnucash/gnome/dialog-commodities.cpp:201
 msgid ""
@@ -5391,22 +5387,24 @@ msgstr "Vai alla data"
 
 #: gnucash/gnome/gnc-plugin-page-register.cpp:5097
 #: gnucash/gnome/gnc-plugin-page-register.cpp:5126
-#, fuzzy
-#| msgid "_Jump to the other account"
 msgid "Unable to jump to other account"
-msgstr "_Vai al conto della contropartita"
+msgstr "Impossibile passare a un altro conto"
 
 #: gnucash/gnome/gnc-plugin-page-register.cpp:5100
 msgid ""
 "This transaction involves more than one other account. Select a specific "
 "split to jump to that account."
 msgstr ""
+"Questa transazione coinvolge più di un altro conto. Seleziona una divisione "
+"specifica per passare a quel conto."
 
 #: gnucash/gnome/gnc-plugin-page-register.cpp:5129
 msgid ""
 "This transaction only involves the current account so there is no other "
 "account to jump to."
 msgstr ""
+"Questa transazione riguarda solo questo conto, quindi non c'è un altro conto "
+"a cui passare."
 
 #: gnucash/gnome/gnc-plugin-page-register.cpp:5283
 #, c-format
@@ -5527,6 +5525,8 @@ msgstr "Generali"
 #, c-format
 msgid "This will update and overwrite the existing saved report named \"%s\"."
 msgstr ""
+"Questa operazione aggiornerà e sovrascriverà l'attuale report salvato "
+"chiamato '%s'."
 
 #: gnucash/gnome/gnc-plugin-page-report.cpp:1797
 #: gnucash/gnome/gnc-plugin-page-report.cpp:1823
@@ -7934,12 +7934,11 @@ msgstr "Contabilità delle finanze personali e per piccole imprese."
 msgid "translator-credits\n"
 msgstr ""
 "Alessandro Seveso: 2000\n"
-" Cristian Marchi: 2008, 2009, 2010\n"
-"J. Lavoie: 2020\n"
-" Lorenzo Cappelletti: 2002 2003, 2003-2005.\n"
-"Marco: 2023.\n"
-" Nathan Hadley: 2024.\n"
-" Simone Zinanni: 2008\n"
+"Lorenzo Cappelletti: 2002 2003, 2003-2005\n"
+"Simone Zinanni: 2008\n"
+"Cristian Marchi: 2008, 2009, 2010\n"
+"Marco: 2023\n"
+"Giuseppe Foti: 2020 2021 2022 2023 2024 2025 2026\n"
 
 #: gnucash/gnome-utils/gnc-main-window.cpp:5561
 msgid "Visit the GnuCash website."
@@ -9896,11 +9895,14 @@ msgid ""
 "by registering for a free account at the Alpha Vantage website, https://www."
 "alphavantage.co/support/#api-key."
 msgstr ""
+"Alpha Vantage richiede una chiave API per utilizzare il loro servizio. Puoi "
+"ottenere una chiave registrandoti gratuitamente sul sito Alpha Vantage, "
+"https://www.alphavantage.co/support/#api-key."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.general.finance-quote.gschema.xml.in:10
 #: gnucash/gtkbuilder/dialog-preferences.glade:3843
 msgid "YH Finance (FinanceAPI) API key"
-msgstr ""
+msgstr "Chiave API di YH Finance (FinanceAPI)"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.general.finance-quote.gschema.xml.in:11
 #: gnucash/gtkbuilder/dialog-preferences.glade:3842
@@ -9910,6 +9912,9 @@ msgid ""
 "obtain a key by registering for a free account at the YH Finance website, "
 "https://financeapi.net/pricing."
 msgstr ""
+"YH Finance richiede una chiave API per utilizzare il loro servizio "
+"FinanceAPI. Puoi ottenere una chiave registrandoti gratuitamente sul sito "
+"web di YH Finance, https://financeapi.net/pricing."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.gschema.xml.in:10
 msgid "The version of these settings"
@@ -10581,13 +10586,15 @@ msgstr ""
 
 #: gnucash/gschemas/org.gnucash.GnuCash.gschema.xml.in:267
 msgid "\"Jump\" behaviour when there are multiple splits"
-msgstr ""
+msgstr "Comportamento di \"Passa a\" quando ci sono più divisioni"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.gschema.xml.in:268
 msgid ""
 "Select how the \"Jump\" operation should behave when a transaction has "
 "multiple splits."
 msgstr ""
+"Seleziona come dovrebbe comportarsi l'operazione \"Passa a\" quando una "
+"transazione ha più divisioni."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.gschema.xml.in:272
 msgid "Create a new window for each new register"
@@ -11347,10 +11354,8 @@ msgstr ""
 
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:129
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:262
-#, fuzzy
-#| msgid "_Jump to the other account"
 msgid "Jump when there are multiple other accounts"
-msgstr "_Vai al conto della contropartita"
+msgstr "Passa al conto quando ci sono conti multipli in contropartita"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:130
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:263
@@ -11359,27 +11364,23 @@ msgid ""
 "because it has splits for multiple other accounts. A specific split must be "
 "selected to jump to the other account."
 msgstr ""
+"Questa finestra viene presentata quando non puoi passare a una transazione "
+"perché ha suddivisioni su più conti. Deve essere selezionata una "
+"suddivisione specifica per passare all'altro conto."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:134
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:267
-#, fuzzy
-#| msgid "_Jump to the other account"
 msgid "Jump when there are no other accounts"
-msgstr "_Vai al conto della contropartita"
+msgstr "Passa al conto quando non ci sono altri conti"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:135
 #: gnucash/gschemas/org.gnucash.GnuCash.warnings.gschema.xml.in:268
-#, fuzzy
-#| msgid ""
-#| "This dialog is presented when you attempt to duplicate a modified "
-#| "transaction. The changed data must be saved or the duplication canceled."
 msgid ""
 "This dialog is presented when you are unable to jump on a transaction "
 "because it only has splits for the current account."
 msgstr ""
-"Questa finestra di dialogo viene visualizzata quando si tenta di duplicare "
-"una transazione modificata. I dati modificati devono essere salvati oppure "
-"si deve annullare la duplicazione."
+"Questa finestra di dialogo viene visualizzata quando non è possibile passare "
+"a una transazione perché la solo suddivisioni nel presente conto."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.window.pages.account.tree.gschema.xml.in:5
 #: gnucash/gschemas/org.gnucash.GnuCash.window.pages.account.tree.gschema.xml.in:6
@@ -12504,6 +12505,8 @@ msgid ""
 "All accounts except Equity and placeholder accounts may have an opening "
 "balance."
 msgstr ""
+"Tutti i conti, tranne i conti Equity e quelli temporanei, possono avere un "
+"saldo iniziale."
 
 # Tooltip
 #: gnucash/gtkbuilder/assistant-hierarchy.glade:602
@@ -15155,11 +15158,11 @@ msgstr "Cerca nella lista dei conti"
 
 #: gnucash/gtkbuilder/dialog-find-account.glade:38
 msgid "Close _on Jump"
-msgstr "C_hiudi dopo «Vai a»"
+msgstr "C_hiudi dopo «Passa a»"
 
 #: gnucash/gtkbuilder/dialog-find-account.glade:55
 msgid "_Jump To"
-msgstr "_Vai a"
+msgstr "_Passa a"
 
 #: gnucash/gtkbuilder/dialog-find-account.glade:127
 msgid "All _accounts"
@@ -15189,7 +15192,7 @@ msgid ""
 "Tree,\n"
 "if account should not be shown, this will be temporarily overridden."
 msgstr ""
-"Seleziona una riga, quindi premi «Vai a» per passare al conto nella "
+"Seleziona una riga, quindi premi «Passa a» per passare al conto nella "
 "struttura dei conti,\n"
 "se il conto non deve essere mostrato, ciò verrà temporaneamente ignorato."
 
@@ -16528,15 +16531,16 @@ msgstr ""
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2626
 msgid "<b>Jump action for multiple splits</b>"
-msgstr ""
+msgstr "<b>Azione di «Passa a» per suddivisioni multiple</b>"
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2628
 msgid "Transaction jump action when there are more than two splits."
 msgstr ""
+"Azione di passaggio alla transazione quando ci sono più di due divisioni."
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2638
 msgid "Do _nothing"
-msgstr ""
+msgstr "Fai _nulla"
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2644
 #, fuzzy
@@ -16546,12 +16550,14 @@ msgstr "Non mostrare"
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2657
 msgid "Go to the first split with the _largest value"
-msgstr ""
+msgstr "Vai alla prima divisione con il valore più _grande"
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2663
 msgid ""
 "Use the first split with the largest value to determine the other account."
 msgstr ""
+"Usa la prima suddivisione con il valore più alto per determinare l'altro "
+"conto."
 
 # tooltip
 #: gnucash/gtkbuilder/dialog-preferences.glade:2677
@@ -16564,6 +16570,8 @@ msgstr "Spostati alla suddivisione ad una data specifica."
 msgid ""
 "Use the first split with the smallest value to determine the other account."
 msgstr ""
+"Usa la prima divisione con il valore più piccolo per determinare l'altro "
+"conto."
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:2710
 #, fuzzy
@@ -16859,7 +16867,7 @@ msgstr "In basso"
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:3664
 msgid "Tabs"
-msgstr ""
+msgstr "Linguette"
 
 #: gnucash/gtkbuilder/dialog-preferences.glade:3677
 msgid "Show close button on _notebook tabs"
@@ -21115,6 +21123,9 @@ msgid ""
 "Clear Transaction\n"
 "Mark existing transaction as cleared without changing its details"
 msgstr ""
+"Compensa la Transazione\n"
+"\n"
+"Marca la transazione esistente come compensata senza cambiarne i dettagli"
 
 #: gnucash/import-export/import-main-matcher.cpp:1626
 msgid "Info"
@@ -28550,16 +28561,12 @@ msgid "Amount Due (inc GST)"
 msgstr "Importo dovuto (IVA inc.)"
 
 #: gnucash/report/reports/standard/taxinvoice.scm:320
-#, fuzzy
-#| msgid "Invoice #: "
 msgid "Invoice #:"
-msgstr "Documento #: "
+msgstr "Documento #:"
 
 #: gnucash/report/reports/standard/taxinvoice.scm:322
-#, fuzzy
-#| msgid "Engagement: "
 msgid "Engagement:"
-msgstr "Incarico: "
+msgstr "Incarico:"
 
 #: gnucash/report/reports/standard/taxinvoice.scm:328
 #: gnucash/report/reports/standard/taxinvoice.scm:330
@@ -31391,7 +31398,7 @@ msgstr "Apri il documento collegato per questa transazione."
 #: gnucash/ui/gnc-plugin-page-register.ui:407
 #: gnucash/ui/gnc-plugin-page-register.ui:519
 msgid "Jump to the linked bill, invoice, or voucher."
-msgstr "Vai alla fattura o alla nota spesa collegata."
+msgstr "Passa alla fattura o alla nota spesa collegata."
 
 # Tooltip
 #: gnucash/ui/gnc-plugin-page-register.ui:232
@@ -31500,7 +31507,7 @@ msgstr ""
 #: gnucash/ui/gnc-plugin-page-register.ui:549
 #: gnucash/ui/gnc-plugin-page-register.ui:832
 msgid "_Jump to the other account"
-msgstr "_Vai al conto della contropartita"
+msgstr "_Passa al conto della contropartita"
 
 #: gnucash/ui/gnc-plugin-page-register.ui:306
 #: gnucash/ui/gnc-plugin-page-register.ui:439
