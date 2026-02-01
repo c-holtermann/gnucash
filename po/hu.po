@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.gnucash.org/"
 "enter_bug.cgi?product=GnuCash&component=Translations\n"
 "POT-Creation-Date: 2025-12-14 10:54-0800\n"
-"PO-Revision-Date: 2026-01-03 09:01+0000\n"
+"PO-Revision-Date: 2026-02-01 17:01+0000\n"
 "Last-Translator: Szia Tomi <sziatomi01@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/gnucash/"
 "gnucash/hu/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: bindings/guile/date-utilities.scm:173
 #: gnucash/report/reports/example/daily-reports.scm:260
@@ -6588,7 +6588,7 @@ msgstr "Fájl elemzése…"
 #: gnucash/import-export/csv-imp/gnc-import-tx.cpp:431
 #: gnucash/import-export/csv-imp/gnc-tokenizer-csv.cpp:131
 msgid "There was an error parsing the file."
-msgstr "A fájl elemzése során hiba történt."
+msgstr "Hiba történt a fájl elemzése közben."
 
 #: gnucash/gnome-utils/assistant-xml-encoding.c:1149
 #: gnucash/gnome-utils/gnc-file.c:1485 gnucash/gnome-utils/gnc-file.c:1728
@@ -6617,12 +6617,12 @@ msgid ""
 "The children of the edited account have to be changed to type \"%s\" to make "
 "them compatible."
 msgstr ""
-"A szerkesztett számla alszámláit is \"%s\" típusúra kell módosítani, hogy "
+"A szerkesztett számla alszámláit is „%s” típusúra kell módosítani, hogy "
 "kompatibilisek maradjanak."
 
 #: gnucash/gnome-utils/dialog-account.c:881
 msgid "_Show children accounts"
-msgstr "_Az érintett alszámlák megjelenítése"
+msgstr "Az érintett _alszámlák megjelenítése"
 
 #: gnucash/gnome-utils/dialog-account.c:953
 msgid "The account must be given a name."
@@ -6645,7 +6645,8 @@ msgid ""
 "The selected account type is incompatible with the one of the selected "
 "parent."
 msgstr ""
-"A kiválasztott fióktípus nem kompatibilis a kiválasztott szülő fiókjával."
+"A kiválasztott számlatípus nem kompatibilis a kiválasztott főszámla "
+"számlatípusával."
 
 #: gnucash/gnome-utils/dialog-account.c:1018
 msgid "You must choose a commodity."
@@ -6654,21 +6655,24 @@ msgstr "Ki kell választani egy árut."
 #: gnucash/gnome-utils/dialog-account.c:1038
 msgid "Balance limits must be different unless they are both zero."
 msgstr ""
+"Az egyenleghatároknak különbözőnek kell lenniük, kivéve, ha mindkettő nulla."
 
 #: gnucash/gnome-utils/dialog-account.c:1045
 msgid "The lower balance limit must be less than the higher limit."
 msgstr ""
+"Az alsó egyenleghatár alacsonyabb kell legyen, mint a felső egyenleghatár."
 
 #: gnucash/gnome-utils/dialog-account.c:1101
 msgid "You must enter a valid opening balance or leave it blank."
-msgstr "Vagy érvényes nyitóegyenleget kell megadni, vagy üresen hagyni."
+msgstr "Érvényes nyitóegyenleget kell megadni, vagy üresen kell hagyni."
 
 #: gnucash/gnome-utils/dialog-account.c:1125
 msgid ""
 "You must select a transfer account or choose the opening balances equity "
 "account."
 msgstr ""
-"Vagy egy célszámlát, vagy a nyitóegyenlegek > saját tőke számlát válassza ki."
+"Ki kell választania egy célszámlát vagy a nyitó egyenlegek saját tőke "
+"számláját."
 
 #: gnucash/gnome-utils/dialog-account.c:1480
 msgid ""
@@ -6677,15 +6681,15 @@ msgstr "Már létezik nyitóegyenleggel rendelkező számla a kívánt pénznemh
 
 #: gnucash/gnome-utils/dialog-account.c:1481
 msgid "Cannot change currency"
-msgstr ""
+msgstr "A pénznem nem változtatható meg"
 
 #: gnucash/gnome-utils/dialog-account.c:1570
 msgid ""
 "This Account contains Transactions.\n"
 "Changing this option is not possible."
 msgstr ""
-"A számla tartalmaz tranzakciókat.\n"
-"A változtatás nem lehetséges."
+"A számla tranzakciókat tartalmaz.\n"
+"Ezt a beállítást nem változtathatja meg."
 
 #: gnucash/gnome-utils/dialog-account.c:1744
 #: gnucash/gnome-utils/dialog-utils.c:838
@@ -6710,7 +6714,7 @@ msgstr "Új számla"
 #: gnucash/gnome-utils/dialog-account.c:2354
 #, c-format
 msgid "Renumber the immediate sub-accounts of '%s'?"
-msgstr "Átszámozza '%s' közvetlen alfiókjait?"
+msgstr "Újraszámozza „%s” közvetlen alszámláit?"
 
 #: gnucash/gnome-utils/dialog-account.c:2460
 #, c-format
@@ -6718,20 +6722,20 @@ msgid ""
 "Set the account color for account '%s' including all sub-accounts to the "
 "selected color"
 msgstr ""
+"A kiválasztott színre állítja be „%s” számla színét, beleértve az összes "
+"alszámláját is"
 
 #: gnucash/gnome-utils/dialog-account.c:2487
 #, c-format
 msgid ""
 "Set the account placeholder value for account '%s' including all sub-accounts"
-msgstr "A \"%s\" számla és alszámláinak megjelölése helykitöltőként"
+msgstr "„%s” számla és alszámláinak megjelölése helykitöltőként"
 
 #: gnucash/gnome-utils/dialog-account.c:2501
 #, c-format
 msgid ""
 "Set the account hidden value for account '%s' including all sub-accounts"
-msgstr ""
-"Állítsa be a számla rejtett értékét a '%s' számlához, beleértve az összes "
-"alszámlát"
+msgstr "Rejtett értékét állít be „%s” számlának és az összes alszámlájának"
 
 #: gnucash/gnome-utils/dialog-book-close.c:294
 msgid "Please select an Equity account to hold the total Period Income."
@@ -6771,7 +6775,7 @@ msgid ""
 "Exchange code (ISIN, CUSIP or similar): "
 msgstr ""
 "\n"
-"Tőzsdei kód (ISIN, SEDOL, CUSIP stb.): "
+"Tőzsdei kód (ISIN, SEDOL, CUSIP vagy hasonló): "
 
 #: gnucash/gnome-utils/dialog-commodity.cpp:178
 msgid ""
@@ -6779,7 +6783,7 @@ msgid ""
 "Mnemonic (Ticker symbol or similar): "
 msgstr ""
 "\n"
-"Rövidítés (Ticker kód vagy hasonló): "
+"Rövidítés (Tőzsdei szimbólum vagy hasonló): "
 
 #: gnucash/gnome-utils/dialog-commodity.cpp:277
 #: gnucash/gtkbuilder/dialog-commodity.glade:637
@@ -7085,16 +7089,16 @@ msgstr "Egy számla nem lehet forrás és egyben cél is!"
 #: gnucash/register/ledger-core/split-register.c:2000
 #, c-format
 msgid "The account %s does not allow transactions."
-msgstr "A %s számla nem enged meg tranzakciókat."
+msgstr "A számla (%s) nem enged meg tranzakciókat."
 
 #: gnucash/gnome-utils/dialog-transfer.cpp:1434
 msgid ""
 "You can't transfer from a non-currency account. Try reversing the \"from\" "
 "and \"to\" accounts and making the \"amount\" negative."
 msgstr ""
-"Nem lehetséges egy nem-pénznemXXX számláról átvezetni. Próbálja meg "
-"visszaállítani \"forrás\" és \"Cél\" számlákat, majd az \"összeg\" -et "
-"negatívvá tenni."
+"Nem lehetséges egy nem pénznem alapú számláról átutalni. Próbálja meg "
+"megfordítani a „forrás” (feladó) és „cél” (címzett) számlákat, és adja meg "
+"az összeget negatívként."
 
 #: gnucash/gnome-utils/dialog-transfer.cpp:1452
 msgid "You must enter a valid price."
@@ -7155,7 +7159,7 @@ msgstr "Megjegyzés és ne _kérdezze ismét."
 
 #: gnucash/gnome-utils/dialog-utils.c:761
 msgid "Don't _tell me again."
-msgstr "Ne mondja megin_t."
+msgstr "_Ne mondja megint."
 
 #: gnucash/gnome-utils/dialog-utils.c:764
 msgid "Remember and don't ask me again this _session."
@@ -7485,12 +7489,12 @@ msgstr "Hiba történt a fájl olvasásakor. Akarja folytatni?"
 #: gnucash/gnome-utils/gnc-file.c:449
 #, c-format
 msgid "There was an error parsing the file %s."
-msgstr "%s fájl elemzése során hiba történt."
+msgstr "Hiba történt a fájl (%s) elemzése közben."
 
 #: gnucash/gnome-utils/gnc-file.c:454
 #, c-format
 msgid "The file %s is empty."
-msgstr "%s fájl üres."
+msgstr "A fájl (%s) üres."
 
 #: gnucash/gnome-utils/gnc-file.c:467
 #, c-format
@@ -7515,12 +7519,12 @@ msgstr "Ez a fájl egy régebbi GnuCash verzióból származik. Akarja folytatni
 #: gnucash/gnome-utils/gnc-file.c:489
 #, c-format
 msgid "The file type of file %s is unknown."
-msgstr "%s fájl fájltípusa ismeretlen."
+msgstr "A fájl (%s) fájltípusa ismeretlen."
 
 #: gnucash/gnome-utils/gnc-file.c:494
 #, c-format
 msgid "Could not make a backup of the file %s"
-msgstr "%s fájlról nem sikerült mentést készíteni"
+msgstr "A fájlról (%s) nem sikerült biztonsági mentést készíteni"
 
 #: gnucash/gnome-utils/gnc-file.c:499
 #, c-format
@@ -7608,6 +7612,10 @@ msgid ""
 "your SQL database. Please see https://bugs.gnucash.org/show_bug.cgi?"
 "id=645216 for more information."
 msgstr ""
+"A GnuCash nem tudta befejezni a „libdbi” könyvtár hibájának jelenlétére "
+"vonatkozó kritikus elkenőrzést. Ez az SQL adatbázis jogosultságainak "
+"helytelen beállítása miatt lehet. További információkat talál a https://"
+"bugs.gnucash.org/show_bug.cgi?id=645216 oldalon."
 
 #: gnucash/gnome-utils/gnc-file.c:570
 msgid ""
@@ -7616,6 +7624,10 @@ msgid ""
 "older version of Gnucash (it will report an \"error parsing the file\"). If "
 "you wish to preserve the old version, exit without saving."
 msgstr ""
+"Ez a fájl egy régebbi GnuCash verzióból származik, és a mentésekor "
+"frissítésre kerül. A mentett és frissített fájlt már nem lehet megnyitni a "
+"Gnucash régebbi verziójával („Hiba történt a fájl elemzése közben.” üzenet "
+"jelenik meg). Ha meg szeretné őrizni a régi verziót, lépjen ki mentés nélkül."
 
 #: gnucash/gnome-utils/gnc-file.c:581
 #, c-format
@@ -7737,8 +7749,8 @@ msgid ""
 "Reverting will discard all unsaved changes to %s. Are you sure you want to "
 "proceed?"
 msgstr ""
-"A visszaállítás %s fájlban minden nem mentett módosítást elvet. Biztosan "
-"folytatni szeretné?"
+"A visszalépés eldobja %s fájl valamennyi nem mentett változtatását. Biztos, "
+"hogy ezt szeretné?"
 
 #: gnucash/gnome-utils/gnc-file.c:1781
 #: gnucash/gnome-utils/gnc-main-window.cpp:1232
@@ -8542,7 +8554,8 @@ msgstr "Ez egy fejlesztői változat. Talán működik, talán nem."
 #: gnucash/gnucash-core-app.cpp:78
 msgid "Report bugs and other problems to gnucash-devel@gnucash.org"
 msgstr ""
-"A programhibákat és más problémákat gnucash-devel@gnucash.org címre küldjék"
+"A programhibákat és más problémákat gnucash-devel@gnucash.org címen lehet "
+"megbeszélni"
 
 #. Translators: {1} will be replaced with an URL
 #: gnucash/gnucash-core-app.cpp:80
@@ -8555,25 +8568,25 @@ msgstr ""
 #: gnucash/gnucash-core-app.cpp:82
 #, c++-format
 msgid "To find the last stable version, please refer to {1}"
-msgstr ""
+msgstr "A legújabb stabil verziót itt találja: {1}"
 
 #. Translators: Guile is the programming language of the reports
 #: gnucash/gnucash-core-app.cpp:92
 msgid "Loading system wide Guile extensions…"
-msgstr ""
+msgstr "Rendszerszintű Guile bővítmények betöltése…"
 
 #: gnucash/gnucash-core-app.cpp:104
 msgid "Loading user specific Guile extensions…"
-msgstr ""
+msgstr "A felhasználó saját Guile bővítményeinek betöltése…"
 
 #: gnucash/gnucash-core-app.cpp:206
 msgid "- GnuCash, accounting for personal and small business finance"
-msgstr ""
+msgstr "- GnuCash, a személyes és kisvállalkozói pénzügyek számvitele"
 
 #: gnucash/gnucash-core-app.cpp:208
 #, c++-format
 msgid "{1} [options] [datafile]"
-msgstr ""
+msgstr "{1} [beállítások] [fájl]"
 
 #: gnucash/gnucash-core-app.cpp:236
 msgid "GnuCash Paths"
@@ -8625,6 +8638,10 @@ msgid ""
 "Examples: \"--log qof=debug\" or \"--log gnc.backend.file.sx=info\"\n"
 "This can be invoked multiple times."
 msgstr ""
+"A napló részleteinek, formátumának módosítása \"modulename="
+"{debug,info,warn,crit,error}\"\n"
+"Például: \"--log qof=debug\" vagy \"--log gnc.backend.file.sx=info\"\n"
+"Ez többször is megismételhető."
 
 #: gnucash/gnucash-core-app.cpp:288
 msgid "Show paths"
@@ -8866,9 +8883,9 @@ msgid ""
 "due invoices. Its value is only used if the \"Notify when due\" setting is "
 "active."
 msgstr ""
-"Ez a mező határozza meg, hány nappal előre ellenőrizze GnuCash az esedékes "
-"kimenőszámlákat. Az érték csak akkor lesz használva, ha az „Esedékesség-"
-"értesítés” beállítás aktív."
+"Ez a mező határozza meg, hogy a GnuCash hány nappal előre ellenőrizze az "
+"esedékes kimenőszámlákat. Az értéke csak akkor lesz használva, ha az „"
+"Értesítés az esedékes számlákról” beállítás aktív."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.business.gschema.xml.in:127
 msgid "Enable extra toolbar buttons for business"
@@ -8961,9 +8978,9 @@ msgid ""
 "due bills. Its value is only used if the \"Notify when due\" setting is "
 "active."
 msgstr ""
-"Ez a mező határozza meg, hány nappal előre ellenőrizze GnuCash az esedékes "
-"bejövőszámlákat. Az érték csak akkor lesz használva, ha az „Esedékesség-"
-"értesítés” beállítás aktív."
+"Ez a mező határozza meg, hogy a GnuCash hány nappal előre ellenőrizze az "
+"esedékes bejövőszámlákat. Az értéke csak akkor lesz használva, ha az „"
+"Értesítés az esedékes számlákról” beállítás aktív."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:5
 msgid "GUID of predefined check format to use"
@@ -9017,14 +9034,14 @@ msgid ""
 "manual page of strftime by \"man 3 strftime\"."
 msgstr ""
 "Ha a dátumformátum egyéni dátumformátumra van beállítva, akkor ez az érték "
-"strftime változóként lesz használva a nyomtatandó dátum előállításához. "
-"Bármilyen érvényes strftime karakterlánc lehet; a formátummal kapcsolatos "
-"további információkért olvassa el az strftime kézikönyv „man 3 strftime” "
-"oldalát."
+"strftime változóként lesz használva a nyomtatandó dátum előállításához. Ez "
+"bármilyen érvényes strftime karakterlánc lehet, további információk erről a "
+"formátumról a strftime kézikönyvoldalán találhatók, amely a „man 3 strftime” "
+"paranccsal érhető el."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:30
 msgid "Units in which the custom coordinates are expressed"
-msgstr "Egyéni koordináták mértékegysége"
+msgstr "Az egyéni koordináták mértékegysége"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:31
 msgid "Units in which the custom coordinates are expressed (inches, mm, …)."
@@ -9034,19 +9051,20 @@ msgstr ""
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:35
 msgid "Position of payee name"
-msgstr "A kedvezményezett pozíciója"
+msgstr "A kedvezményezett nevének helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:36
 msgid ""
 "This value contains the X,Y coordinates for the start of the payee line on "
 "the check."
 msgstr ""
-"Ez az érték tartalmazza a kedvezményezett sor kezdetének X,Y koordinátáit a "
-"csekken."
+"Ez a kedvezményezett nevét tartalmazó sor kezdetének X,Y koordinátáit adja "
+"meg a csekken. A koordináták a csekk bal alsó sarkától számítva vannak "
+"megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:40
 msgid "Position of date line"
-msgstr "A dátumsor pozíciója"
+msgstr "A dátum helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:41
 msgid ""
@@ -9054,12 +9072,12 @@ msgid ""
 "the check. Coordinates are from the lower left corner of the specified check "
 "position."
 msgstr ""
-"Ez az érték tartalmazza a dátumsor kezdetének X,Y koordinátáit a csekken. A "
-"koordinátákat a csekk bal alsó sarkától számítják."
+"Ez a dátumsor kezdetének X,Y koordinátáit adja meg a csekken. A koordináták "
+"a csekk bal alsó sarkától számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:45
 msgid "Position of check amount in words"
-msgstr "A csekk összege szöveggel pozíciója"
+msgstr "A szöveggel megadott csekkösszeg helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:46
 msgid ""
@@ -9067,12 +9085,13 @@ msgid ""
 "line on the check. Coordinates are from the lower left corner of the "
 "specified check position."
 msgstr ""
-"Ez az érték tartalmazza az összeg szöveggel sor kezdetének X,Y koordinátáit "
-"a csekken. A koordinátákat a csekk bal felső sarkától számítják."
+"Ez a csekk szöveggel megadott összegét tartalmazó sor kezdetének X,Y "
+"koordinátáit adja meg. A koordináták a csekk bal alsó sarkától számítva "
+"vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:50
 msgid "Position of check amount in numbers"
-msgstr "A csekk összege számmal pozíciója"
+msgstr "A számmal megadott csekkösszeg helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:51
 msgid ""
@@ -9080,13 +9099,13 @@ msgid ""
 "amount line on the check. Coordinates are from the lower left corner of the "
 "specified check position."
 msgstr ""
-"Ez az érték tartalmazza az összeg számmal sor kezdetének X,Y koordinátáit a "
-"csekken. A koordinátákat a csekk bal alsó sarkától számítják."
+"Ez a csekk számmal megadott összegét tartalmazó sor kezdetének X,Y "
+"koordinátáit adja meg. A koordináták a csekk bal alsó sarkától számítva "
+"vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:55
-#, fuzzy
 msgid "Position of payee address"
-msgstr "A kedvezményezett pozíciója"
+msgstr "A kedvezményezett címének helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:56
 msgid ""
@@ -9094,12 +9113,13 @@ msgid ""
 "line on the check. Coordinates are from the lower left corner of the "
 "specified check position."
 msgstr ""
-"Ez az érték tartalmazza a dátumsor kezdetének X,Y koordinátáit a csekken. A "
-"koordinátákat a csekk bal alsó sarkától számítják."
+"Ez a kedveznényezett címét tartalmazó sor kezdetének X,Y koordinátáit adja "
+"meg a csekken. A koordináták a csekk bal alsó sarkától számítva vannak "
+"megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:60
 msgid "Position of notes line"
-msgstr "A megjegyzéssor pozíciója"
+msgstr "A megjegyzéssor helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:61
 msgid ""
@@ -9107,12 +9127,12 @@ msgid ""
 "the check. Coordinates are from the lower left corner of the specified check "
 "position."
 msgstr ""
-"Ez az érték tartalmazza a megjegyzéssor kezdetének X,Y koordinátáit a "
-"csekken. A koordinátákat a csekk bal alsó sarkától számítják."
+"Ez a megjegyzéssor kezdetének X,Y koordinátáit adja meg a csekken. A "
+"koordináták a csekk bal alsó sarkától számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:65
 msgid "Position of memo line"
-msgstr "A feljegyzés sor pozíciója"
+msgstr "A feljegyzéssor helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:66
 msgid ""
@@ -9120,8 +9140,8 @@ msgid ""
 "the check. Coordinates are from the lower left corner of the specified check "
 "position."
 msgstr ""
-"Ez az érték tartalmazza a feljegyzéssor kezdetének X,Y koordinátáit a "
-"csekken. A koordinátákat a csekk bal alsó sarkától számítják."
+"Ez a feljegyzéssor kezdetének X,Y koordinátáit adja meg a csekken. A "
+"koordináták a csekk bal alsó sarkától számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:70
 msgid "Offset for complete check"
@@ -9132,8 +9152,8 @@ msgid ""
 "This value contains the X,Y offset for the complete check. Coordinates are "
 "from the lower left corner of the specified check position."
 msgstr ""
-"Ez az érték tartalmazza a teljes csekk X,Y eltolását. A koordinátákat a "
-"megadott csekk bal alsó sarkának pozíciójától számítják."
+"Ez a teljes csekk eltolásának X,Y koordinátáit adja meg. A koordináták a "
+"csekk bal alsó sarkától számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:75
 msgid "Rotation angle"
@@ -9145,7 +9165,7 @@ msgstr "A csekk elforgatásának fokban megadott mértéke."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:80
 msgid "Position of split's amount in numbers"
-msgstr "A részösszeg pozíciója számokban"
+msgstr "A felosztás számmal megadott összegének helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:81
 msgid ""
@@ -9153,12 +9173,13 @@ msgid ""
 "line on the check. Coordinates are from the lower left corner of the "
 "specified check position."
 msgstr ""
-"Ez az érték tartalmazza a részösszeg sorának kezdő X,Y koordinátáit a "
-"csekken. A koordinátákat a csekk bal alsó sarkától számítják."
+"Ez a felosztás számmal megadott összegét tartalmazó sor kezdetének X,Y "
+"koordinátáit adja meg a csekken. A koordináták a csekk bal alsó sarkától "
+"számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:85
 msgid "Position of split's memo line"
-msgstr ""
+msgstr "A felosztás feljegyzéssorának helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:86
 msgid ""
@@ -9166,10 +9187,12 @@ msgid ""
 "line on the check. Coordinates are from the lower left corner of the "
 "specified check position."
 msgstr ""
+"Ez a felosztáshoz tartozó feljegyzéssor kezdetének X,Y koordinátáit adja meg "
+"a csekken. A koordináták a csekk bal alsó sarkától számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:90
 msgid "Position of split's account line"
-msgstr ""
+msgstr "A felosztás kedvezményezettjének számláját azonosító sor helye"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:91
 msgid ""
@@ -9177,26 +9200,34 @@ msgid ""
 "line on the check. Coordinates are from the lower left corner of the "
 "specified check position."
 msgstr ""
+"Ez a felosztás kedvezményezettjének számláját azonosító sor kezdetének X,Y "
+"koordinátáit adja meg a csekken. A koordináták a csekk bal alsó sarkától "
+"számítva vannak megadva."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:95
 msgid "Print the date format below the date."
-msgstr ""
+msgstr "Dátumformátum kinyomtatása a dátum alatt."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:96
 msgid ""
 "Each time the date is printed, print the date format immediately below in 8 "
 "point type using the characters Y, M, and D."
 msgstr ""
+"Minden alkalommal, amikor a dátum kinyomtatásra kerül, közvetlenül a dátum "
+"alatt nyomtassa ki a dátumformátumot 8 pontos betűmérettel, az É, H és N "
+"karakterek használatával."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:100
 msgid "The default check printing font"
-msgstr ""
+msgstr "Az alapértelmezett csekknyomtatási betűtípus"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:101
 msgid ""
 "The default font to use when printing checks. This value will be overridden "
 "by any font specified in a check description file."
 msgstr ""
+"A csekkek nyomtatásakor alapértelmezésként használt betűtípus. Ezt az "
+"értéket felülírja a csekkformátumfájlban megadott betűtípus."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:105
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.checkprinting.gschema.xml.in:106
@@ -9206,7 +9237,7 @@ msgstr "„***” nyomtatása a szöveg előtt és után."
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.commodities.gschema.xml.in:5
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.commodities.gschema.xml.in:6
 msgid "Show currencies in this dialog"
-msgstr "Pénznemek megjelenítése a párbeszédablakban"
+msgstr "Pénznemek megjelenítése ebben a párbeszédablakban"
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.export.csv.gschema.xml.in:12
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.gschema.xml.in:177
@@ -9258,7 +9289,7 @@ msgid ""
 "or only in 'active' items in the current class."
 msgstr ""
 "Itt lehet beállítani, hogy csak az aktuális kategória minden tétele között "
-"keressen, vagy csak az 'aktív' tételek között."
+"keressen, vagy csak az „aktív” tételek között."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.gschema.xml.in:234
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.gschema.xml.in:235
@@ -9467,7 +9498,7 @@ msgid ""
 "reconciled state."
 msgstr ""
 "Az egyezésvizsgálatnál megjeleníti vagy elrejti azokat a tranzakciókat, "
-"amelyeknek már egyeztetett jelölést kaptak."
+"amelyek már egyeztetett jelölést kaptak."
 
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.import.qif.gschema.xml.in:5
 #: gnucash/gschemas/org.gnucash.GnuCash.dialogs.import.qif.gschema.xml.in:10
@@ -18954,35 +18985,36 @@ msgstr ""
 #. Translators: https://en.wikipedia.org/wiki/Single_Euro_Payments_Area
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:31
 msgid "Issue _SEPA Transaction…"
-msgstr "_SEPA tranzakció…"
+msgstr "_SEPA tranzakció kezdeményezése…"
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:33
 msgid ""
 "Issue a new international European (SEPA) transaction online through Online "
 "Banking"
 msgstr ""
-"Új SEPA tranzakció kezdeményezése internetbanki szolgáltatáson keresztül"
+"Új, SEPA tranzakció kezdeményezése internetbanki szolgáltatáson keresztül"
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:36
 msgid "Issue SEPA I_nternal Transaction…"
-msgstr "SEPA _belső tranzakció…"
+msgstr "SEPA belső _tranzakció kezdeményezése…"
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:38
 msgid ""
 "Issue a new internal European (SEPA) transaction online through Online "
 "Banking"
 msgstr ""
-"Új európán belüli (SEPA) tranzakció kezdeményezése internetbanki "
+"Új, európán belüli (SEPA) tranzakció kezdeményezése internetbanki "
 "szolgáltatáson keresztül"
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:41
 msgid "_Internal Transaction…"
-msgstr "_Belső tranzakció…"
+msgstr "Bankon _belüli tranzakció…"
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:43
 msgid "Issue a new bank-internal transaction online through Online Banking"
 msgstr ""
-"Új belső tranzakció kezdeményezése internetbanki szolgáltatáson keresztül"
+"Új, bankon belüli tranzakció kezdeményezése internetbanki szolgáltatáson "
+"keresztül"
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:46
 msgid "Issue SEPA Direct _Debit…"
@@ -18993,7 +19025,7 @@ msgid ""
 "Issue a new international European (SEPA) direct debit note online through "
 "Online Banking"
 msgstr ""
-"Új nemzetközi európai (SEPA) közvetlen beszedési megbízás kezdeményezése "
+"Új, európai, nemzetközi (SEPA) közvetlen beszedési megbízás kezdeményezése "
 "internetbanki szolgáltatáson keresztül."
 
 #: gnucash/import-export/aqb/gnc-plugin-aqbanking.ui:53
@@ -19135,14 +19167,14 @@ msgstr "%d. sor, %s/%u számla: nem létező könyvelési számla (%s).\n"
 #, c-format
 msgid "Row %d, invoice %s/%u: account %s is not of type Accounts Payable.\n"
 msgstr ""
-"%d. sor, %s/%u számla: a könyvelési számla (%s) nem a „Tartozás számlák” "
+"%d. sor, %s/%u számla: a könyvelési számla (%s) nem a „Fizetendő számlák” "
 "típusba tartozik.\n"
 
 #: gnucash/import-export/bi-import/dialog-bi-import.c:433
 #, c-format
 msgid "Row %d, invoice %s/%u: account %s is not of type Accounts Receivable.\n"
 msgstr ""
-"%d. sor, %s/%u számla: a könyvelési számla (%s) nem a „Követelés számlák” "
+"%d. sor, %s/%u számla: a könyvelési számla (%s) nem a „Követelésszámlák” "
 "típusba tartozik.\n"
 
 #: gnucash/import-export/bi-import/dialog-bi-import.c:471
@@ -20473,11 +20505,11 @@ msgstr "_Név vagy leírás"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:949
 msgid "_Ticker symbol or other abbreviation"
-msgstr "_Ticker szimbólum vagy más rövidítés"
+msgstr "Tőzsdei _szimbólum vagy más rövidítés"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:983
 msgid "_Exchange or abbreviation type"
-msgstr "_Csere vagy rövidítés típusa"
+msgstr "_Tőzsde vagy rövidítéstípus"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:1199
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:3432
@@ -20548,7 +20580,7 @@ msgstr "A QIF fájl elemzésekor hibát észlelt a program."
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:2107
 msgid "Loading completed"
-msgstr "Betöltés kész"
+msgstr "A betöltés kész"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:2140
 msgid ""
@@ -20584,7 +20616,7 @@ msgstr "Hiba történt a duplikátumok felismerése során."
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:3300
 msgid "Conversion completed"
-msgstr "Konverzió kész"
+msgstr "Az átalakítás befejeződött"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:3328
 msgid ""
@@ -20622,11 +20654,13 @@ msgstr "QIF kedvezményezett/feljegyzés"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:3904
 msgid "Match?"
-msgstr "Illeszkedés?"
+msgstr "Egyezik?"
 
 #: gnucash/import-export/qif-imp/assistant-qif-import.c:4013
 msgid "QIF import requires guile with regex support."
 msgstr ""
+"A QIF importáláshoz szükséges a „guile” program és a reguláris kifejezések "
+"(regex) modul."
 
 #: gnucash/import-export/qif-imp/dialog-account-picker.c:235
 msgid "Enter a name for the account"
@@ -27621,15 +27655,15 @@ msgstr "Pénzpiaci"
 
 #: gnucash/report/report-utilities.scm:216
 msgid "Accounts Receivable"
-msgstr "Követelés számlák"
+msgstr "Követelésszámlák"
 
 #: gnucash/report/report-utilities.scm:217
 msgid "Accounts Payable"
-msgstr "Tartozás számlák"
+msgstr "Fizetendő számlák"
 
 #: gnucash/report/report-utilities.scm:218
 msgid "Credit Lines"
-msgstr "Hitelek"
+msgstr "Hitelkeret"
 
 #: gnucash/report/report-utilities.scm:623
 #, scheme-format
@@ -30751,10 +30785,12 @@ msgid ""
 "If you no longer intend to run {1} 2.6.x or older on this system you can "
 "safely remove the old directory."
 msgstr ""
+"Ha már nem szándékozik {1} 2.6.x verziót vagy ettől régebbi verziót futtatni "
+"ezen a rendszeren, akkor nyugodtan eltávolíthatja a régi könyvtárat."
 
 #: libgnucash/core-utils/gnc-filepath-utils.cpp:691
 msgid "In addition:"
-msgstr ""
+msgstr "Ezenkívül:"
 
 #: libgnucash/core-utils/gnc-filepath-utils.cpp:697
 #, c++-format
@@ -30765,18 +30801,20 @@ msgstr[0] ""
 #: libgnucash/core-utils/gnc-filepath-utils.cpp:701
 #, c++-format
 msgid "The following file in {1} has been renamed:"
-msgstr ""
+msgstr "A {1} mappában a következő fájl át lett nevezve:"
 
 #: libgnucash/core-utils/gnc-filepath-utils.cpp:711
 msgid "The following file has become obsolete and will be ignored:"
 msgid_plural "The following files have become obsolete and will be ignored:"
 msgstr[0] ""
+"A következő fájl(ok) elavulttá vált(ak), ezért figyelmen kívül lesz(nek) "
+"hagyva:"
 
 #: libgnucash/core-utils/gnc-filepath-utils.cpp:721
 #, c++-format
 msgid "The following file could not be moved to {1}:"
 msgid_plural "The following files could not be moved to {1}:"
-msgstr[0] ""
+msgstr[0] "A következő fájl(ok) nem helyezhető(k) át a {1} mappába:"
 
 #: libgnucash/engine/Account.cpp:150
 msgid "Deposit"
@@ -30805,6 +30843,13 @@ msgid ""
 "Below you will find the list of invalid account names:\n"
 "%s"
 msgstr ""
+"Az elválasztó karakter (%s) egy vagy több számlanévben szerepel.\n"
+"\n"
+"Ez kiszámíthatatlan viselkedést eredményez. Változtassa meg a számlaneveket, "
+"vagy válasszon másik elválasztó karaktert.\n"
+"\n"
+"Alább megtalálja az érvénytelen számlanevek listáját:\n"
+"%s"
 
 #: libgnucash/engine/Account.cpp:4287
 msgid "Credit Card"
@@ -30824,11 +30869,11 @@ msgstr "Sz/Követelés"
 
 #: libgnucash/engine/Account.cpp:4296
 msgid "A/Payable"
-msgstr "Sz/Tartozás"
+msgstr "Sz/Fizetendő"
 
 #: libgnucash/engine/Account.cpp:4297
 msgid "Root"
-msgstr "Gyökér (legfelső szintű számla)"
+msgstr "Legfelső szintű számla"
 
 #: libgnucash/engine/Account.cpp:4737
 msgid "Orphaned Gains"
