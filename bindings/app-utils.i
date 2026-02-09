@@ -64,7 +64,7 @@ QofSession * gnc_get_current_session (void);
 const gchar * gnc_get_current_book_tax_name (void);
 const gchar * gnc_get_current_book_tax_type (void);
 Account * gnc_get_current_root_account (void);
-
+gboolean gnc_current_session_exist (void);
 
 #if defined(SWIGGUILE)
 
