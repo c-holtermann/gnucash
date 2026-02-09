@@ -10,6 +10,30 @@ import os
 
 sys.path.append(os.path.dirname(__file__))
 
+# Optional: load an external loader script once at startup
+_external = os.environ.get(
+    "GNUCASH_PY_LOADER",
+    os.path.expanduser("~/.config/gnucash/loader.py"),
+)
+
+if os.path.exists(_external):
+    try:
+        # Only print diagnostics if GnuCash was started with --extra
+        if gnc_prefs_is_extra_enabled():
+            print(f"[python/init.py] loading: {_external}")
+
+        # Execute the external loader script in the global namespace
+        with open(_external, "r", encoding="utf-8") as f:
+            exec(compile(f.read(), _external, "exec"), globals(), globals())
+
+    except Exception as e:
+        # Never abort GnuCash startup because of loader errors
+        import traceback
+
+        print(f"[python/init.py] ERROR loading {_external}: {e}")
+        print(traceback.format_exc())
+
+
 # output file location if gnucash has been started with
 # gnucash --extra
 if gnc_prefs_is_extra_enabled():
