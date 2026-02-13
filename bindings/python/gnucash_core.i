@@ -193,6 +193,13 @@ static const GncGUID * gncEntryGetGUID(GncEntry *x);
 
 %include <gnc-lot.h>
 
+%inline %{
+const GncGUID *gnc_lot_get_guid_helper(const GNCLot *lot)
+{
+        return gnc_lot_get_guid(lot);
+}
+%}
+
 //core business includes
 %include <gncOwner.h>
 %include <gncCustomer.h>
