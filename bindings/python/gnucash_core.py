@@ -1006,17 +1006,19 @@ GncCommodityNamespace.get_commodity_list = \
     GncCommodityNamespace.get_commodity_list, GncCommodity )
 
 # GncLot
-GncLot.add_constructor_and_methods_with_prefix('gnc_lot_', 'new')
+GncLot.add_constructor_and_methods_with_prefix("gnc_lot_", "new")
+GncLot.add_method("gnc_lot_get_guid_helper", "GetGUID")
 
-gnclot_dict =   {
-                    'get_account' : Account,
-                    'get_book' : Book,
-                    'get_earliest_split' : Split,
-                    'get_latest_split' : Split,
-                    'get_balance' : GncNumeric,
-                    'lookup' : GncLot,
-                    'make_default' : GncLot
-                }
+gnclot_dict = {
+    "get_account": Account,
+    "get_book": Book,
+    "get_earliest_split": Split,
+    "get_latest_split": Split,
+    "get_balance": GncNumeric,
+    "lookup": GncLot,
+    "make_default": GncLot,
+    "GetGUID": GUID,
+}
 methods_return_instance(GncLot, gnclot_dict)
 
 methods_return_instance_lists(
