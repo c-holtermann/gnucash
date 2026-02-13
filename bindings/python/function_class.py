@@ -68,11 +68,48 @@ class ClassFromFunctions(object):
         data. (by calling the .instance property)
         """
         if INSTANCE_ARGUMENT in kargs and kargs[INSTANCE_ARGUMENT] is not None:
-            self.__instance = kargs[INSTANCE_ARGUMENT]
+            self.set_instance(instance=kargs[INSTANCE_ARGUMENT])
         else:
-            self.__instance = getattr(self._module, self._new_instance)(
-                *process_list_convert_to_instance(args),
-                **process_dict_convert_to_instance(kargs))
+            self.set_instance(
+                instance=getattr(self._module, self._new_instance)(
+                    *process_list_convert_to_instance(args),
+                    **process_dict_convert_to_instance(kargs),
+                )
+            )
+
+    def set_instance(self, **kargs):
+        """Set the underlying SWIG-backed instance object.
+
+        This method requires 'instance' to be a low-level SWIG-backed object
+        and rejects proxy wrapper objects (ClassFromFunctions). Passing None
+        is not allowed and will raise a TypeError.
+
+        Note:
+        The constructor (__init__) treats 'instance=None' differently:
+        if None is provided to __init__, a new underlying C instance
+        will be created via the configured constructor function.
+        In contrast, set_instance() requires an explicit, non-None
+        SWIG-backed object and will not create a new instance automatically.
+        """
+        if INSTANCE_ARGUMENT not in kargs:
+            raise TypeError(
+                "set_instance() missing required keyword argument: 'instance'"
+            )
+
+        instance = kargs[INSTANCE_ARGUMENT]
+
+        if instance is None:
+            raise TypeError("Keyword 'instance' must not be None.")
+        else:
+            if isinstance(instance, ClassFromFunctions):
+                raise TypeError(
+                    "Keyword 'instance' must be a low-level SWIG-backed object, "
+                    "not a ClassFromFunctions proxy. "
+                    f"Received: {type(instance)!r}. "
+                    "Hint: use proxy.instance."
+                )
+
+        self.__instance = instance
 
     def get_instance(self):
         """Get the instance data.
