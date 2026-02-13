@@ -1019,6 +1019,13 @@ gnclot_dict =   {
                 }
 methods_return_instance(GncLot, gnclot_dict)
 
+methods_return_instance_lists(
+    GncLot,
+    {
+        "get_split_list": Split,
+    },
+)
+
 # Transaction
 Transaction.add_methods_with_prefix('xaccTrans')
 Transaction.add_method('gncTransGetGUID', 'GetGUID')
@@ -1053,24 +1060,25 @@ Split.add_methods_with_prefix('xaccSplit')
 Split.add_method('gncSplitGetGUID', 'GetGUID')
 Split.add_method('xaccSplitDestroy', 'Destroy')
 
-split_dict =    {
-                    'GetBook': Book,
-                    'GetAccount': Account,
-                    'GetParent': Transaction,
-                    'Lookup': Split,
-                    'GetOtherSplit': Split,
-                    'GetAmount': GncNumeric,
-                    'GetValue': GncNumeric,
-                    'GetSharePrice': GncNumeric,
-                    'ConvertAmount': GncNumeric,
-                    'GetBaseValue': GncNumeric,
-                    'GetBalance': GncNumeric,
-                    'GetClearedBalance': GncNumeric,
-                    'GetReconciledBalance': GncNumeric,
-                    'VoidFormerAmount': GncNumeric,
-                    'VoidFormerValue': GncNumeric,
-                    'GetGUID': GUID
-                }
+split_dict = {
+    "GetBook": Book,
+    "GetAccount": Account,
+    "GetParent": Transaction,
+    "Lookup": Split,
+    "GetOtherSplit": Split,
+    "GetAmount": GncNumeric,
+    "GetValue": GncNumeric,
+    "GetSharePrice": GncNumeric,
+    "ConvertAmount": GncNumeric,
+    "GetBaseValue": GncNumeric,
+    "GetBalance": GncNumeric,
+    "GetClearedBalance": GncNumeric,
+    "GetReconciledBalance": GncNumeric,
+    "VoidFormerAmount": GncNumeric,
+    "VoidFormerValue": GncNumeric,
+    "GetGUID": GUID,
+    "GetLot": GncLot,
+}
 methods_return_instance(Split, split_dict)
 
 Split.account = property( Split.GetAccount, Split.SetAccount )
@@ -1082,50 +1090,56 @@ Account.add_methods_with_prefix('gnc_account_')
 Account.add_method('gncAccountGetGUID', 'GetGUID')
 Account.add_method('xaccAccountGetPlaceholder', 'GetPlaceholder')
 
-account_dict =  {
-                    'get_book' : Book,
-                    'Lookup' : Account,
-                    'get_parent' : Account,
-                    'get_root' : Account,
-                    'nth_child' : Account,
-                    'lookup_by_code' : Account,
-                    'lookup_by_name' : Account,
-                    'lookup_by_full_name' : Account,
-                    'FindTransByDesc' : Transaction,
-                    'FindSplitByDesc' : Split,
-                    'GetBalance' : GncNumeric,
-                    'GetClearedBalance' : GncNumeric,
-                    'GetReconciledBalance' : GncNumeric,
-                    'GetPresentBalance' : GncNumeric,
-                    'GetProjectedMinimumBalance' : GncNumeric,
-                    'GetBalanceAsOfDate' : GncNumeric,
-                    'ConvertBalanceToCurrency' : GncNumeric,
-                    'ConvertBalanceToCurrencyAsOfDate' : GncNumeric,
-                    'GetBalanceInCurrency' : GncNumeric,
-                    'GetClearedBalanceInCurrency' : GncNumeric,
-                    'GetReconciledBalanceInCurrency' : GncNumeric,
-                    'GetPresentBalanceInCurrency' : GncNumeric,
-                    'GetProjectedMinimumBalanceInCurrency' : GncNumeric,
-                    'GetBalanceAsOfDateInCurrency' : GncNumeric,
-                    'GetBalanceChangeForPeriod' : GncNumeric,
-                    'GetCommodity' : GncCommodity,
-                    'GetGUID': GUID
-                }
+account_dict = {
+    "get_book": Book,
+    "Lookup": Account,
+    "get_parent": Account,
+    "get_root": Account,
+    "nth_child": Account,
+    "lookup_by_code": Account,
+    "lookup_by_name": Account,
+    "lookup_by_full_name": Account,
+    "FindTransByDesc": Transaction,
+    "FindSplitByDesc": Split,
+    "GetBalance": GncNumeric,
+    "GetClearedBalance": GncNumeric,
+    "GetReconciledBalance": GncNumeric,
+    "GetPresentBalance": GncNumeric,
+    "GetProjectedMinimumBalance": GncNumeric,
+    "GetBalanceAsOfDate": GncNumeric,
+    "ConvertBalanceToCurrency": GncNumeric,
+    "ConvertBalanceToCurrencyAsOfDate": GncNumeric,
+    "GetBalanceInCurrency": GncNumeric,
+    "GetClearedBalanceInCurrency": GncNumeric,
+    "GetReconciledBalanceInCurrency": GncNumeric,
+    "GetPresentBalanceInCurrency": GncNumeric,
+    "GetProjectedMinimumBalanceInCurrency": GncNumeric,
+    "GetBalanceAsOfDateInCurrency": GncNumeric,
+    "GetBalanceChangeForPeriod": GncNumeric,
+    "GetCommodity": GncCommodity,
+    "GetGUID": GUID,
+}
 methods_return_instance(Account, account_dict)
 methods_return_instance_lists(
-    Account, { 'GetSplitList': Split,
-               'get_children': Account,
-               'get_children_sorted': Account,
-               'get_descendants': Account,
-               'get_descendants_sorted': Account
-                       })
-Account.name = property( Account.GetName, Account.SetName )
+    Account,
+    {
+        "GetSplitList": Split,
+        "get_children": Account,
+        "get_children_sorted": Account,
+        "get_descendants": Account,
+        "get_descendants_sorted": Account,
+        "GetLotList": GncLot,
+    },
+)
 
-#GUID
-GUID.add_methods_with_prefix('guid_')
-GUID.add_method('xaccAccountLookup', 'AccountLookup')
-GUID.add_method('xaccTransLookup', 'TransLookup')
-GUID.add_method('xaccSplitLookup', 'SplitLookup')
+
+Account.name = property(Account.GetName, Account.SetName)
+
+# GUID
+GUID.add_methods_with_prefix("guid_")
+GUID.add_method("xaccAccountLookup", "AccountLookup")
+GUID.add_method("xaccTransLookup", "TransLookup")
+GUID.add_method("xaccSplitLookup", "SplitLookup")
 
 ## define addition methods for GUID object - do we need these
 GUID.add_method('guid_to_string', 'to_string')
