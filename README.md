@@ -6,3 +6,5 @@ cc9898a2cea9019858c2fe0273059d1e1c0d019e Split/Account/GncLot: complete Lot bind
 74d2fff7abf64c045f4598d5052b62a004d4d2ca Lot: add GUID helper for Python bindings
 21fd9cb4f8ef53956f6617fac6173a43597af9cc Lot: expose GetGUID in Python bindings
 4823ddf7e410402dc635ffbadca9d99c8a1699c9 Enforce validation of 'instance' in ClassFromFunctions
+89e585fda14c1f46e67c5472c12c7c2f987e9d78 cherry 657cce0c611fe130f2ec22d68dfdcded7c54810f GUID: add from_string convenience constructor
+ 
