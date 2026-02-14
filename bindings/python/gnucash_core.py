@@ -883,6 +883,13 @@ class Account(GnuCashCoreClass):
 class GUID(GnuCashCoreClass):
     _new_instance = 'guid_new_return'
 
+    @classmethod
+    def from_string(cls, guid_string: str):
+        guid = cls()
+        gnucash.GUIDString(guid_string, guid)
+        return guid
+
+
 # Session
 Session.add_constructor_and_methods_with_prefix('qof_session_', 'new')
 
